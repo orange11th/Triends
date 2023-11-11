@@ -6,4 +6,6 @@ public interface MemberService {
 
 	Member login(String userId, String userPass);
 
+	void regist(Member member);
+
 }

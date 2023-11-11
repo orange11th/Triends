@@ -44,3 +44,5 @@ values('제목1','내용1','ssafy');
 
 -- insert into comment(board_no,user_id,content)
 -- values (1,'ssafy','댓글1');
+
+select * from member;
