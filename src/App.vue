@@ -9,10 +9,11 @@ import TheFooter from "@/components/layout/TheFooter.vue";
     <TheHeader></TheHeader>
     <div class="wrapper">
       <nav>
-        <RouterLink :to="{ name: 'home' }">Home</RouterLink>
-        <RouterLink :to="{ name: 'about' }">About</RouterLink>
-        <RouterLink :to="{ name: 'board' }">Board</RouterLink>
-        <RouterLink :to="{ name: 'member' }">Member</RouterLink>
+        <RouterLink :to="{ name: 'home' }">Home</RouterLink><br>
+        <RouterLink :to="{ name: 'about' }">About</RouterLink><br>
+        <RouterLink :to="{ name: 'board' }">Board</RouterLink><br>
+        <RouterLink :to="{ name: 'member-login' }">Member</RouterLink><br>
+        <RouterLink :to="{ name: 'member-regist' }">Regist</RouterLink><br>
       </nav>
     </div>
   </header>
