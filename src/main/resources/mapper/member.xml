@@ -9,12 +9,6 @@
 		<result column="user_pass" property="userPass" />
 	</resultMap>
 
-	<!--	<select id="idCheckByPK" resultMap="memberMap">-->
-	<!--		select user_id-->
-	<!--		from member-->
-	<!--		where user_id=#{userId}-->
-	<!--	</select>-->
-
 	<select id="select" resultMap="memberMap">
 		select user_id, user_name, user_pass, email, phone
 		from member
@@ -29,27 +23,5 @@
 		#{userId}, #{userName}, #{userPass}, #{email}, #{phone}
 		)
 	</insert>
-
-	<!--	<insert id="insert" parameterType="member">-->
-	<!--		insert into member(-->
-	<!--			user_id, user_name, user_pass, age, gender, email, phone, address-->
-	<!--		) values (-->
-	<!--			#{userId}, #{userName}, #{userPass}, #{age}, #{gender}, #{email},
-	#{phone}, #{address}-->
-	<!--		)-->
-	<!--	</insert>-->
-
-	<!--	<update id="update" parameterType="member">-->
-	<!--	 	update member-->
-	<!--		   set user_id=#{userId}, user_name=#{userName}, user_pass=#{userPass},
-	age=#{age}, gender=#{gender}, email=#{email}, phone=#{phone},
-	address=#{address}-->
-	<!--		 where user_id=#{userId}	-->
-	<!--	</update>-->
-
-	<!-- 	<delete id="deleteByPK" parameterType="String">-->
-	<!--	 	delete from member-->
-	<!--	 	 where user_id=#{userId}-->
-	<!-- 	</delete>-->
 
 </mapper>
