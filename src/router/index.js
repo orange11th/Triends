@@ -20,19 +20,29 @@ const router = createRouter({
     {
       path: "/board",
       name: "board",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import("../views/BoardView.vue"),
+    },
+    {
+      path: "/attraction",
+      name: "attraction",
+      component: () => import("../views/AttractionView.vue"),
+      children: [
+        {
+          path: "list",
+          name: "attraction-list",
+          component: () => import("@/components/attraction/attractionList.vue"),
+        },
+        {
+          path: "detail/:contentId",
+          name: "attraction-detail",
+          component: () => import("@/components/attraction/attractionDetail.vue"),
+        },
+      ],
     },
     {
       path: "/member",
       name: "member",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import("../views/MemberView.vue"),
-      // redirect: { name: "member-login" },
       children: [
         {
           path: "login",

@@ -11,6 +11,7 @@ import TheFooter from "@/components/layout/TheFooter.vue";
       <nav>
         <RouterLink :to="{ name: 'home' }">Home</RouterLink><br>
         <RouterLink :to="{ name: 'about' }">About</RouterLink><br>
+        <RouterLink :to="{ name: 'attraction-list' }">Attraction</RouterLink><br>
         <RouterLink :to="{ name: 'board' }">Board</RouterLink><br>
         <RouterLink :to="{ name: 'member-login' }">Member</RouterLink><br>
         <RouterLink :to="{ name: 'member-regist' }">Regist</RouterLink><br>
