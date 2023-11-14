@@ -24,17 +24,11 @@ CREATE TABLE if not exists board
     FOREIGN KEY(user_id) references member(user_id) on delete cascade
 );
 
--- create table if not exists comment
--- (
---     comment_no INT NOT NULL AUTO_INCREMENT primary key,
---     board_no INT NOT NULL,
---     user_id VARCHAR(255),
---     register_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
---     content VARCHAR(2000),
---     `like` INT NULL DEFAULT 0,
---     FOREIGN KEY(board_no) references board(no) on delete cascade,
---     FOREIGN KEY(user_id) references member(user_id) on delete cascade
--- );
+CREATE TABLE if not exists teaminfo
+(
+	no INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
+);
 
 insert into member 
 values('ssafy','싸피','ssafy','ssafy@ssafy.com','010-0000-0000');

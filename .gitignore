@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### RDS ###
+!**/src/main/resources/application-env.properties
