@@ -23,6 +23,18 @@ const router = createRouter({
       component: () => import("../views/BoardView.vue"),
     },
     {
+      path: "/team",
+      name: "team",
+      component: () => import("../views/TeamView.vue"),
+      children: [
+        {
+          path: "list",
+          name: "team-list",
+          component: () => import("@/components/team/teamList.vue"),
+        },
+      ],
+    },
+    {
       path: "/attraction",
       name: "attraction",
       component: () => import("../views/AttractionView.vue"),
