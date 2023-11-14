@@ -21,7 +21,7 @@ public class AttractionController {
 	public AttractionController(AttractionService attractionService) {
 		super();
 		this.attractionService = attractionService;
-	}
+	}		
 	
 	@GetMapping("{contentId}")
 	public ResponseEntity<Attraction> detailAttraciton(@PathVariable int contentId) {
