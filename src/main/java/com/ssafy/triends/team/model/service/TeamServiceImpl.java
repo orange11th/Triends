@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.triends.team.model.Team;
+import com.ssafy.triends.team.model.TeamMember;
 import com.ssafy.triends.team.model.mapper.TeamMapper;
 
 @Service
@@ -18,14 +19,26 @@ public class TeamServiceImpl implements TeamService {
 	}
 
 	@Override
-	public List<Team> listTeamByUserId(int userId) {
-		List<Team> list = new ArrayList<>();
+	public List<Team> listTeamByUserId(String userId) {
+		List<Team> teamIdList = teamMapper.selectTeamByUserId(userId);
 		
-		return list;
+		List<Team> teamList = new ArrayList<>();
+		for(Team t : teamIdList) {
+			Team tmpTeam = new Team();
+			tmpTeam.setTeamId(t.getTeamId());
+			tmpTeam.setTeamName(t.getTeamName());
+			tmpTeam.setTeamList(teamMapper.selectTeamMember(tmpTeam.getTeamId()));
+			teamList.add(tmpTeam);
+		}
+		return teamList;
 	}
 
 	@Override
-	public void registTeam(String teamName) {
-		teamMapper.registTeam(teamName);
+	public void registTeam(Team team,String userId) {
+		teamMapper.insertTeam(team);
+		TeamMember teamMember = new TeamMember();
+		teamMember.setTeamId(team.getTeamId());
+		teamMember.setUserId(userId);
+		teamMapper.insertTeamMember(teamMember);
 	}
 }

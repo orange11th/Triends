@@ -34,3 +34,6 @@ build/
 
 ### RDS ###
 src/main/resources/application-env.properties
+
+###pom###
+pom.xml

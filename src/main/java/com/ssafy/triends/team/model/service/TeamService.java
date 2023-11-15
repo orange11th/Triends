@@ -9,8 +9,8 @@ import com.ssafy.triends.team.model.Team;
 @Service
 public interface TeamService {
 
-	List<Team> listTeamByUserId(int userId);
+	List<Team> listTeamByUserId(String userId);
 
-	void registTeam(String teamName);
+	void registTeam(Team t, String userId);
 
 }

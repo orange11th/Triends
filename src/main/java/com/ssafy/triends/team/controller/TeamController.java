@@ -25,14 +25,24 @@ public class TeamController {
 		this.teamService = teamService;
 	}
 	
-	@GetMapping("{teamName}")
-	public ResponseEntity<String> regist(@PathVariable String teamName) {
-		teamService.registTeam(teamName);
+	@GetMapping("registTeam/{userId}/{teamName}")
+	public ResponseEntity<String> regist(@PathVariable String teamName, @PathVariable String userId) {
+		Team team = new Team();
+		team.setTeamName(teamName);
+		teamService.registTeam(team,userId);
+		return ResponseEntity.status(HttpStatus.CREATED).build();
+	}
+	
+	@GetMapping("registTeamMember/{userId}/{teamName}")
+	public ResponseEntity<String> registMember(@PathVariable String teamName, @PathVariable String userId) {
+//		Team team = new Team();
+//		team.setTeamName(teamName);
+//		teamService.registTeam(team,userId);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 	
 	@GetMapping("{userId}")
-	public ResponseEntity<List<Team>> listTeamByUserId(@PathVariable int userId) {
+	public ResponseEntity<List<Team>> listTeamByUserId(@PathVariable String userId) {
 		return ResponseEntity.ok().body(teamService.listTeamByUserId(userId));
 	}
 }
