@@ -1,4 +1,4 @@
-import { localAxios } from "@/utils/http-commons";
+import { localAxios } from "@/utils/http-common";
 
 const local = localAxios();
 

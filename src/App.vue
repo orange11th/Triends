@@ -13,6 +13,7 @@ import TheFooter from "@/components/layout/TheFooter.vue";
         <RouterLink :to="{ name: 'about' }">About</RouterLink><br />
         <RouterLink :to="{ name: 'attraction-list' }">Attraction</RouterLink><br />
         <RouterLink :to="{ name: 'board' }">Board</RouterLink><br />
+        <!-- <RouterLink :to="{ name: 'article-list' }">Board</RouterLink><br /> -->
         <RouterLink :to="{ name: 'member-login' }">Member</RouterLink><br />
         <RouterLink :to="{ name: 'member-regist' }">Regist</RouterLink><br />
         <RouterLink :to="{ name: 'team-list' }">Team</RouterLink><br />
