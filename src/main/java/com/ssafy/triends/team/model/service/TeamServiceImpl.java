@@ -41,4 +41,9 @@ public class TeamServiceImpl implements TeamService {
 		teamMember.setUserId(userId);
 		teamMapper.insertTeamMember(teamMember);
 	}
+
+	@Override
+	public void registMember(TeamMember teamMember) {
+		teamMapper.insertTeamMember(teamMember);
+	}
 }
