@@ -31,7 +31,10 @@ function login() {
 }
 
 function moveMemberInfo() {
-  router.replace({ name: "member-info", params: { memberInfo: JSON.stringify(memberInfo.value) } });
+  router.replace({
+    name: "member-info",
+    params: { memberInfo: JSON.stringify(memberInfo.value) },
+  });
 }
 
 function moveRegist() {
@@ -46,7 +49,12 @@ function moveRegist() {
       <span>아이디가 없나요? 지금 바로 </span>
       <a href="" @click.prevent="moveRegist">회원가입</a>
       <div>
-        <input class="login-input" type="text" placeholder="ID" v-model="param.userId" />
+        <input
+          class="login-input"
+          type="text"
+          placeholder="ID"
+          v-model="param.userId"
+        />
       </div>
       <div>
         <input
