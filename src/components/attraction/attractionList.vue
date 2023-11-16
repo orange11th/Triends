@@ -2,25 +2,25 @@
 import { onMounted, ref } from "vue";
 import { attractionList } from "@/api/attraction";
 import { useRouter } from "vue-router";
-import { NaverMap } from "vue3-naver-maps";
-
-import attractionMarker from "@/components/attraction/item/attractionMarker.vue";
+import { NaverMap, NaverMarker, NaverInfoWindow } from "vue3-naver-maps";
 
 const router = useRouter();
 
 const sidoCode = ref(1);
 const contentTypeId = ref(12);
 const attractions = ref([]);
+const currentAttraction = ref({});
 
-onMounted(() => {
-  getAttractionList();
-});
+// onMounted(() => {
+//   getAttractionList();
+// });
 
 function getAttractionList() {
   attractionList(
     sidoCode.value,
     contentTypeId.value,
     ({ data }) => {
+      console.dir(data);
       attractions.value = data;
     },
     (error) => console.error()
@@ -33,9 +33,9 @@ function moveDetail(contentId) {
 
 const map = ref();
 const mapOptions = {
-  latitude: 36.359, // 지도 중앙 위도
-  longitude: 127.343, // 지도 중앙 경도
-  zoom: 13,
+  latitude: 37.5666, // 지도 중앙 위도
+  longitude: 126.9784, // 지도 중앙 경도
+  zoom: 15,
   zoomControl: false,
   zoomControlOptions: { position: "TOP_RIGHT" },
 };
@@ -50,6 +50,28 @@ const initLayers = [
 const onLoadMap = (mapObject) => {
   map.value = mapObject;
 };
+
+const marker = ref();
+const infoWindow = ref();
+const isOpen = ref(false);
+
+const onLoadMarker = (index, markerObject) => {
+  console.log(index, markerObject);
+  attractions.value[index].marker = markerObject;
+  // marker.value = markerObject;
+};
+const onShowInfoWindow = (index) => {
+  console.log(index);
+  console.log(attractions.value[index].marker);
+  isOpen.value = !isOpen.value;
+  // console.log(markerObject);
+  // marker.value = attractions.value[index].marker;
+  currentAttraction.value = attractions.value[index];
+};
+const onLoadInfoWindow = (infoWindowObject) => {
+  console.log(infoWindowObject);
+  infoWindow.value = infoWindowObject;
+};
 </script>
 
 <template>
@@ -58,12 +80,49 @@ const onLoadMap = (mapObject) => {
 
     <div class="map">
       <naver-map
-        style="width: 100%; height: 400px"
+        style="width: 100%; height: 600px"
         :mapOptions="mapOptions"
         :initLayers="initLayers"
         @onLoad="onLoadMap($event)"
       >
-        <attractionMarker></attractionMarker>
+        <div
+          v-for="(attraction, index) in attractions"
+          :key="attraction.contentId"
+        >
+          <naver-marker
+            :latitude="attraction.latitude"
+            :longitude="attraction.longitude"
+            @onLoad="onLoadMarker(index, $event)"
+            @mouseover="onShowInfoWindow(index)"
+            @mouseout="isOpen = false"
+            @click="moveDetail(attraction.contentId)"
+          >
+          </naver-marker>
+        </div>
+        <naver-info-window
+          :marker="currentAttraction.marker"
+          :open="isOpen"
+          @onLoad="onLoadInfoWindow($event)"
+        >
+          <div class="infoWindow-content" style="width: 250px">
+            <img
+              :src="currentAttraction.firstImage"
+              alt=""
+              style="width: 100%"
+            />
+            <h4>{{ currentAttraction.title }}</h4>
+            <p>{{ currentAttraction.addr1 }}</p>
+            <p
+              style="
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+              "
+            >
+              {{ currentAttraction.overview }}
+            </p>
+          </div>
+        </naver-info-window>
       </naver-map>
     </div>
 

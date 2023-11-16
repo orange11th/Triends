@@ -27,7 +27,7 @@ const moveWrite = () => {
 };
 </script>
 
-<template>
+<template> 
  <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-10">
