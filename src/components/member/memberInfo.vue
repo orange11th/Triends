@@ -1,22 +1,21 @@
 <script setup>
+import { reactive, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { storeToRefs } from "pinia";
+import { useMemberStore } from "@/stores/member";
 
 const route = useRoute();
 const router = useRouter();
+const memberStore = useMemberStore();
 
-const memberInfo = JSON.parse(route.params.memberInfo)
+const { getUserInfo } = memberStore;
+
+getUserInfo(sessionStorage.getItem("accessToken"));
 
 </script>
 <template>
-    <div>
-        <h2>회원정보 페이지</h2>
-        <h3>아이디: {{memberInfo.userId}}</h3>
-        <h3>이름: {{memberInfo.userName}}</h3>
-        <h3>이메일: {{memberInfo.email}}</h3>
-        <h3>전화번호: {{memberInfo.phone}}</h3>
-    </div>
+  <div>
+  </div>
 </template>
 
-<style scoped>
-    
-</style>
+<style scoped></style>

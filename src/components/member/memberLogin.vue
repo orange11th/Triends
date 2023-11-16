@@ -1,41 +1,38 @@
 <script setup>
 import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
-import { memberLogin } from "@/api/member";
+// import { memberLogin } from "@/api/member";
+import { storeToRefs } from "pinia";
+import { useMemberStore } from "@/stores/member";
 
 const router = useRouter();
+const memberStore = useMemberStore();
 
-const param = reactive({
+const { isLogin } = storeToRefs(memberStore);
+const { userLogin } = memberStore;
+const { getUserInfo } = memberStore;
+// const { changeMenuState } = useMenuStore();
+
+const loginInfo = ref({
   userId: "",
   userPass: "",
 });
 
 const memberInfo = ref({});
 
-function login() {
-  memberLogin(
-    param,
-    ({ data }) => {
-      if (data.userId) {
-        memberInfo.value.userId = data.userId;
-        memberInfo.value.userName = data.userName;
-        memberInfo.value.email = data.email;
-        memberInfo.value.phone = data.phone;
-        moveMemberInfo();
-      }
-    },
-    (error) => {
-      console.log(error);
-    }
-  );
-}
-
-function moveMemberInfo() {
-  router.replace({
-    name: "member-info",
-    params: { memberInfo: JSON.stringify(memberInfo.value) },
-  });
-}
+const login = async () => {
+  console.log("로그인 실행");
+  await userLogin(loginInfo.value);
+  let token = sessionStorage.getItem("accessToken");
+  console.log("토큰:", token);
+  console.log("isLogin: ", isLogin);
+  if (isLogin) {
+    console.log("로그인 성공");
+    getUserInfo(token);
+    // changeMenuState();
+  }
+  router.push("/");
+};
 
 function moveRegist() {
   router.push({ name: "member-regist" });
@@ -49,19 +46,14 @@ function moveRegist() {
       <span>아이디가 없나요? 지금 바로 </span>
       <a href="" @click.prevent="moveRegist">회원가입</a>
       <div>
-        <input
-          class="login-input"
-          type="text"
-          placeholder="ID"
-          v-model="param.userId"
-        />
+        <input class="login-input" type="text" placeholder="ID" v-model="loginInfo.userId" />
       </div>
       <div>
         <input
           class="login-input"
           type="password"
           placeholder="Password"
-          v-model="param.userPass"
+          v-model="loginInfo.userPass"
         />
       </div>
       <div>
