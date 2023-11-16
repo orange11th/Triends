@@ -23,8 +23,8 @@ public class JWTUtil {
 	@Value("${jwt.access-token.expiretime}")
 	private long accessTokenExpireTiem;
 
-	@Value("${jwt.refresh-token.expiretime}")
-	private long refreshTokenExpireTime;
+//	@Value("${jwt.refresh-token.expiretime}")
+//	private long refreshTokenExpireTime;
 
 	public String createAccessToken(String userId) {
 		return create(userId, "access-token", accessTokenExpireTiem);
