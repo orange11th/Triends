@@ -1,14 +1,17 @@
 <script setup>
-import { ref, reactive } from 'vue';
+import { watch, ref, reactive } from 'vue';
 import { insertLike, deleteLike, increaseBoardLike, decreaseBoardLike} from "@/api/board";
-defineProps({ article: Object });
+const props = defineProps({ article: Object });
 
-// const likeCount = ref(article.like);
-const likeCount = ref(0);
+const likeCount = ref(props.article.like);
+// const likeCount = ref(0);
 const state = reactive({
   liked: false,
 });
-
+// watch(likeCount, (newLike, oldLike) => {
+//   console.log("likeCount가 변경됨:", oldLike, "→", newLike);
+//   // likeCount.value = newLike;
+// });
 const like = reactive({
   userId: "",
   boardId: 0,
@@ -122,7 +125,6 @@ const toggleLike = (articleNo) => {
       <div class="data">
         <span class="user-id">{{ article.userName }}</span>
         <span class="date">{{ article.registerTime }}</span>
-        <span class="hit">추천수 {{ article.like }}</span>
         <span
           ><a class="more"><span class="ir">더보기</span></a></span
         >
