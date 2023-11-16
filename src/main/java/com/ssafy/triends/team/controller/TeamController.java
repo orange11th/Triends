@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.triends.team.model.Team;
+import com.ssafy.triends.team.model.TeamMember;
 import com.ssafy.triends.team.model.service.TeamService;
 
 @CrossOrigin("*")
@@ -25,7 +26,7 @@ public class TeamController {
 		this.teamService = teamService;
 	}
 	
-	@GetMapping("registTeam/{userId}/{teamName}")
+	@GetMapping("regist/{teamName}/{userId}")
 	public ResponseEntity<String> regist(@PathVariable String teamName, @PathVariable String userId) {
 		Team team = new Team();
 		team.setTeamName(teamName);
@@ -33,11 +34,12 @@ public class TeamController {
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 	
-	@GetMapping("registTeamMember/{userId}/{teamName}")
-	public ResponseEntity<String> registMember(@PathVariable String teamName, @PathVariable String userId) {
-//		Team team = new Team();
-//		team.setTeamName(teamName);
-//		teamService.registTeam(team,userId);
+	@GetMapping("registMember/{teamId}/{userId}")
+	public ResponseEntity<String> registMember(@PathVariable int teamId, @PathVariable String userId) {
+		TeamMember teamMember =new TeamMember();
+		teamMember.setTeamId(teamId);
+		teamMember.setUserId(userId);
+		teamService.registMember(teamMember);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 	

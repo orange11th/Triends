@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.triends.member.model.Member;
 import com.ssafy.triends.member.model.service.MemberService;
+import com.ssafy.triends.util.JWTUtil;
 
 @CrossOrigin("*")
 @RestController
@@ -17,6 +18,8 @@ import com.ssafy.triends.member.model.service.MemberService;
 public class MemberController {
 	
 	private final MemberService memberService;
+	private JWTUtil jwtUtil;
+	
 	public MemberController(MemberService memberService) {
 		this.memberService = memberService;
 	}
