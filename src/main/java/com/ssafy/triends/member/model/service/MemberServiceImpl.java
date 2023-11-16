@@ -19,4 +19,8 @@ public class MemberServiceImpl implements MemberService {
 	public void regist(Member member) {
 		memberMapper.insert(member);
 	}
+	@Override
+	public Member userInfo(String userId) {
+		return memberMapper.selectById(userId);
+	}
 }

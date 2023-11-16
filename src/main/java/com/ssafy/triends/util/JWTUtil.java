@@ -7,6 +7,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.ssafy.triends.exception.UnAuthorizedException;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -21,13 +23,10 @@ public class JWTUtil {
 	private String salt;
 
 	@Value("${jwt.access-token.expiretime}")
-	private long accessTokenExpireTiem;
-
-	@Value("${jwt.refresh-token.expiretime}")
-	private long refreshTokenExpireTime;
+	private long accessTokenExpireItem;
 
 	public String createAccessToken(String userId) {
-		return create(userId, "access-token", accessTokenExpireTiem);
+		return create(userId, "access-token", accessTokenExpireItem);
 	}
 
 //	Token 발급
@@ -42,7 +41,7 @@ public class JWTUtil {
 		Claims claims = Jwts.claims().setSubject(subject) // 토큰 제목 설정 ex) access-token, refresh-token
 				.setIssuedAt(new Date()) // 생성일 설정
 				.setExpiration(new Date(System.currentTimeMillis() + expireTime)); // 만료일 설정 (유효기간)
-
+		System.out.println("Expiretime:"+expireTime);
 //	저장할 data의 key, value
 		claims.put("userId", userId);
 
@@ -92,7 +91,7 @@ public class JWTUtil {
 			claims = Jwts.parser().setSigningKey(this.generateKey()).parseClaimsJws(authorization);
 		} catch (Exception e) {
 			log.error(e.getMessage());
-//			throw new UnAuthorizedException();
+			throw new UnAuthorizedException();
 		}
 		Map<String, Object> value = claims.getBody();
 		log.info("value : {}", value);

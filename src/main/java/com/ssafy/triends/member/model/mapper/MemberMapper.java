@@ -10,4 +10,6 @@ public interface MemberMapper {
 	Member select(String userId, String userPass);
 
 	void insert(Member member);
+
+	Member selectById(String userId);
 }

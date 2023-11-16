@@ -4,12 +4,22 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import com.ssafy.triends.interceptor.JWTInterceptor;
 
 @Configuration
 @EnableWebMvc
 public class WebConfiguration implements WebMvcConfigurer {
+	
+	private JWTInterceptor jwtInterceptor;
+
+	public WebConfiguration(JWTInterceptor jwtInterceptor) {
+		super();
+		this.jwtInterceptor = jwtInterceptor;
+	}
 
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
@@ -27,6 +37,11 @@ public class WebConfiguration implements WebMvcConfigurer {
 //			.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH", "HEAD")
 				.maxAge(1800);
 	}
+	
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(jwtInterceptor).addPathPatterns("/member/info/*");
+	} 
 	
 //	Swagger UI 실행시 404처리
 //	Swagger2 일경우

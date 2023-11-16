@@ -8,4 +8,6 @@ public interface MemberService {
 
 	void regist(Member member);
 
+	Member userInfo(String userId);
+
 }
