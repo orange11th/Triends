@@ -17,7 +17,28 @@ function registArticle(form, success, fail) {
     }).then(success).catch(fail);
 }
 
+function insertLike(like, success, fail) {
+  local.post(`/like`, JSON.stringify(like)).then(success).catch(fail);
+}
+
+function deleteLike(like, success, fail) {
+  console.log(like);
+  local.delete(`/like/${like.userId}/${like.boardId}`).then(success).catch(fail);
+}
+
+function increaseBoardLike(like, success, fail) {
+  local.put(`/like/increase/${like.boardId}`).then(success).catch(fail);
+}
+
+function decreaseBoardLike(like, success, fail) {
+  local.put(`/like/decrease/${like.boardId}`).then(success).catch(fail);
+}
+
 export {
   listArticle,
   registArticle,
+  insertLike,
+  deleteLike,
+  increaseBoardLike,
+  decreaseBoardLike,
 };
