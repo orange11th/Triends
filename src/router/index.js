@@ -55,6 +55,11 @@ const router = createRouter({
           name: "team-list",
           component: () => import("@/components/team/teamList.vue"),
         },
+        {
+          path: "plan",
+          name: "plan-list",
+          component: () => import("@/components/team/PlanList.vue"),
+        },
       ],
     },
     {

@@ -60,6 +60,9 @@ function inviteTeam(teamId, userId) {
     console.error()
   );
 }
+function movePlan() {
+  router.push({ name: "plan-list" });
+}
 </script>
 
 <template>
@@ -71,7 +74,7 @@ function inviteTeam(teamId, userId) {
           <h2 class="team-info">{{ team.teamName }}</h2>
         </div>
         <ul class="member-list">
-          <a href="#" class="plan-link">여행계획 바로가기</a>
+          <button class="plan-link" @click="movePlan">여행계획 바로가기</button>
           <li v-for="teamMember in team.teamList" :key="teamMember.userId" class="member-item">
             <span class="member-info">{{ teamMember.userId }}</span>
           </li>
