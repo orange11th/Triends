@@ -1,11 +1,7 @@
 <script setup>
-import { ref, reactive, onMounted } from 'vue';
-import { insertLike, deleteLike, increaseBoardLike, decreaseBoardLike} from "@/api/board";
-const props = defineProps({ article: Object });
-const likeCount = ref(props.article.like);
+import { ref, onMounted } from 'vue';
 
-
-
+const likeCount = ref(12);
 const isLiked = ref(false);
 const confettiAmount = 60;
 const confettiColors = [
@@ -46,75 +42,16 @@ onMounted(() => {
   const confettis = button.querySelectorAll('i');
   confettis.forEach(confetti => confetti.remove());
 });
-
-
-const state = reactive({
-  liked: false,
-});
-const like = reactive({
-  userId: "",
-  boardId: 0,
-});
-
-const toggleLike = (articleNo) => {
-  state.liked = !state.liked;
-
-  like.userId = "ssafy"; // 후에 수정
-  like.boardId = articleNo;
-  
-  if (state.liked) {
-    likeCount.value = likeCount.value + 1;
-    insertLike(like, (response) => {
-      console.log(response)
-    },
-      (error) => {
-      console.log(error)
-      }
-    );
-    increaseBoardLike(like, (response) => {
-      console.log(response)
-    },
-      (error) => {
-      console.log(error)
-      }
-    );
-  }
-  else {
-    likeCount.value = likeCount.value - 1;
-    deleteLike(like, (response) => {
-      console.log(response)
-    },
-      (error) => {
-      console.log(error)
-      }
-    );
-    decreaseBoardLike(like, (response) => {
-      console.log(response)
-    },
-      (error) => {
-      console.log(error)
-      }
-    );
-  }
-};
 </script>
 
+
 <template>
-
-  <div class="box-container">
-    <div id="box">
-      <img
-        class="img"
-        :src="article.imagePath"
-      />
-      
-
-
-      <a href="" class="paw-button" :class="{ liked: isLiked }" @click.prevent="handleClick">  
+    <a href="" class="paw-button" :class="{ liked: isLiked }" @click.prevent="handleClick">  
     <div class="text">
-      <svg class="heart-icon">
+      <svg>
         <use xlink:href="#heart"></use>
       </svg>
+      <span>Like</span>
     </div>
     <span>{{ likeCount }}</span>
     <div class="paws">
@@ -156,94 +93,11 @@ const toggleLike = (articleNo) => {
 <!-- dribbble -->
 <a class="dribbble" href="https://dribbble.com/shots/8082836-Paw-Clap-Button" target="_blank"><img src="https://cdn.dribbble.com/assets/dribbble-ball-mark-2bd45f09c2fb58dbbfb44766d5d1d07c5a12972d602ef8b32204d28fa3dda554.svg" alt=""></a>
 
-      
-      <!-- <button class="like-button" @click="likeArticle">💚</button> -->
-      <!-- 고양이 버튼 -->
-      
-
-      <h1 class="heading">{{ article.title }}</h1>
-      <div class="data">
-        <span class="user-id">{{ article.userName }}</span>
-        <span class="date">{{ article.registerTime }}</span>
-        <span
-          ><a class="more"><span class="ir">더보기</span></a></span
-        >
-      </div>
-      <p class="texts">
-        {{ article.content }}
-      </p>
-    </div>
-  </div>
 </template>
 
+
 <style scoped>
-.box-container {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-}
-
-#box {
-  position: relative; /* 버튼의 위치를 이 박스에 대해 상대적으로 설정 */
-  margin: 10px;
-  width: 300px;
-  border-radius: 8px;
-  overflow: hidden;
-  margin: 20px;
-  transition: all 0.3s cubic-bezier(0.42, 0, 0.58, 1);
-}
-
-#box:hover {
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-  transform: translateY(-10px);
-}
-
-#box * {
-  padding: 10px;
-}
-
-#box .img {
-  display: block;
-  width: 100%;
-  padding: 0;
-}
-
-#box .heading {
-  font-size: 28px;
-}
-
-#box .data {
-  display: flex;
-  flex-direction: column;
-  font-size: 12px;
-  color: #666;
-}
-
-#box .data span {
-  padding: 0;
-}
-
-#box .data .date {
-  margin-bottom: 2px;
-}
-
-#box .data .user-id {
-  font-size: 16px;
-  color: #000;
-  font-weight: 600;
-}
-
-#box .texts {
-  font-size: 14px;
-  line-height: 18px;
-}
-
-
-
 .paw-button {
-  position: absolute; /* 버튼을 #box 내에서 절대 위치하도록 설정합니다. */
-  top: 0; /* 상단에서의 위치 */
-  right: 0; /* 오른쪽에서의 위치 */
   --background: #fff;
   --background-active: #FEE8F4;
   --border: #F1ECEB;
@@ -274,9 +128,6 @@ const toggleLike = (articleNo) => {
   position: relative;
   line-height: 19px;
   padding: 12px 16px;
-  display: inline-flex;
-  align-items: center; /* 아이템을 중앙 정렬합니다 */
-  justify-content: center; /* 내용을 중앙 정렬합니다 */
 }
 .paw-button:before {
   content: "";
@@ -304,7 +155,6 @@ const toggleLike = (articleNo) => {
   margin-right: 8px;
   transition: width 0.25s;
   width: var(--w, 60px);
-  margin-right: 8px; /* 하트 오른쪽에 여백 추가 */
 }
 .paw-button .text span,
 .paw-button .text svg {
@@ -574,70 +424,7 @@ body .dribbble img {
 .paw-button.liked .text span {
   display: none; /* 좋아요 버튼 활성화 시 텍스트를 숨깁니다 */
 }
-.paw-button .text svg {
-  --background: var(--heart-background);
-  --border: var(--heart-border);
-  --shadow-light: transparent;
-  --shadow-dark: transparent;
-  width: 50px; /* 하트의 너비 변경 */
-  height: 40px; /*하트의 높이 변경*/
-  transform: translateX(var(--x));
-}
 
-.paw-button .paws svg.paw {
-  --x: -24px;
-  width: 60px; /* 고양이 발의 너비 변경 */
-  height: 60px; /* 고양이 발의 높이 변경 */
-  left: 32px;
-}
-.paw-button .like-count {
-  /* 새로운 스타일 */
-  font-size: 16px; /* 숫자의 글자 크기 */
-  color: var(--text); /* 숫자의 색상 */
-  margin-left: 8px; /* 하트 왼쪽에 여백 추가 */
-}
-#box {
-  position: relative; /* 박스를 위치 지정 컨텍스트로 만듭니다. */
-  /* ... 기타 스타일 ... */
-}
-
-#box .img {
-  display: block;
-  width: 100%;
-  position: relative; /* 이미지를 상대 위치로 설정 */
-  z-index: 1; /* 이미지의 z-index를 낮춥니다. */
-}
-
-.paw-button {
-  position: absolute; /* 버튼을 절대 위치하도록 설정합니다. */
-  top: 10px; /* 버튼의 상단 위치 조정 */
-  right: 10px; /* 버튼의 오른쪽 위치 조정 */
-  z-index: 2; /* 버튼이 이미지 위에 오도록 z-index를 높입니다. */
-  /* ... 기타 스타일 ... */
-}
-.paw-button {
-  padding: 8px 12px; /* 패딩 크기를 줄입니다 */
-  font-size: 14px; /* 폰트 크기를 줄입니다 */
-  /* ... 기타 스타일 ... */
-}
-.paw-button {
-  padding: 8px 12px; /* 패딩 크기를 줄입니다 */
-  font-size: 14px; /* 폰트 크기를 줄입니다 */
-  /* ... 기타 스타일 ... */
-}
-
-.paw-button svg {
-  width: 15px; /* SVG 아이콘의 크기를 줄입니다 */
-  height: 15px; /* SVG 아이콘의 높이를 줄입니다 */
-}
-
-/* 필요에 따라 다른 관련 요소들의 크기도 조정하세요 */
-
-
-.paw-button svg {
-  width: 15px; /* SVG 아이콘의 크기를 줄입니다 */
-  height: 15px; /* SVG 아이콘의 높이를 줄입니다 */
-}
 
 
 </style>
