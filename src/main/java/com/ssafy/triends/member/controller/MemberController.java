@@ -40,7 +40,7 @@ public class MemberController {
 	public ResponseEntity<Map<String, Object>> getInfo(@PathVariable String userId, HttpServletRequest request) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.ACCEPTED;
-//		final String token = request.getHeader("Authorization");
+//		final String token = request.get	Header("Authorization");
 //		log.info("전달된 토큰 : {}",token);
 		try {
 //		로그인 사용자 정보.
