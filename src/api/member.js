@@ -8,10 +8,6 @@ async function userConfirm(param, success, fail) {
   console.log("userConfirm ok");
 }
 
-function memberLogin(param, success, fail) {
-  local.post(`/member/login`, JSON.stringify(param)).then(success).catch(fail);
-}
-
 function memberRegist(param, success, fail) {
   local.post(`/member`, JSON.stringify(param)).then(success).catch(fail);
 }
@@ -21,4 +17,4 @@ async function findById(userid, success, fail) {
   await local.get(`/member/info/${userid}`).then(success).catch(fail);
 }
 
-export { userConfirm, memberLogin, memberRegist, findById };
+export { userConfirm, memberRegist, findById };

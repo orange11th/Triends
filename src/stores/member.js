@@ -63,23 +63,11 @@ export const useMemberStore = defineStore("memberStore", () => {
     );
   };
 
-  // const userLogout = async (userid) => {
-  //   await logout(
-  //     userid,
-  //     (response) => {
-  //       if (response.status === httpStatusCode.OK) {
-  //         isLogin.value = false;
-  //         userInfo.value = null;
-  //         isValidToken.value = false;
-  //       } else {
-  //         console.error("유저 정보 없음!!!!");
-  //       }
-  //     },
-  //     (error) => {
-  //       console.log(error);
-  //     }
-  //   );
-  // };
+  const userLogout = () => {
+    isLogin.value = false;
+    userInfo.value = null;
+    isValidToken.value = false;
+  };
 
   return {
     isLogin,
@@ -89,6 +77,6 @@ export const useMemberStore = defineStore("memberStore", () => {
     userLogin,
     getUserInfo,
     // tokenRegenerate,
-    // userLogout,
+    userLogout,
   };
 });
