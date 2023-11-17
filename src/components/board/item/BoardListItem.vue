@@ -1,10 +1,11 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue';
 import { insertLike, deleteLike, increaseBoardLike, decreaseBoardLike} from "@/api/board";
-const props = defineProps({ article: Object });
+const props = defineProps({
+  userId: String,
+  article: Object
+});
 const likeCount = ref(props.article.like);
-
-
 
 const isLiked = ref(false);
 const confettiAmount = 60;
@@ -23,15 +24,50 @@ const createConfetti = (to) => {
   to.appendChild(elem);
 };
 const handleClick = () => {
+  // console.log(props.userId);
+  like.userId = props.userId;
+  like.boardId = props.article.no;
+  console.log(like);
   const button = document.querySelector('.paw-button');
   if (!isLiked.value) {
     likeCount.value++;
     isLiked.value = true;
+
+    insertLike(like, (response) => {
+      console.log(response)
+    },
+      (error) => {
+      console.log(error)
+      }
+    );
+    increaseBoardLike(like, (response) => {
+      console.log(response)
+    },
+      (error) => {
+      console.log(error)
+      }
+    );
+
     // Confetti 생성
     for (let i = 0; i < confettiAmount; i++) {
       createConfetti(button);
     }
+    
   } else {
+    deleteLike(like, (response) => {
+      console.log(response)
+    },
+      (error) => {
+      console.log(error)
+      }
+    );
+    decreaseBoardLike(like, (response) => {
+      console.log(response)
+    },
+      (error) => {
+      console.log(error)
+      }
+    );
     likeCount.value--;
     isLiked.value = false;
     // Confetti 제거
@@ -58,8 +94,9 @@ const like = reactive({
 
 const toggleLike = (articleNo) => {
   state.liked = !state.liked;
-
-  like.userId = "ssafy"; // 후에 수정
+  console.log(userId);
+  // like.userId = userId; // 후에 수정
+  like.userId = props.userId;
   like.boardId = articleNo;
   
   if (state.liked) {
@@ -110,7 +147,7 @@ const toggleLike = (articleNo) => {
       
 
 
-      <a href="" class="paw-button" :class="{ liked: isLiked }" @click.prevent="handleClick">  
+      <a href="" class="paw-button" :class="{ liked: isLiked }" @click.prevent="handleClick()">  
     <div class="text">
       <svg class="heart-icon">
         <use xlink:href="#heart"></use>
@@ -638,6 +675,5 @@ body .dribbble img {
   width: 15px; /* SVG 아이콘의 크기를 줄입니다 */
   height: 15px; /* SVG 아이콘의 높이를 줄입니다 */
 }
-
 
 </style>

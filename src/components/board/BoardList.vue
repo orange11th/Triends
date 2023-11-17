@@ -1,8 +1,10 @@
 <script setup>
 
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
 import { listArticle } from "@/api/board";
+import { storeToRefs } from "pinia";
+import { useMemberStore } from "@/stores/member";
 
 import BoardListItem from "@/components/board/item/BoardListItem.vue";
 
@@ -10,6 +12,16 @@ const router = useRouter();
 const articles = ref([]);
 onMounted(() => {
   getArticleList();
+});
+const memberStore = useMemberStore();
+
+const { userLogout, getUserInfo } = memberStore;
+const { isLogin, isValidToken, userInfo } = storeToRefs(memberStore);
+
+
+// computed 속성을 사용하여 userInfo가 있으면 userId를, 없으면 null을 반환
+const userId = computed(() => {
+  return userInfo.value ? userInfo.value.userId : "비회원";
 });
 
 const getArticleList = () => {
@@ -27,7 +39,7 @@ const moveWrite = () => {
 };
 </script>
 
-<template> 
+<template>
  <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-10">
@@ -48,6 +60,7 @@ const moveWrite = () => {
                   v-for="article in articles"
                   :key="article.no"
                   :article="article"
+                  :userId="userId"
                 ></BoardListItem>
         </div>
       </div>
