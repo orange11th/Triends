@@ -1,7 +1,7 @@
 <script setup>
 import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
-// import { memberLogin } from "@/api/member";
+import { memberLogin } from "@/api/member";
 import { storeToRefs } from "pinia";
 import { useMemberStore } from "@/stores/member";
 
@@ -18,7 +18,6 @@ const loginInfo = ref({
   userPass: "",
 });
 
-const memberInfo = ref({});
 
 const login = async () => {
   console.log("로그인 실행");
