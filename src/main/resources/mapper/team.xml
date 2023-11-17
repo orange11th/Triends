@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.ssafy.triends.team.model.mapper.TeamMapper">
+<mapper
+	namespace="com.ssafy.triends.team.model.mapper.TeamMapper">
 
 	<resultMap type="team" id="teamMap">
 		<result column="team_id" property="teamId" />
 		<result column="team_name" property="teamName" />
+	</resultMap>
+
+	<resultMap type="member" id="memberMap">
+		<result column="user_id" property="userId" />
+		<result column="user_name" property="userName" />
+		<result column="user_pass" property="userPass" />
 	</resultMap>
 
 	<resultMap type="teamMember" id="teamMemberMap">
@@ -13,28 +20,43 @@
 		<result column="user_id" property="userId" />
 	</resultMap>
 
-	<insert id="insertTeam" parameterType="team" useGeneratedKeys="true"
-		keyProperty="teamId">
+	<select id="selectNotTeamMember" parameterType="int"
+		resultMap="memberMap">
+		select user_id,user_name from
+		team_member right join member
+		using (user_id)
+		where user_id not in (
+		select user_id from team_member
+		where team_id = #{teamId}
+		);
+	</select>
+
+	<insert id="insertTeam" parameterType="team"
+		useGeneratedKeys="true" keyProperty="teamId">
 		insert into team (team_name)
 		values (#{teamName})
 	</insert>
 
 	<insert id="insertTeamMember" parameterType="teamMember">
-		insert into team_member (team_id,user_id)
+		insert into
+		team_member (team_id,user_id)
 		values (#{teamId},#{userId})
 	</insert>
 
-	<select id="selectTeamByUserId" parameterType="team" resultMap="teamMap">
+	<select id="selectTeamByUserId" parameterType="team"
+		resultMap="teamMap">
 		select distinct team_id,team_name
 		from team join team_member
 		using(team_id)
 		where user_id = #{userId}
 	</select>
 
-	<select id="selectTeamMember" parameterType="int" resultMap="teamMemberMap">
+	<select id="selectTeamMember" parameterType="int"
+		resultMap="teamMemberMap">
 		select team_id,user_id
 		from team_member
-		where team_id = #{teamId}
+		where team_id =
+		#{teamId}
 	</select>
 
 </mapper>

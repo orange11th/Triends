@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.triends.member.model.Member;
 import com.ssafy.triends.team.model.Team;
 import com.ssafy.triends.team.model.TeamMember;
 import com.ssafy.triends.team.model.service.TeamService;
@@ -43,6 +44,12 @@ public class TeamController {
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 	
+	@GetMapping("invite/{teamId}")
+	public ResponseEntity<List<Member>> teamInviteList(@PathVariable int teamId) {
+		return ResponseEntity.ok().body(teamService.teamInviteList(teamId));
+	}
+
+	//userId가 속한팀 + 그 팀들 목록
 	@GetMapping("{userId}")
 	public ResponseEntity<List<Team>> listTeamByUserId(@PathVariable String userId) {
 		return ResponseEntity.ok().body(teamService.listTeamByUserId(userId));

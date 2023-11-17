@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.ssafy.triends.member.model.Member;
 import com.ssafy.triends.team.model.Team;
 import com.ssafy.triends.team.model.TeamMember;
 
@@ -17,4 +18,6 @@ public interface TeamMapper {
 	List<Team> selectTeamByUserId(String userId);
 	
 	List<TeamMember> selectTeamMember(int teamId);
+
+	List<Member> selectNotTeamMember(int teamId);
 }

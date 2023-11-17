@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.ssafy.triends.member.model.Member;
 import com.ssafy.triends.team.model.Team;
 import com.ssafy.triends.team.model.TeamMember;
 
@@ -15,5 +16,7 @@ public interface TeamService {
 	void registTeam(Team t, String userId);
 
 	void registMember(TeamMember teamMember);
+
+	List<Member> teamInviteList(int teamId);
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.ssafy.triends.member.model.Member;
 import com.ssafy.triends.team.model.Team;
 import com.ssafy.triends.team.model.TeamMember;
 import com.ssafy.triends.team.model.mapper.TeamMapper;
@@ -45,5 +46,10 @@ public class TeamServiceImpl implements TeamService {
 	@Override
 	public void registMember(TeamMember teamMember) {
 		teamMapper.insertTeamMember(teamMember);
+	}
+
+	@Override
+	public List<Member> teamInviteList(int teamId) {
+		return teamMapper.selectNotTeamMember(teamId);
 	}
 }
