@@ -2,7 +2,6 @@
 import { ref, onMounted, reactive } from "vue";
 import { myTeamList, teamInviteList, teamInvite } from "@/api/team";
 import { useRouter } from "vue-router";
-
 const router = useRouter();
 
 const userId = "ssafy";
@@ -60,8 +59,8 @@ function inviteTeam(teamId, userId) {
     console.error()
   );
 }
-function movePlan() {
-  router.push({ name: "plan-list" });
+function movePlan(teamId) {
+  router.push({ name: "plan-list", params: { teamId: teamId } });
 }
 </script>
 
@@ -74,7 +73,7 @@ function movePlan() {
           <h2 class="team-info">{{ team.teamName }}</h2>
         </div>
         <ul class="member-list">
-          <button class="plan-link" @click="movePlan">여행계획 바로가기</button>
+          <button class="plan-link" @click="movePlan(team.teamId)">여행계획 바로가기</button>
           <li v-for="teamMember in team.teamList" :key="teamMember.userId" class="member-item">
             <span class="member-info">{{ teamMember.userId }}</span>
           </li>

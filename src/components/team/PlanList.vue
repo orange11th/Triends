@@ -2,127 +2,151 @@
   <div class="playground">
     <div v-for="(item, idx) in state.lists" :key="item.id" class="col"
          @drop.prevent="onDrop($event, idx)"
+         @dragenter.prevent
          @dragover.prevent>
-      <div v-for="(numItem, numIdx) in item.numberList" :key="numIdx" class="box"
+         <div class="box-title">{{ item.date }}</div>
+             <!-- 삭제 버튼 추가: id가 1보다 큰 경우에만 표시 -->
+    <div v-if="item.id > 1" class="delete-box-button">
+      <button @click="deleteBox(idx)">X</button>
+    </div>
+      <div v-if="item.id === 1" class="travel-destination">
+        후보 여행지
+        <!-- 새로운 아이템 입력 필드 -->
+      <div class="new-item-input">
+        <input type="text" v-model="newItem.content" placeholder="관광지 검색" />
+        <!-- <input type="date" v-model="newItem.date" /> -->
+        <button @click="register">검색</button>
+        <div>이런 형태로 관광지들이 쫘르륵 뜨게!</div>
+      </div>
+      </div>
+
+      <div v-for="(numItem, numIdx) in item.numberList" :key="numIdx" class="box" draggable="true" @dragstart="startDrag($event, numItem, idx)">
+      <div class="content-with-delete-button">
+        <p>{{ numItem.content }}</p>
+        <button @click="deleteItem(numItem, idx)">X</button>
+      </div>
+    </div>
+
+      <!-- <div v-for="(numItem, numIdx) in item.numberList" :key="numIdx" class="box"
            draggable="true"
            @dragstart="startDrag($event, numItem, idx)">
         <p>{{ numItem.content }}</p>
-        <p>{{ numItem.date }}</p>
-      </div>
-      <button @click="addItem(idx)">+</button>
+        <button @click="deleteItem(numItem, idx)">삭제</button>
+      </div> -->
     </div>
   </div>
-  <!-- 새로운 아이템 입력 필드 -->
   <div class="new-item-input">
-    <input type="text" v-model="newItem.content" placeholder="내용 입력" />
-    <input type="date" v-model="newItem.date" />
-    <button @click="register">아이템 추가</button>
-  </div>
+    <div>여기서 새로운 날짜 선택해서 계획박스 추가할 수 있음</div>
+  <input type="date" v-model="newItem.date" placeholder="날짜 선택" />
+  <button @click="addNewBox">추가</button>
+  <div>이때 최종저장 시키는 것</div>
+  <button @click="savePlans">저장</button>
+
+</div>
 </template>
 
 
   
 <script setup>
-  import { reactive } from 'vue';
+import { reactive } from 'vue';
 
-  
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+console.log(route.params.teamId); // teamId 정보 가져옴
+//todo : 조회 가능하도록
+//todo : 관광지 검색결과를 드래그앤드롭
+//todo : 가져온 정보 바탕으로 화면에 뿌리기
+//todo : 저장 누를시에 리스트 보내서 그대로 저장
+
   const state = reactive({
     lists: [
       {
         id: 1,
-        numberList: [ { content: 1 }, { content: 2 } ]
+        numberList: [ { content: 125266 }, { content: 125405 }, { content: 125406 }, { content: 125407 } ]
       },
-      {
-        id: 2,
-        numberList: [ {content: 3}, {content: 4}, {content: 5}, {content: 6} ]
-      },
-      {
-        id: 3,
-        numberList: [ {content: 7}, {content: 8}, {content: 9} ]
-      }
     ]
   });
 
-// 새 항목 추가 함수
-const addItem = (colNum) => {
-  const newItem = {
-    content: state.lists[colNum].numberList.length + 1
-  };
-  state.lists[colNum].numberList.push(newItem);
+
+
+const addNewBox = () => {
+  if (newItem.date) {
+    const newBox = {
+      id: state.lists.length + 1,
+      date: newItem.date,
+      numberList: []
+    };
+    state.lists.push(newBox); // 새 박스를 리스트에 추가
+    newItem.date = ''; // 날짜 입력 필드 초기화
+
+    // 리스트를 날짜 기준으로 오름차순 정렬
+    state.lists.sort((a, b) => new Date(a.date) - new Date(b.date));
+  }
 };
 
-  const startDrag = (event, item) => {
-    event.dataTransfer.dropEffect = "move";
-    event.dataTransfer.effectAllowed = "move";
-    event.dataTransfer.setData("selectedItem", item.content);
-  };
-  
-  const onDrop = (event, colNum) => {
-    const selectedItem = Number(event.dataTransfer.getData("selectedItem"));
-    let targetIdx;
-    let targetItem;
-  
-    state.lists.forEach((obj, index) => {
-      obj.numberList.forEach((ob) => {
-        if(ob.content === selectedItem) {
-          targetIdx = index;
-          targetItem = ob;
-        }
-      });
-    });
-  
-    state.lists[colNum].numberList.push(targetItem);
-    state.lists[targetIdx].numberList.splice(state.lists[targetIdx].numberList.indexOf(targetItem), 1);
-};
+
 // 새 컬럼 추가 함수
 const register = () => {
-    if (newItem.content && newItem.date) {
-      const newColumn = {
-        id: state.lists.length + 1, // 다음 ID를 생성
-        numberList: [{ content: newItem.content, date: newItem.date }]
+    if (newItem.content) {
+      const newBoxItem = {
+        content: newItem.content,
       };
-      state.lists.push(newColumn);
-
-      // 입력 필드 초기화
+      const firstColumn = state.lists.find(column => column.id === 1);
+      if (firstColumn) firstColumn.numberList.push(newBoxItem);
       newItem.content = '';
-      newItem.date = '';
     }
   };
-
 const newItem = reactive({
     content: '',
     date: ''
-  });
+});
 
-  const addNewItem = () => {
-    if (newItem.content && newItem.date) {
-      state.lists.forEach(list => {
-        list.numberList.push({ ...newItem });
-      });
-      newItem.content = '';
-      newItem.date = '';
-    }
-  };
+const startDrag = (event, item, listIndex) => {
+  // 드래그할 아이템의 정보와 원래 위치(리스트 인덱스)를 설정
+  event.dataTransfer.setData('draggedItem', JSON.stringify(item));
+  event.dataTransfer.setData('fromListIndex', listIndex.toString());
+};
+const onDrop = (event, toListIndex) => {
+  // 드래그된 아이템과 그 원래 위치를 데이터 전송 객체에서 가져옴
+  const draggedItem = JSON.parse(event.dataTransfer.getData('draggedItem'));
+  const fromListIndex = parseInt(event.dataTransfer.getData('fromListIndex'));
 
-  const deleteItem = (colNum, itemIndex) => {
-    state.lists[colNum].numberList.splice(itemIndex, 1);
+  // 드래그된 아이템이 원래 있던 리스트에서 제거
+  const fromList = state.lists[fromListIndex];
+  const itemIndex = fromList.numberList.findIndex(item => item.content === draggedItem.content);
+  if (itemIndex > -1) {
+    fromList.numberList.splice(itemIndex, 1);
+  }
 
-    const addItem = (colNum) => {
-    state.lists[colNum].numberList.push({ ...newItem });
-    newItem.content = '';
-    newItem.date = '';
-  };
-
-  const addNewItem = () => {
-    state.lists.push({
-      id: Date.now(),
-      numberList: [{ ...newItem }]
-    });
-    newItem.content = '';
-    newItem.date = '';
-  };
+  // 드래그된 아이템을 새 위치에 추가
+  const toList = state.lists[toListIndex];
+  toList.numberList.push(draggedItem);
 };
 
+const savePlans = () => {
+  const plan = state.lists
+    .filter(item => item.id >= 2)
+    .map(item => {
+      return {
+        date: item.date,
+        code: item.numberList.map(numItem => numItem.content)
+      };
+    });
+  console.log(plan); // 저장된 계획 확인
+
+  
+};
+const deleteItem = (item, listIndex) => {
+  const list = state.lists[listIndex];
+  const itemIndex = list.numberList.findIndex(numItem => numItem.content === item.content);
+  if (itemIndex > -1) {
+    list.numberList.splice(itemIndex, 1);
+  }
+};
+const deleteBox = (index) => {
+  state.lists.splice(index, 1);
+};
 
   </script>
   
@@ -157,5 +181,16 @@ const newItem = reactive({
     line-height: 50px;
     color: white;
   }
+  .content-with-delete-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.box p {
+  margin: 0;
+  /* 기타 필요한 스타일 */
+}
+
   </style>
   
