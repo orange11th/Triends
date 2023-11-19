@@ -20,27 +20,37 @@
 	void insertPlanPlace(PlanPlace planPlace) throws Exception;
 	List<PlanPlace> listPlanPlace(int planId) throws Exception;
 -->	
-	<insert id="insertPlan" parameterType="plan">
+<!--	<insert id="insertPlan" parameterType="plan">
 	    INSERT INTO plan (plan_name, team_id, date)
 	    VALUES (#{planName}, #{teamId}, #{date})
 	</insert>
-	
+	-->
 	<select id="listPlan" resultMap="planMap" parameterType="int">
 	    SELECT plan_id, plan_name, team_id, date
 	    FROM plan
 	    WHERE team_id = #{teamId}
 	</select>
-
+<!-- 
 	<insert id="insertPlanPlace" parameterType="planPlace">
 	    INSERT INTO plan_place (plan_id, place_id, `order`)
 	    VALUES (#{planId}, #{placeId}, #{order})
 	</insert>
-	
+	 -->
 	<select id="listPlanPlace" resultMap="planPlaceMap" parameterType="int">
 	    SELECT plan_id, place_id, `order`
 	    FROM plan_place
 	    WHERE plan_id = #{planId}
 	</select>	
-	
+	  <insert id="insertPlan" parameterType="com.ssafy.triends.team.model.Plan" useGeneratedKeys="true" keyProperty="planId">
+        INSERT INTO plan (plan_name, team_id, date) VALUES (#{planName}, #{teamId}, #{date})
+    </insert>
+
+    <delete id="deleteByTeamId" parameterType="int">
+        DELETE FROM plan WHERE team_id = #{teamId}
+    </delete>
+    
+    <insert id="insertPlanPlace" parameterType="com.ssafy.triends.team.model.PlanPlace">
+        INSERT INTO plan_place (plan_id, place_id) VALUES (#{planId}, #{placeId})
+    </insert>
 	
 </mapper>
