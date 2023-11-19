@@ -1,13 +1,11 @@
 import { ref } from "vue";
-import { useRouter } from "vue-router";
 import { defineStore } from "pinia";
 import { jwtDecode } from "jwt-decode";
 
-import { userConfirm, findById } from "@/api/member";
+import { userConfirm, findById, check } from "@/api/member";
 import { httpStatusCode } from "@/utils/http-status";
 
 export const useMemberStore = defineStore("memberStore", () => {
-  const router = useRouter();
 
   const isLogin = ref(false);
   const isLoginError = ref(false);
@@ -63,6 +61,14 @@ export const useMemberStore = defineStore("memberStore", () => {
     );
   };
 
+  const checkToken = (token) =>{
+    check((response)=>{
+      console.log(response.status);
+    },async (error) => {
+      isValidToken.value = false;
+    })
+  }
+
   const userLogout = () => {
     isLogin.value = false;
     userInfo.value = null;
@@ -76,7 +82,7 @@ export const useMemberStore = defineStore("memberStore", () => {
     isValidToken,
     userLogin,
     getUserInfo,
-    // tokenRegenerate,
+    checkToken,
     userLogout,
   };
 });

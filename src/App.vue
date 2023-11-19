@@ -7,23 +7,17 @@ import TheFooter from "@/components/layout/TheFooter.vue";
 <template>
   <header>
     <TheHeader></TheHeader>
-    <div class="wrapper">
-      <nav>
-        <RouterLink :to="{ name: 'home' }">Home</RouterLink><br />
-        <RouterLink :to="{ name: 'about' }">About</RouterLink><br />
-        <RouterLink :to="{ name: 'attraction-list' }">Attraction</RouterLink><br />
-        <RouterLink :to="{ name: 'board' }">Board</RouterLink><br />
-        <!-- <RouterLink :to="{ name: 'article-list' }">Board</RouterLink><br /> -->
-        <RouterLink :to="{ name: 'member-login' }">Member</RouterLink><br />
-        <RouterLink :to="{ name: 'member-info' }">MemberInfo</RouterLink><br />
-        <RouterLink :to="{ name: 'member-regist' }">Regist</RouterLink><br />
-        <RouterLink :to="{ name: 'team-list' }">Team</RouterLink><br />
-      </nav>
-    </div>
   </header>
-
-  <RouterView />
-  <TheFooter></TheFooter>
+  <div class="wrapper">
+    <nav>
+      <RouterLink :to="{ name: 'member-info' }">MemberInfo</RouterLink><br />
+      <RouterLink :to="{ name: 'team-list' }">Team</RouterLink><br />
+    </nav>
+  </div>
+  <RouterView></RouterView>
+  <footer>
+    <TheFooter></TheFooter>
+  </footer>
 </template>
 
 <style scoped></style>

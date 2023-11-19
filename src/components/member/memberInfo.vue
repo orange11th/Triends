@@ -8,7 +8,7 @@ const route = useRoute();
 const router = useRouter();
 const memberStore = useMemberStore();
 
-const { userLogout, getUserInfo } = memberStore;
+const { userLogout, checkToken } = memberStore;
 const { isLogin, isValidToken, userInfo } = storeToRefs(memberStore);
 
 function logout() {
@@ -17,7 +17,7 @@ function logout() {
 }
 
 onMounted(() => {
-  getUserInfo(sessionStorage.getItem("accessToken"));
+  checkToken(sessionStorage.getItem("accessToken"));
   if (!isValidToken.value) {
     alert("토큰이 만료되었습니다.");
     router.replace({ name: "member-login" });

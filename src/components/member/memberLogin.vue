@@ -16,17 +16,13 @@ const loginInfo = ref({
 });
 
 const login = async () => {
-  console.log("로그인 실행");
   await userLogin(loginInfo.value);
-  let token = sessionStorage.getItem("accessToken");
-  console.log("토큰:", token);
-  console.log("isLogin: ", isLogin);
-  if (isLogin) {
-    console.log("로그인 성공");
-    getUserInfo(token);
-    // changeMenuState();
+  if (isLogin.value) {
+    getUserInfo(sessionStorage.getItem("accessToken"));
+    router.push("/");
+  } else {
+    alert("로그인 실패")
   }
-  router.push("/");
 };
 
 function moveRegist() {
@@ -44,12 +40,7 @@ function moveRegist() {
         <input class="login-input" type="text" placeholder="ID" v-model="loginInfo.userId" />
       </div>
       <div>
-        <input
-          class="login-input"
-          type="password"
-          placeholder="Password"
-          v-model="loginInfo.userPass"
-        />
+        <input class="login-input" type="password" placeholder="Password" v-model="loginInfo.userPass" />
       </div>
       <div>
         <button class="login-button" @click="login">Login</button>

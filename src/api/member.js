@@ -17,4 +17,9 @@ async function findById(userid, success, fail) {
   await local.get(`/member/info/${userid}`).then(success).catch(fail);
 }
 
-export { userConfirm, memberRegist, findById };
+async function check(success,fail){
+  local.defaults.headers["Authorization"] = sessionStorage.getItem("accessToken");
+  await local.get(`/member/check`).then(success).catch(fail);
+}
+
+export { userConfirm, memberRegist, findById, check };
