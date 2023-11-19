@@ -40,7 +40,7 @@ public class WebConfiguration implements WebMvcConfigurer {
 	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(jwtInterceptor).addPathPatterns("/member/info/*");
+		registry.addInterceptor(jwtInterceptor).addPathPatterns("/member/info/*").addPathPatterns("/member/check");
 	} 
 	
 //	Swagger UI 실행시 404처리

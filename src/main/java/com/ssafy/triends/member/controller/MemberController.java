@@ -35,6 +35,11 @@ public class MemberController {
 		this.memberService = memberService;
 		this.jwtUtil = jwtUtil;
 	}
+	
+	@GetMapping("/check")
+	public ResponseEntity<String> check() {
+		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+	}
 
 	@GetMapping("/info/{userId}")
 	public ResponseEntity<Map<String, Object>> getInfo(@PathVariable String userId, HttpServletRequest request) {
@@ -61,6 +66,7 @@ public class MemberController {
 		HttpStatus status = HttpStatus.ACCEPTED;
 		try {
 			Member loginUser = memberService.login(member.getUserId(), member.getUserPass());
+			log.debug("loginUser ; {}", loginUser);
 			if (loginUser != null) {
 				String accessToken = jwtUtil.createAccessToken(loginUser.getUserId());
 				log.debug("access token : {}", accessToken);

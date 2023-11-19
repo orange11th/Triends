@@ -20,9 +20,52 @@
 		<result column="user_id" property="userId" />
 	</resultMap>
 
+	<resultMap type="teamInvite" id="teamInviteMap">
+		<result column="team_id" property="teamId" />
+		<result column="team_name" property="teamName" />
+		<result column="from_user_id" property="fromUserId" />
+		<result column="from_user_name" property="fromUserName" />
+		<result column="to_user_id" property="toUserId" />
+	</resultMap>
+	
+	<delete id="deleteTeamInvite">
+		delete from team_invite
+		where team_id = #{teamId}
+		and to_user_id = #{userId}
+	</delete>
+
+	<select id="selectTeamInviteByUserId" resultMap="teamInviteMap">
+		select team_id,team_name, from_user_id,user_name as from_user_name
+		,to_user_id
+		from team_invite t join member m
+		on t.from_user_id = m.user_id
+		join team
+		using (team_id)
+		where to_user_id = #{userId}
+	</select>
+
+	<insert id="insertTeamInvite" parameterType="teamInvite">
+		insert into team_invite (team_id,from_user_id,to_user_id)
+		values (#{teamId},#{fromUserId},#{toUserId})
+	</insert>
+
+	<delete id="deleteEmptyTeam">
+		delete from team
+		where team_id not in (
+		select team_id
+		from team_member
+		group by team_id
+		);
+	</delete>
+
+	<delete id="deleteTeamMember">
+		delete from team_member
+		where user_id=#{userId} and team_id = #{teamId}
+	</delete>
+
 	<select id="selectNotTeamMember" parameterType="int"
 		resultMap="memberMap">
-		select user_id,user_name from
+		select distinct user_id,user_name from
 		team_member right join member
 		using (user_id)
 		where user_id not in (
@@ -52,11 +95,11 @@
 	</select>
 
 	<select id="selectTeamMember" parameterType="int"
-		resultMap="teamMemberMap">
-		select team_id,user_id
-		from team_member
-		where team_id =
-		#{teamId}
+		resultMap="memberMap">
+		select distinct user_id,user_name
+		from team_member join member
+		using (user_id)
+		where team_id = #{teamId};
 	</select>
 
 </mapper>
