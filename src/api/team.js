@@ -28,6 +28,7 @@ async function registMember(teamId, userId, success, fail) {
   await local.get(`/team/registMember/${teamId}/${userId}`).then(success).catch(fail);
 }
 
+<<<<<<< HEAD
 async function registTeam(teamName, userId, success, fail) {
   await local.get(`/team/regist/${teamName}/${userId}`).then(success).catch(fail);
 }
@@ -38,3 +39,17 @@ async function leaveTeam(teamId, userId, success, fail) {
 
 
 export { myTeamList, teamInviteList, teamInvite, registTeam, leaveTeam, myInviteList, registMember, deleteInvite };
+=======
+function planList(teamId, success, fail) {
+  local.get(`plan/team/${teamId}`).then(success).catch(fail);
+}
+
+function placeList(planId, success, fail) {
+  local.get(`plan/place/${planId}`).then(success).catch(fail);
+}
+
+function saveNewPlan(teamId, plans, success, fail) {
+  local.post(`plan/save/${teamId}`, plans).then(success).catch(fail);
+}
+export { myTeamList, teamInviteList, teamInvite, planList, placeList, saveNewPlan };
+>>>>>>> e539e633f92986ff346083544944bdd546e73dc7

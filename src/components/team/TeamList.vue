@@ -2,12 +2,15 @@
 import { ref, onMounted } from "vue";
 import { myTeamList, registTeam } from "@/api/team";
 import { useRouter } from "vue-router";
+<<<<<<< HEAD
 import { storeToRefs } from "pinia";
 import { useMemberStore } from "@/stores/member";
 
 import TeamMemberItem from "./item/TeamMemberItem.vue";
 import TeamInviteItem from "./item/TeamInviteItem.vue";
 
+=======
+>>>>>>> e539e633f92986ff346083544944bdd546e73dc7
 const router = useRouter();
 const memberStore = useMemberStore();
 const { checkToken } = memberStore;
@@ -46,6 +49,48 @@ onMounted(() => {
   }
 });
 
+<<<<<<< HEAD
+=======
+const modalStates = reactive(new Map());
+
+// 초기화
+teamList.value.forEach((team) => {
+  modalStates.set(team.teamId, false);
+});
+
+// 모달 열기
+const openModal = (teamId) => {
+  teamInviteList(
+    teamId,
+    ({ data }) => {
+      inviteList.value = data;
+    },
+    console.error()
+  );
+  modalStates.set(teamId, true);
+};
+
+// 모달 닫기
+const closeModal = (teamId) => {
+  modalStates.set(teamId, false);
+};
+
+const inviteList = ref([]);
+
+function inviteTeam(teamId, userId) {
+  teamInvite(
+    teamId,
+    userId,
+    (response) => {
+      console.log(response);
+    },
+    console.error()
+  );
+}
+function movePlan(teamId) {
+  router.push({ name: "plan-list", params: { teamId: teamId } });
+}
+>>>>>>> e539e633f92986ff346083544944bdd546e73dc7
 </script>
 
 <template>
