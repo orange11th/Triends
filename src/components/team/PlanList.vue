@@ -47,7 +47,7 @@
   
 <script setup>
 import { reactive, ref, onMounted } from 'vue';
-import { planList } from "@/api/team";
+import { planList, placeList, saveNewPlan } from "@/api/team";
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
@@ -55,22 +55,48 @@ console.log(route.params.teamId); // teamId 정보 가져옴
 
 const plans = ref([]);
 
+onMounted(() => {
+  getPlanList();
+});
+
 const getPlanList = () => {
   planList(route.params.teamId,
     ({ data }) => {
       data.forEach(plan => {
-        addPlanToStateLists(plan);
-      });
-      sortStateListsByDate(); // 데이터 추가 후 전체 리스트를 날짜 기준으로 정렬
+          addPlanToStateLists(plan);
+        });
     },
-    (error) => {
-      console.log(error);
-    }
-  );
-};
+      (error) => {
+      console.log(error)
+      }
+    );
+
+}
+// const getPlanList = () => {
+//   planList(route.params.teamId,
+//     ({ data }) => {
+//       data.forEach(plan => {
+//         addPlanToStateLists(plan);
+//       });
+//       state.lists.sort((a, b) => {
+//       const dateA = new Date(a.date);
+//       const dateB = new Date(b.date);
+//       return dateA - dateB;
+//     });
+//       // state.lists.sort((a, b) => new Date(a.date) - new Date(b.date));
+//       // sortStateListsByDate(); // 정렬 실행
+//     },
+//     (error) => {
+//       console.log(error);
+//     }
+//   );
+// };
+
 const sortStateListsByDate = () => {
   state.lists.sort((a, b) => new Date(a.date) - new Date(b.date));
 };
+
+
 const addPlanToStateLists = (plan) => {
   // YYYYMMDD 형식에서 YYYY, MM, DD 추출
   const year = plan.date.substring(0, 4);
@@ -79,26 +105,34 @@ const addPlanToStateLists = (plan) => {
 
   // YYYY-MM-DD 형식으로 조합
   const formattedDate = `${year}-${month}-${day}`;
-
+  console.log(formattedDate);
+  // 빈 numberList로 초기화
   const newBox = {
     id: state.lists.length + 1,
     date: formattedDate,
-    numberList: [] // 빈 numberList로 초기화
+    numberList: [] 
   };
-  state.lists.push(newBox);
+  // state.lists = state.lists.filter(item => item.id === 1);
+  // placeList 함수를 호출하여 관광지 데이터 가져오기
+  placeList(plan.planId,
+    ({ data }) => {
+      newBox.numberList = data.map(place => ({ content: place.placeId }));
+      state.lists.push(newBox);
+      state.lists.sort((a, b) => new Date(a.date) - new Date(b.date));
+    },
+    (error) => {
+      console.error('Error fetching place list:', error);
+    }
+    );
 };
 
 
 
-onMounted(() => {
-  getPlanList();
-});
-
-
-//todo : 조회 가능하도록
 //todo : 저장 누를시에 리스트 보내서 그대로 저장
 //todo : 관광지 검색결과를 드래그앤드롭
 //todo : 가져온 정보 바탕으로 화면에 뿌리기
+//todo : like 눌렀으면 눌렀따고 표시하기
+//todo : 게시물 삭제
 
   const state = reactive({
     lists: [
@@ -165,19 +199,46 @@ const onDrop = (event, toListIndex) => {
   toList.numberList.push(draggedItem);
 };
 
-const savePlans = () => {
-  const plan = state.lists
-    .filter(item => item.id >= 2)
-    .map(item => {
-      return {
-        date: item.date,
-        code: item.numberList.map(numItem => numItem.content)
-      };
-    });
-  console.log(plan); // 저장된 계획 확인
+// const savePlans = () => {
+//   const plan = state.lists
+//     .filter(item => item.id >= 2)
+//     .map(item => {
+//       return {
+//         date: item.date,
+//         place: item.numberList.map(numItem => numItem.content)
+//       };
+//     });
+    
+//   console.log(plan); // 저장된 계획 확인
 
   
+// };
+
+
+
+const savePlans = () => {
+  const newPlans = state.lists
+    .filter(item => item.id >= 2 && !plans.value.some(p => p.date === item.date))
+    .map(item => {
+      const formattedDate = item.date.replace(/-/g, '');
+      return {
+        date: formattedDate,
+        places: item.numberList.map(numItem => numItem.content)
+      };
+    });
+
+
+  saveNewPlan(route.params.teamId, newPlans);
+
+  console.log("저장");
 };
+
+
+
+
+
+
+
 const deleteItem = (item, listIndex) => {
   const list = state.lists[listIndex];
   const itemIndex = list.numberList.findIndex(numItem => numItem.content === item.content);
@@ -189,6 +250,8 @@ const deleteItem = (item, listIndex) => {
 const deleteBox = (index) => {
   state.lists.splice(index, 1);
 };
+
+
 
   </script>
   

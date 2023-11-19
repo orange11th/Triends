@@ -18,4 +18,11 @@ function planList(teamId, success, fail) {
   local.get(`plan/team/${teamId}`).then(success).catch(fail);
 }
 
-export { myTeamList, teamInviteList, teamInvite, planList };
+function placeList(planId, success, fail) {
+  local.get(`plan/place/${planId}`).then(success).catch(fail);
+}
+
+function saveNewPlan(teamId, plans, success, fail) {
+  local.post(`plan/save/${teamId}`, plans).then(success).catch(fail);
+}
+export { myTeamList, teamInviteList, teamInvite, planList, placeList, saveNewPlan };
