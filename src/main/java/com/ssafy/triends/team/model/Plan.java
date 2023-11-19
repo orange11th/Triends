@@ -9,3 +9,4 @@ public class Plan {
 	private int teamId;
 	private String date;
 }
+

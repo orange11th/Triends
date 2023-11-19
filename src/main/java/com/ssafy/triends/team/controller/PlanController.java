@@ -1,8 +1,8 @@
 package com.ssafy.triends.team.controller;
 
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -30,30 +30,44 @@ public class PlanController {
 		this.planService = planService;
 	}
 	
-	@PostMapping("insertPlan")
-	public ResponseEntity<?> insertPlan(@RequestBody Plan plan) {
+	@PostMapping("save/{teamId}")
+    public ResponseEntity<?> save(@PathVariable int teamId, @RequestBody List<Map<String, Object>> plans) {
+		System.out.println(plans);
 		try {
-			planService.insertPlan(plan);
-			return new ResponseEntity<Void>(HttpStatus.CREATED);
+			planService.savePlans(teamId, plans);
 		} catch (Exception e) {
-			return exceptionHandling(e);
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-	}
+        return ResponseEntity.ok().build();
+    }
 	
-	@PostMapping("insertPlanPlace")
-	public ResponseEntity<?> insertPlanPlace(@RequestBody PlanPlace planPlace) {
-		try {
-			planService.insertPlanPlace(planPlace);
-			return new ResponseEntity<Void>(HttpStatus.CREATED);
-		} catch (Exception e) {
-			return exceptionHandling(e);
-		}
-	}
+//	@PostMapping("insertPlan")
+//	public ResponseEntity<?> insertPlan(@RequestBody Plan plan) {
+//		try {
+//			planService.insertPlan(plan);
+//			return new ResponseEntity<Void>(HttpStatus.CREATED);
+//		} catch (Exception e) {
+//			return exceptionHandling(e);
+//		}
+//	}
+//	
+//	@PostMapping("insertPlanPlace")
+//	public ResponseEntity<?> insertPlanPlace(@RequestBody PlanPlace planPlace) {
+//		try {
+//			planService.insertPlanPlace(planPlace);
+//			return new ResponseEntity<Void>(HttpStatus.CREATED);
+//		} catch (Exception e) {
+//			return exceptionHandling(e);
+//		}
+//	}
 	
 	@GetMapping("team/{teamId}")
 	public ResponseEntity<?> listPlan(@PathVariable int teamId) {
 		try {
 			List<Plan> planList = planService.listPlan(teamId);
+			System.out.println("호출됨");
+			System.out.println(planList);
 			HttpHeaders header = new HttpHeaders();
 			header.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
 			return ResponseEntity.ok().headers(header).body(planList);
