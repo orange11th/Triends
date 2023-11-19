@@ -53,7 +53,7 @@ onMounted(() => {
     <h1 class="team-title">My team</h1>
     <input type="text" placeholder="팀 이름" v-model="teamName">
     <button @click.prevent="makeTeam">팀 만들기</button>
-    <TeamInviteItem/>
+    <TeamInviteItem :userId="userId"/>
     <ul class="team-list">
       <TeamMemberItem v-for="team in teamList" :key="team.teamId" :team="team" />
     </ul>
