@@ -13,8 +13,8 @@ const props = defineProps({
     team: Object
 });
 
-function movePlan() {
-    router.push({ name: "plan-list" });
+function movePlan(teamId) {
+  router.push({ name: "plan-list", params: { teamId: teamId } });
 }
 
 const modalState = ref(false);
@@ -60,7 +60,7 @@ function leave(teamId){
             <h2 class="team-info">{{ props.team.teamName }} <button @click="leave(props.team.teamId)">팀 나가기</button></h2>
         </div>
         <ul class="member-list">
-            <button class="plan-link" @click="movePlan">여행계획 바로가기</button>
+            <button class="plan-link" @click="movePlan(props.team.teamId)">여행계획 바로가기</button>
             <div class="horizontal-scroll">
                 <!-- 팀 내부 팀원 목록 -->
                 <li v-for="teamMember in props.team.teamList" :key="teamMember.userId" class="member-item">
