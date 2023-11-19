@@ -14,4 +14,8 @@ async function teamInvite(teamId, userId, success, fail) {
   await local.get(`/team/registMember/${teamId}/${userId}`).then(success).catch(fail);
 }
 
-export { myTeamList, teamInviteList, teamInvite };
+function planList(teamId, success, fail) {
+  local.get(`plan/team/${teamId}`).then(success).catch(fail);
+}
+
+export { myTeamList, teamInviteList, teamInvite, planList };

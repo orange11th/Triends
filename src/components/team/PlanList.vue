@@ -5,10 +5,10 @@
          @dragenter.prevent
          @dragover.prevent>
          <div class="box-title">{{ item.date }}</div>
-             <!-- 삭제 버튼 추가: id가 1보다 큰 경우에만 표시 -->
-    <div v-if="item.id > 1" class="delete-box-button">
-      <button @click="deleteBox(idx)">X</button>
-    </div>
+             <!-- 박스 삭제 버튼 추가: id가 1보다 큰 경우에만 표시 -->
+      <div v-if="item.id > 1" class="delete-box-button">
+        <button @click="deleteBox(idx)">X</button>
+      </div>
       <div v-if="item.id === 1" class="travel-destination">
         후보 여행지
         <!-- 새로운 아이템 입력 필드 -->
@@ -19,6 +19,7 @@
         <div>이런 형태로 관광지들이 쫘르륵 뜨게!</div>
       </div>
       </div>
+      
 
       <div v-for="(numItem, numIdx) in item.numberList" :key="numIdx" class="box" draggable="true" @dragstart="startDrag($event, numItem, idx)">
       <div class="content-with-delete-button">
@@ -26,13 +27,7 @@
         <button @click="deleteItem(numItem, idx)">X</button>
       </div>
     </div>
-
-      <!-- <div v-for="(numItem, numIdx) in item.numberList" :key="numIdx" class="box"
-           draggable="true"
-           @dragstart="startDrag($event, numItem, idx)">
-        <p>{{ numItem.content }}</p>
-        <button @click="deleteItem(numItem, idx)">삭제</button>
-      </div> -->
+    
     </div>
   </div>
   <div class="new-item-input">
@@ -41,6 +36,9 @@
   <button @click="addNewBox">추가</button>
   <div>이때 최종저장 시키는 것</div>
   <button @click="savePlans">저장</button>
+  <li v-for="team in plans" :key="team.teamId" class="team-item">
+    <h1>{{team}}</h1>
+  </li>
 
 </div>
 </template>
@@ -48,16 +46,59 @@
 
   
 <script setup>
-import { reactive } from 'vue';
-
+import { reactive, ref, onMounted } from 'vue';
+import { planList } from "@/api/team";
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
 console.log(route.params.teamId); // teamId 정보 가져옴
+
+const plans = ref([]);
+
+const getPlanList = () => {
+  planList(route.params.teamId,
+    ({ data }) => {
+      data.forEach(plan => {
+        addPlanToStateLists(plan);
+      });
+      sortStateListsByDate(); // 데이터 추가 후 전체 리스트를 날짜 기준으로 정렬
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
+};
+const sortStateListsByDate = () => {
+  state.lists.sort((a, b) => new Date(a.date) - new Date(b.date));
+};
+const addPlanToStateLists = (plan) => {
+  // YYYYMMDD 형식에서 YYYY, MM, DD 추출
+  const year = plan.date.substring(0, 4);
+  const month = plan.date.substring(4, 6);
+  const day = plan.date.substring(6, 8);
+
+  // YYYY-MM-DD 형식으로 조합
+  const formattedDate = `${year}-${month}-${day}`;
+
+  const newBox = {
+    id: state.lists.length + 1,
+    date: formattedDate,
+    numberList: [] // 빈 numberList로 초기화
+  };
+  state.lists.push(newBox);
+};
+
+
+
+onMounted(() => {
+  getPlanList();
+});
+
+
 //todo : 조회 가능하도록
+//todo : 저장 누를시에 리스트 보내서 그대로 저장
 //todo : 관광지 검색결과를 드래그앤드롭
 //todo : 가져온 정보 바탕으로 화면에 뿌리기
-//todo : 저장 누를시에 리스트 보내서 그대로 저장
 
   const state = reactive({
     lists: [
@@ -144,6 +185,7 @@ const deleteItem = (item, listIndex) => {
     list.numberList.splice(itemIndex, 1);
   }
 };
+
 const deleteBox = (index) => {
   state.lists.splice(index, 1);
 };
