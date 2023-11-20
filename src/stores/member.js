@@ -68,7 +68,7 @@ export const useMemberStore = defineStore(
           console.log(response.status);
         },
         async (error) => {
-          isValidToken.value = false;
+          userLogout();
         }
       );
     };
