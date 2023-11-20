@@ -25,7 +25,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ssafy.triends.board.model.BoardDto;
 import com.ssafy.triends.board.model.BoardListDto;
-import com.ssafy.triends.board.model.LikeDto;
 import com.ssafy.triends.board.model.service.BoardService;
 
 //http://localhost/vue/swagger-ui.html

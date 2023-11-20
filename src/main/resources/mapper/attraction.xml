@@ -87,7 +87,7 @@
 			ELSE 2
 			END,
 			title,
-			overview;
+			overview
 		</if>
 	</select>
 </mapper>

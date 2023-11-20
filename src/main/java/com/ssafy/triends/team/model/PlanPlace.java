@@ -6,5 +6,5 @@ import lombok.Data;
 public class PlanPlace {
 	private int planId;
 	private int placeId;
-	private int order;
+	private String title;
 }
