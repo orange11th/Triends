@@ -34,6 +34,11 @@ public class BoardServiceImpl implements BoardService {
 		boardListDto.setArticles(list);
 		return boardListDto;
 	}
+	
+	@Override
+    public void deleteArticle(int articleNo) throws Exception {
+        boardMapper.deleteArticle(articleNo);
+    }
 
 //	@Override
 //	public void modifyArticle(BoardDto boardDto) throws Exception {

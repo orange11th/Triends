@@ -67,7 +67,7 @@
 		using
 		(content_id)
 		where
-		sido_code = #{sidoCode}
+		sido_code = #{sido}
 		and
 		first_image != ""
 		<if test="keyword != null and keyword != ''">

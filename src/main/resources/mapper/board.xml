@@ -69,8 +69,13 @@
 	<select id="listArticle" resultMap="article">
 		select no, title, content, user_id, user_name, `like`, register_time, image_path
 		from board
-		order by register_time desc;
+		order by register_time desc
 	</select>
+	
+	<delete id="deleteArticle" parameterType="int">
+        DELETE FROM board
+        WHERE no = #{articleNo}
+    </delete>
 	
 	<!-- 
 	<select id="getTotalArticleCount" parameterType="map" resultType="int">

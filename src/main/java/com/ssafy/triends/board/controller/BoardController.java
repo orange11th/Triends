@@ -14,7 +14,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ssafy.triends.board.model.BoardDto;
 import com.ssafy.triends.board.model.BoardListDto;
+import com.ssafy.triends.board.model.LikeDto;
 import com.ssafy.triends.board.model.service.BoardService;
 
 //http://localhost/vue/swagger-ui.html
@@ -50,7 +53,7 @@ public class BoardController {
 			MultipartFile mfile = boardDto.getFile();
 			
 //			String directoryPath = "C:/ssafy/triends-front/src/assets/savedImage";
-			String directoryPath = "C:/triends/triends-front/src/assets/savedImage";
+			String directoryPath = "C:/triends/triends-front/src/assets/img/savedImage";
 			File folder = new File(directoryPath);
 			if (!folder.exists()) folder.mkdirs();
 	        String originalFilename = mfile.getOriginalFilename();
@@ -83,7 +86,17 @@ public class BoardController {
 			return exceptionHandling(e);
 		}
 	}
-
+	
+	@DeleteMapping("{articleNo}")
+	public ResponseEntity<?> deleteArticle(@PathVariable int articleNo) {
+		try {
+			System.out.println("d");
+			boardService.deleteArticle(articleNo);
+	        return new ResponseEntity<Void>(HttpStatus.OK);
+		} catch (Exception e) {
+			return exceptionHandling(e);
+		}
+	}
 
 //
 //	@ApiOperation(value = "수정 할 글 얻기", notes = "글번호에 해당하는 게시글의 정보를 반환한다.", response = BoardDto.class)
