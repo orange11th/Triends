@@ -1,18 +1,22 @@
 package com.ssafy.triends.board.controller;
 
+import java.nio.charset.Charset;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.triends.board.model.LikeDto;
@@ -30,6 +34,24 @@ public class LikeController {
 	public LikeController(LikeService likeService) {
 		super();
 		this.likeService = likeService;
+	}
+	
+	@GetMapping("/{userId}/{boardId}")
+	public ResponseEntity<?> checkLikeStatus(@PathVariable("userId") String userId, @PathVariable("boardId") int boardId) {
+	    try {
+	    	LikeDto likeDto = new LikeDto();
+	    	likeDto.setBoardId(boardId);
+	    	likeDto.setUserId(userId);
+	        boolean isLiked = likeService.checkLikeStatus(likeDto);
+	        HttpHeaders header = new HttpHeaders();
+			header.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+			System.out.println(isLiked);
+			return ResponseEntity.ok().headers(header).body(isLiked);
+//	        return ResponseEntity.ok().body(new LikeStatusResponse(isLiked));
+	    } catch (Exception e) {
+	        logger.error("Error checking like status", e);
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	    }
 	}
 
 	@PostMapping

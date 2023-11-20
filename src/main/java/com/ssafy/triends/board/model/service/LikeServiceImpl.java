@@ -39,5 +39,10 @@ public class LikeServiceImpl implements LikeService {
 		likeMapper.decreaseBoardLike(boardId);
 	}
 
+	@Override
+	public boolean checkLikeStatus(LikeDto likeDto) {
+        return likeMapper.checkLikeStatus(likeDto) > 0;
+    }
+
 
 }

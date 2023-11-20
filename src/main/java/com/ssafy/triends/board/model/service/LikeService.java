@@ -8,5 +8,6 @@ public interface LikeService {
 	void deleteLike(LikeDto likeDto) throws Exception;
 	void increaseBoardLike(int boardId) throws Exception;
 	void decreaseBoardLike(int boardId) throws Exception;
+	boolean checkLikeStatus(LikeDto likeDto) throws Exception;
 
 }

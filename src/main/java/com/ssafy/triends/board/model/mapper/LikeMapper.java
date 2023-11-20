@@ -15,4 +15,5 @@ public interface LikeMapper {
 	void deleteLike(LikeDto likeDto) throws SQLException;
 	void increaseBoardLike(int boardId) throws SQLException;
 	void decreaseBoardLike(int boardId) throws SQLException;
+	int checkLikeStatus(LikeDto likeDto);
 }

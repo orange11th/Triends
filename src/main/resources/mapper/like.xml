@@ -37,4 +37,12 @@
     	where no = #{boardId}
 	</update>
 	
+	<select id="checkLikeStatus" parameterType="likeDto" resultType="int">
+	  SELECT COUNT(*) FROM `like`
+	  WHERE user_id = #{userId}
+	  AND board_id = #{boardId}
+	</select>
+	
+	
+	
 </mapper>
