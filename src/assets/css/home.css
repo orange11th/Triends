@@ -1,0 +1,10 @@
+/* main */
+
+main {
+  padding-left: 20%;
+  padding-right: 20%;
+}
+main > section {
+  display: flex;
+  flex-direction: column;
+}

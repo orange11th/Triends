@@ -1,0 +1,105 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+
+:root {
+  --main-leaf: #b0d9b1;
+  --main-black: #2a323c;
+  --dark-gray: #666666;
+  --gray: #bbbbbb;
+  --main-gray: #d9d9d9;
+  --light-gray: #f6f7f9;
+}
+
+* {
+  font-family: "Pretendard Variable", Pretendard, -apple-system,
+    BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
+    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+
+  color: var(--main-black);
+  text-decoration: none;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* header */
+
+header {
+  display: flex;
+  width: 100%;
+  height: 80px;
+  background-color: var(--main-leaf);
+  align-items: center;
+  justify-content: center;
+}
+nav {
+  /* box-shadow: 0 2px 5px 0 lightgray;
+  background-color: white;
+  border-radius: 0 0 10px 10px; */
+  display: flex;
+  width: 60%;
+  height: 100%;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+}
+#header-logo {
+  width: 130px;
+}
+
+.menu-space a {
+  margin: 0 10px;
+}
+.menu-icon img {
+  height: 30px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  width: 100px;
+}
+
+.dropdown-content a {
+  line-height: 24px;
+  display: block;
+  text-align: center;
+}
+
+#dropdown {
+  position: relative;
+}
+
+#dropdown:hover .dropdown-content {
+  display: block;
+  left: -32px;
+}
+
+/* footer */
+
+footer {
+  width: 100%;
+  margin-top: 50px;
+  padding: 20px 0;
+  background-color: var(--main-black);
+  color: white;
+  text-align: center;
+  font-size: small;
+}
+#footerLogo {
+  width: 110px;
+  margin: 15px;
+}
+footer a {
+  margin: 15px;
+}
+footer p {
+  color: white;
+  margin-top: 20px;
+}
