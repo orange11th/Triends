@@ -27,11 +27,67 @@
 		select * from
 		attraction_info
 		join attraction_description
-		using (content_id)
-		where sido_code = #{sidoCode}
+		using
+		(content_id)
+		where
+		sido_code = #{sidoCode}
 		and content_type_id =
 		#{contentTypeId}
-		and first_image != ""
+		and
+		first_image != ""
 	</select>
 
+	<sql id="search">
+		<if test="keyword != null and keyword != ''">
+			AND
+			(title LIKE CONCAT('%',
+			#{keyword}, '%') OR
+			overview
+			LIKE
+			CONCAT('%',
+			#{keyword}, '%'))
+			ORDER BY
+			CASE
+			WHEN title LIKE
+			CONCAT('%',
+			#{keyword},
+			'%') THEN 1
+			ELSE 2
+			END,
+			title,
+			overview;
+		</if>
+	</sql>
+
+	<select id="searchList" parameterType="map"
+		resultMap="attractionMap">
+		select * from
+		attraction_info
+		join attraction_description
+		using
+		(content_id)
+		where
+		sido_code = #{sidoCode}
+		and
+		first_image != ""
+		<if test="keyword != null and keyword != ''">
+			AND
+			(title LIKE CONCAT('%',
+			#{keyword}, '%') OR
+			overview
+			LIKE
+			CONCAT('%',
+			#{keyword}, '%'))
+			ORDER BY
+			CASE
+			WHEN title LIKE
+			CONCAT('%',
+			#{keyword},
+			'%') THEN 1
+			ELSE 2
+			END,
+			title,
+			overview;
+		</if>
+	</select>
 </mapper>
