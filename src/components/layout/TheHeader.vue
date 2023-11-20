@@ -30,7 +30,7 @@ function logout() {
           <RouterLink :to="{ name: 'member-regist' }"
             ><button v-show="!isLogin" class="signup-button">Sign up</button></RouterLink
           ><br />
-          <li v-show="isLogin" class="nav-item dropdown">
+          <li v-show="isLogin" class="nav-item dropdown" style="list-style: none">
             <a
               class="nav-link dropdown-toggle"
               href="#"
@@ -39,15 +39,27 @@ function logout() {
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              사람 아이콘
+              <img
+                src="@/assets/img/icon/user-icon.svg"
+                alt=""
+                srcset=""
+                style="position: relative; height: 45px; width: auto"
+              />
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li>
+                <RouterLink :to="{ name: 'member-info' }"
+                  ><a class="dropdown-item" href="#">마이 페이지</a></RouterLink
+                >
+              </li>
               <li>
                 <hr class="dropdown-divider" />
               </li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
+              <li>
+                <RouterLink :to="{ name: 'team-list' }"
+                  ><a class="dropdown-item" href="#">팀 페이지</a></RouterLink
+                ><br />
+              </li>
             </ul>
           </li>
           <button v-show="isLogin" class="logout-button" @click.prevent="logout">Log Out</button>
