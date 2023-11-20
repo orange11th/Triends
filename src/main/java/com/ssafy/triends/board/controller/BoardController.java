@@ -54,6 +54,7 @@ public class BoardController {
 			
 //			String directoryPath = "C:/ssafy/triends-front/src/assets/savedImage";
 			String directoryPath = "C:/triends/triends-front/src/assets/img/savedImage";
+//			String directoryPath = "C:/Users/User/OneDrive/Document/SSAFY/Semester1/Project/FinalProject/triends/triends-front/src/assets/savedImage";
 			File folder = new File(directoryPath);
 			if (!folder.exists()) folder.mkdirs();
 	        String originalFilename = mfile.getOriginalFilename();
@@ -64,7 +65,7 @@ public class BoardController {
 	        } catch (IOException e) {
 	            throw new IOException("Error saving MultipartFile", e);
 	        }
-	        directoryPath = directoryPath.replaceAll("C:/triends/triends-front", "");
+	        directoryPath = directoryPath.replaceAll("C:/Users/User/OneDrive/Document/SSAFY/Semester1/Project/FinalProject/triends/triends-front", "");
 //	        directoryPath = directoryPath.replaceAll("C:/ssafy/triends-front", "");
 	        boardDto.setImagePath(directoryPath + "/" + newFilename);
 	        boardService.writeArticle(boardDto);
