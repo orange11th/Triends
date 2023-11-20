@@ -128,9 +128,6 @@ const addPlanToStateLists = (plan) => {
 
 
 
-//todo : 저장 누를시에 리스트 보내서 그대로 저장
-//todo : 관광지 검색결과를 드래그앤드롭
-//todo : 가져온 정보 바탕으로 화면에 뿌리기
 //todo : like 눌렀으면 눌렀따고 표시하기
 //todo : 게시물 삭제
 

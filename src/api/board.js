@@ -34,6 +34,10 @@ function decreaseBoardLike(like, success, fail) {
   local.put(`/like/decrease/${like.boardId}`).then(success).catch(fail);
 }
 
+function checkLikeStatus(like, success, fail) {
+  local.get(`/like/${like.userId}/${like.boardId}`).then(success).catch(fail);
+}
+
 export {
   listArticle,
   registArticle,
@@ -41,4 +45,5 @@ export {
   deleteLike,
   increaseBoardLike,
   decreaseBoardLike,
+  checkLikeStatus,
 };

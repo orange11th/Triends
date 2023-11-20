@@ -1,6 +1,6 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue';
-import { insertLike, deleteLike, increaseBoardLike, decreaseBoardLike} from "@/api/board";
+import { insertLike, deleteLike, increaseBoardLike, decreaseBoardLike, checkLikeStatus } from "@/api/board";
 const props = defineProps({
   userId: String,
   article: Object
@@ -24,7 +24,6 @@ const createConfetti = (to) => {
   to.appendChild(elem);
 };
 const handleClick = () => {
-  // console.log(props.userId);
   like.userId = props.userId;
   like.boardId = props.article.no;
   console.log(like);
@@ -81,7 +80,22 @@ onMounted(() => {
   const button = document.querySelector('.paw-button');
   const confettis = button.querySelectorAll('i');
   confettis.forEach(confetti => confetti.remove());
+  checkIfLiked();
 });
+
+function checkIfLiked() {
+  const likeInfo = {
+    userId: props.userId,
+    boardId: props.article.no
+  };
+
+  checkLikeStatus(likeInfo, (response) => {
+    isLiked.value = response.data;
+    console.log(isLiked.value);
+  }, (error) => {
+    console.error(error);
+  });
+}
 
 
 const state = reactive({
@@ -95,7 +109,6 @@ const like = reactive({
 const toggleLike = (articleNo) => {
   state.liked = !state.liked;
   console.log(userId);
-  // like.userId = userId; // 후에 수정
   like.userId = props.userId;
   like.boardId = articleNo;
   
