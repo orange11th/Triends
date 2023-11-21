@@ -1,8 +1,10 @@
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { attractionList, searchList } from "@/api/attraction";
 import { useRouter } from "vue-router";
 import { NaverMap, NaverMarker, NaverInfoWindow } from "vue3-naver-maps";
+
+// import heart from "@/components/attraction/item/heart.vue";
 
 import "@/assets/css/attraction/map.css";
 import "@/assets/css/attraction/list.css";
@@ -17,6 +19,10 @@ const sidoCode = ref(1);
 const contentTypeId = ref(12);
 const attractions = ref([]);
 const currentAttraction = ref({});
+
+watch(sidoCode, (newVal) => {
+  param.value.sido = newVal;
+});
 
 const selectSido = ref([
   { text: "서울특별시", value: "1" },
@@ -52,7 +58,7 @@ function getAttractionList() {
     sidoCode.value,
     contentTypeId.value,
     ({ data }) => {
-      console.dir(data);
+      console.log();
       attractions.value = data;
     },
     (error) => console.error()
@@ -104,23 +110,67 @@ const infoWindow = ref();
 const isOpen = ref(false);
 
 const onLoadMarker = (index, markerObject) => {
-  console.log(index, markerObject);
   attractions.value[index].marker = markerObject;
 };
 const onShowInfoWindow = (index) => {
-  console.log(index);
-  console.log(attractions.value[index].marker);
   isOpen.value = !isOpen.value;
   currentAttraction.value = attractions.value[index];
 };
 const onLoadInfoWindow = (infoWindowObject) => {
-  console.log(infoWindowObject);
   infoWindow.value = infoWindowObject;
 };
 </script>
 
 <template>
   <div class="main">
+    <div class="map">
+      <naver-map
+        style="width: 100%; height: 700px"
+        :mapOptions="mapOptions"
+        :initLayers="initLayers"
+        @onLoad="onLoadMap($event)"
+      >
+        <div
+          v-for="(attraction, index) in attractions"
+          :key="attraction.contentId"
+        >
+          <naver-marker
+            :latitude="attraction.latitude"
+            :longitude="attraction.longitude"
+            @onLoad="onLoadMarker(index, $event)"
+            @mouseover="onShowInfoWindow(index)"
+            @mouseout="isOpen = false"
+            @click="moveDetail(attraction.contentId)"
+          >
+          </naver-marker>
+        </div>
+        <naver-info-window
+          :marker="currentAttraction.marker"
+          :open="isOpen"
+          @onLoad="onLoadInfoWindow($event)"
+        >
+          <div class="infoWindow-content" style="width: 250px">
+            <img
+              :src="currentAttraction.firstImage"
+              alt=""
+              style="width: 100%"
+            />
+            <h4>{{ currentAttraction.title }}</h4>
+            <p class="addr">{{ currentAttraction.addr1 }}</p>
+            <p
+              style="
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+              "
+            >
+              {{ currentAttraction.overview }}
+            </p>
+          </div>
+        </naver-info-window>
+      </naver-map>
+    </div>
+
     <div class="condition-space">
       <h2>여행지 탐색</h2>
       <div class="input-space">
@@ -157,101 +207,60 @@ const onLoadInfoWindow = (infoWindowObject) => {
               </option>
             </optgroup>
           </select>
-          <div class="search-space">
-            <input
-              type="text"
-              v-model="param.keyword"
-              placeholder="키워드를 입력하세요!"
-            />
-            <a @click="searchAttractionList">
-              <img src="@/assets/img/icon/magnifying-glass-solid.svg" alt="검색"/>
-            </a>
-            <button @click="searchAttractionList">검색</button>
-          </div>
+        </div>
+        <div class="search-space">
+          <input
+            type="text"
+            v-model="param.keyword"
+            placeholder="키워드를 입력하세요!"
+            @keyup.enter="searchAttractionList"
+          />
+          <a @click="searchAttractionList">
+            <img src="@/assets/img/icon/search-icon.svg" alt="검색" />
+          </a>
         </div>
       </div>
     </div>
 
-    <div class="map">
-      <naver-map
-        :mapOptions="mapOptions"
-        :initLayers="initLayers"
-        @onLoad="onLoadMap($event)"
+    <div class="list">
+      <div
+        class="list-item"
+        v-for="attraction in attractions"
+        :key="attraction.contentId"
       >
-        <div
-          v-for="(attraction, index) in attractions"
-          :key="attraction.contentId"
-        >
-          <naver-marker
-            :latitude="attraction.latitude"
-            :longitude="attraction.longitude"
-            @onLoad="onLoadMarker(index, $event)"
-            @mouseover="onShowInfoWindow(index)"
-            @mouseout="isOpen = false"
-            @click="moveDetail(attraction.contentId)"
+        <a class="detail">
+          <div
+            class="text-space"
+            @click.prevent="moveDetail(attraction.contentId)"
           >
-          </naver-marker>
-        </div>
-        <naver-info-window
-          :marker="currentAttraction.marker"
-          :open="isOpen"
-          @onLoad="onLoadInfoWindow($event)"
-        >
-          <div class="infoWindow-content" style="width: 250px">
-            <img
-              :src="currentAttraction.firstImage"
-              alt=""
-              style="width: 100%"
-            />
-            <h4>{{ currentAttraction.title }}</h4>
-            <p>{{ currentAttraction.addr1 }}</p>
+            <h5>{{ attraction.title }}</h5>
+            <p class="addr">{{ attraction.addr1 }}</p>
             <p
+              class="overview"
               style="
+                white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                white-space: nowrap;
               "
             >
-              {{ currentAttraction.overview }}
+              {{ attraction.overview }}
             </p>
           </div>
-        </naver-info-window>
-      </naver-map>
-    </div>
-
-    <div
-      class="list"
-      v-for="attraction in attractions"
-      :key="attraction.contentId"
-    >
-      <a
-        href=""
-        @click.prevent="moveDetail(attraction.contentId)"
-        style="text-decoration: none"
-      >
-        <p>{{ attraction.title }}</p>
-        <p>{{ attraction.addr1 }}</p>
-        <p>{{ attraction.tel }}</p>
-        <p>{{ attraction.homepage }}</p>
-        <p
-          style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap"
-        >
-          {{ attraction.overview }}
-        </p>
-        <a href="">
-          <img src="" alt="찜" />
+          <!-- <heart></heart> -->
+          <img
+            id="attraction-img"
+            :src="attraction.firstImage"
+            @click.prevent="moveDetail(attraction.contentId)"
+            alt="사진"
+          />
         </a>
-        <img :src="attraction.firstImage" alt="" />
-      </a>
+        <hr />
+      </div>
     </div>
   </div>
 </template>
 
-<style scoped>
-.tmp {
-  margin: 10px;
-}
-</style>
+<style scoped></style>
 <!-- 시도코드 값				   타입 아이디 값
 1	  서울				     12	관광지
 2	  인천				     14	문화시설

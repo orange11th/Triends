@@ -25,17 +25,21 @@ function logout() {
       <div class="logo-space">
         <RouterLink :to="{ name: 'home' }">
           <a href="#">
-            <img src="/src/assets/img/icon/main-logo.svg" alt="main-logo" id="main-logo"/>
+            <img
+              src="/src/assets/img/icon/main-logo.svg"
+              alt="main-logo"
+              id="main-logo"
+            />
           </a>
         </RouterLink>
       </div>
       <div>
         <div class="menu-space" v-show="!isLogin">
           <RouterLink :to="{ name: 'member-login' }">
-            <button v-show="!isLogin" class="light">Login</button>
+            <a class="light">Login</a>
           </RouterLink>
           <RouterLink :to="{ name: 'member-regist' }">
-            <button v-show="!isLogin" class="dark">Sign up</button>
+            <a class="dark">Sign up</a>
           </RouterLink>
         </div>
         <div class="menu-space" v-show="isLogin">

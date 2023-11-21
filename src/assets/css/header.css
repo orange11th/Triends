@@ -4,7 +4,6 @@ header {
   display: flex;
   width: 100%;
   height: 100px;
-  background-color: white;
   background-color: var(--main-leaf);
   align-items: center;
   justify-content: center;
@@ -25,16 +24,19 @@ nav {
   width: 140px;
 }
 
-.menu-space a,
-.menu-space button {
-  margin: 0 5px;
+.menu-space {
+  display: flex;
 }
-.menu-space button {
+.menu-space a {
   padding: 10px 15px;
   font-weight: 900;
   border-radius: 10px;
   border-width: 3px;
   border-color: var(--main-black);
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
 }
 .menu-space .light {
   background-color: var(--main-leaf);
@@ -42,7 +44,7 @@ nav {
 }
 .menu-space .dark {
   background-color: var(--main-black);
-  color: white;
+  color: var(--main-leaf);
 }
 .menu-icon img {
   height: 30px;
