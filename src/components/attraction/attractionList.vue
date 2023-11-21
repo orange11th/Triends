@@ -24,24 +24,30 @@ watch(sidoCode, (newVal) => {
   param.value.sido = newVal;
 });
 
+// const onMoveMap = (map) => {
+//   map.setCenter(
+//     new window.naver.maps.LatLng(selectSido.value.lat, selectSido.value.lng)
+//   );
+// };
+
 const selectSido = ref([
-  { text: "서울특별시", value: "1" },
-  { text: "인천광역시", value: "2" },
-  { text: "대전광역시", value: "3" },
-  { text: "대구광역시", value: "4" },
-  { text: "광주광역시", value: "5" },
-  { text: "부산광역시", value: "6" },
-  { text: "울산광역시", value: "7" },
-  { text: "세종특별자치시", value: "8" },
-  { text: "경기도", value: "31" },
-  { text: "강원도", value: "32" },
-  { text: "충청북도", value: "33" },
-  { text: "충청남도", value: "34" },
-  { text: "경상북도", value: "35" },
-  { text: "경상남도", value: "36" },
-  { text: "전라북도", value: "37" },
-  { text: "전라남도", value: "38" },
-  { text: "제주도", value: "39" },
+  { text: "서울특별시", value: "1", lat: "37.5666", lng: "126.9784" },
+  { text: "인천광역시", value: "2", lat: "37.456", lng: "126.7052" },
+  { text: "대전광역시", value: "3", lat: "36.35", lng: "127.3847" },
+  { text: "대구광역시", value: "4", lat: "35.8498", lng: "128.5502" },
+  { text: "광주광역시", value: "5", lat: "35.1596", lng: "126.8508" },
+  { text: "부산광역시", value: "6", lat: "35.1796", lng: "129.0749" },
+  { text: "울산광역시", value: "7", lat: "35.5397", lng: "129.3115" },
+  { text: "세종특별자치시", value: "8", lat: "36.4801", lng: "127.289" },
+  { text: "경기도", value: "31", lat: "37.2893", lng: "127.0535" },
+  { text: "강원도", value: "32", lat: "37.8854", lng: "127.7298" },
+  { text: "충청북도", value: "33", lat: "36.6358", lng: "127.4914" },
+  { text: "충청남도", value: "34", lat: "36.6588", lng: "126.6735" },
+  { text: "경상북도", value: "35", lat: "36.576", lng: "128.5059" },
+  { text: "경상남도", value: "36", lat: "35.2383", lng: "128.6924" },
+  { text: "전라북도", value: "37", lat: "35.8204", lng: "127.1087" },
+  { text: "전라남도", value: "38", lat: "34.8162", lng: "126.4629" },
+  { text: "제주도", value: "39", lat: "33.4995", lng: "126.5311" },
 ]);
 const selectContentType = ref([
   { text: "관광지", value: "12" },
