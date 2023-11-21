@@ -15,91 +15,23 @@
     "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 
-  color: var(--main-black);
   text-decoration: none;
 }
 
 html,
-body {
+body,
+#app {
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
 }
 
-/* header */
-
-header {
-  display: flex;
-  width: 100%;
-  height: 80px;
-  background-color: var(--main-leaf);
-  align-items: center;
-  justify-content: center;
-}
-nav {
-  /* box-shadow: 0 2px 5px 0 lightgray;
-  background-color: white;
-  border-radius: 0 0 10px 10px; */
-  display: flex;
-  width: 60%;
-  height: 100%;
-  align-items: center;
-  justify-content: space-between;
-  flex-direction: row;
-}
-#header-logo {
-  width: 130px;
-}
-
-.menu-space a {
-  margin: 0 10px;
-}
-.menu-icon img {
-  height: 30px;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  z-index: 1;
-  width: 100px;
-}
-
-.dropdown-content a {
-  line-height: 24px;
-  display: block;
-  text-align: center;
-}
-
-#dropdown {
-  position: relative;
-}
-
-#dropdown:hover .dropdown-content {
-  display: block;
-  left: -32px;
-}
-
-/* footer */
-
-footer {
-  width: 100%;
-  margin-top: 50px;
-  padding: 20px 0;
-  background-color: var(--main-black);
-  color: white;
-  text-align: center;
-  font-size: small;
-}
-#footerLogo {
-  width: 110px;
-  margin: 15px;
-}
-footer a {
-  margin: 15px;
-}
-footer p {
-  color: white;
-  margin-top: 20px;
+main {
+  height: auto;
+  min-height: 100%;
+  padding-top: 150px;
+  padding-bottom: 250px;
+  /* padding-left: 20%;
+  padding-right: 20%; */
 }

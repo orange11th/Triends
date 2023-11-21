@@ -1,21 +1,42 @@
-<script setup></script>
+<script setup>
+import "@/assets/css/footer.css";
+</script>
 
 <template>
-  <footer class="footer">
-    <div class="content">
-      <li>Kwon Hyun Jeong</li>
-      <li>Park Si Yeon</li>
-      <li>Lee Hyo Jae</li>
-    </div>
+  <footer>
+    <section>
+      <div class="logo-space">
+        <a href="#">
+          <img src="/src/assets/img/icon/footer-logo.svg" alt="" id="sub-logo"/>
+        </a>
+        <div class="copyright-space">
+          <p>　</p>
+          <p>Samsung Software Academy For Youth</p>
+          <p>2023 ⓒ All rights reserved</p>
+        </div>
+      </div>
+      <div class="content-space">
+        <div>
+          <span class="subtitle">Promoter</span>
+          <span>Kwon Hyun Jeong</span>
+          <span>Lee Hyeo Jae</span>
+          <span>Park Si Yeon</span>
+        </div>
+        <div>
+          <span class="subtitle">Designer</span>
+          <span>Kwon Hyun Jeong</span>
+          <span>Lee Hyeo Jae</span>
+          <span>Park Si Yeon</span>
+        </div>
+        <div>
+          <span class="subtitle">Devleoper</span>
+          <span>Kwon Hyun Jeong</span>
+          <span>Lee Hyeo Jae</span>
+          <span>Park Si Yeon</span>
+        </div>
+      </div>
+    </section>
   </footer>
 </template>
 
-<style scoped>
-.footer {
-  background-color: #2A323C;
-  text-align: center;
-  padding: 20px 0;
-  color: white;
-  margin: 50px 0 0 0;
-}
-</style>
+<style scoped></style>
