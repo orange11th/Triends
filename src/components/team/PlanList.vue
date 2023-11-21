@@ -1,21 +1,24 @@
 <template>
-  
   <div class="playground">
-    
     <div v-for="(item, idx) in state.lists" :key="item.id" class="col"
-         @drop.prevent="onDrop($event, idx)"
-         @dragenter.prevent
-         @dragover.prevent>
-         <div class="box-title">{{ item.date }}</div>
-             <!-- 박스 삭제 버튼 추가: id가 1보다 큰 경우에만 표시 -->
+    @drop.prevent="onDrop($event, idx)"
+    @dragenter.prevent
+    @dragover.prevent>
+    <div class="title-and-delete-container">
+    <div class="box-title">{{ item.date }}</div>
       <div v-if="item.id > 1" class="delete-box-button">
-        <button @click="deleteBox(idx)">X</button>
+        <button class="delete-button delete-box-button-position" @click="deleteBox(idx)">
+            <svg viewBox="0 0 22 22">
+                <circle cx="11" cy="11" r="10"></circle>
+            </svg>
+            <div class="cross"></div>
+        </button>
+        
+        <!-- <button @click="deleteBox(idx)">X</button> -->
       </div>
+    </div>
       <div v-if="item.id === 1" class="travel-destination">
-        후보 여행지
-        <!-- 새로운 아이템 입력 필드 -->
       <div class="new-item-input">
-        <!-- <input type="date" v-model="newItem.date" /> -->
         <select
         name="selectSidoCode"
         id="selectSidoCode"
@@ -35,27 +38,42 @@
       type="text"
       v-model="param.keyword"
       placeholder="키워드를 입력하세요!"
+      @keyup.enter="searchAttractionList"
       />
       <button @click="searchAttractionList">검색</button>
-<!--       
-      <input type="text" v-model="newItem.content" placeholder="관광지 검색" />
-      
-      
-      <div>이런 형태로 관광지들이 쫘르륵 뜨게!</div>
-      
 
-      <button @click="register">검색</button> -->
+
+      <div class="search-space">
+          <input
+            type="text"
+            v-model="param.keyword"
+            placeholder="키워드를 입력하세요!"
+            @keyup.enter="searchAttractionList"
+          />
+          <a @click="searchAttractionList">
+            <img src="@/assets/img/icon/search-icon.svg" alt="검색" />
+          </a>
+        </div>
     </div>
-      </div>
-      
 
+    
+      </div>
       <div v-for="(numItem, numIdx) in item.numberList" :key="numIdx" class="box" draggable="true" @dragstart="startDrag($event, numItem, idx)">
       <div class="content-with-delete-button">
+        <div class="content-container">
+        <img :src="numItem.image" class="box-image">
         <p>{{ numItem.title }}</p>
-        <button @click="deleteItem(numItem, idx)">X</button>
+        </div>
+        <!-- <button class="delete-button" @click="deleteItem(numItem, idx)">X</button> -->
+        <button class="delete-button delete-item-button-position" @click="deleteItem(numItem, idx)">
+            <svg viewBox="0 0 22 22">
+                <circle cx="11" cy="11" r="10"></circle>
+            </svg>
+            <div class="cross"></div>
+        </button>
+      
       </div>
     </div>
-    
     </div>
   </div>
   <div class="new-item-input">
@@ -88,7 +106,6 @@ const sidoCode = ref(1);
 watch(sidoCode, (newVal) => {
   param.value.sido = newVal;
 });
-const attractions = ref([]);
 const param = ref({
   sido: sidoCode.value,
   keyword: "",
@@ -142,45 +159,6 @@ const searchAttractionList = () => {
 };
 
 
-// const searchAttractionList = () => {
-//   console.log("검색합니다.", param.value);
-//   searchList(
-//     param.value,
-//     ({ data }) => {
-//       console.log(data);
-//       // 데이터 변환
-//       const transformedData = data.map(item => ({
-//         content: item.contentId,
-//         // contentId: item.contentId,
-//         // title: item.title,
-//         // 기타 필요한 필드
-//       }));
-
-//       // index=1번 요소의 numberList에 데이터 추가
-//       const firstItem = state.lists.find(item => item.id === 1);
-//       if (firstItem) {
-//         firstItem.numberList.push(...transformedData);
-//       }
-//     },
-//     (error) => {
-//       console.log(error);
-//     }
-//   );
-// };
-
-
-const addToStateLists = (newData) => {
-  // newData는 변환된 관광지 정보 배열
-  newData.forEach(item => {
-    state.lists.push({
-      id: state.lists.length + 1, // 혹은 적절한 고유 ID
-      content: item,
-      // 기타 필요한 필드
-    });
-  });
-};
-
-
 onMounted(() => {
   getPlanList();
 });
@@ -190,7 +168,7 @@ const getPlanList = () => {
     ({ data }) => {
       data.forEach(plan => {
           addPlanToStateLists(plan);
-        });
+      });
     },
       (error) => {
       console.log(error)
@@ -198,30 +176,9 @@ const getPlanList = () => {
   );
 }
 
-// const getPlanList = () => {
-//   planList(route.params.teamId,
-//     ({ data }) => {
-//       data.forEach(plan => {
-//         addPlanToStateLists(plan);
-//       });
-//       state.lists.sort((a, b) => {
-//       const dateA = new Date(a.date);
-//       const dateB = new Date(b.date);
-//       return dateA - dateB;
-//     });
-//       // state.lists.sort((a, b) => new Date(a.date) - new Date(b.date));
-//       // sortStateListsByDate(); // 정렬 실행
-//     },
-//     (error) => {
-//       console.log(error);
-//     }
-//   );
-// };
-
 const sortStateListsByDate = () => {
   state.lists.sort((a, b) => new Date(a.date) - new Date(b.date));
 };
-
 
 const addPlanToStateLists = (plan) => {
   // YYYYMMDD 형식에서 YYYY, MM, DD 추출
@@ -244,7 +201,8 @@ const addPlanToStateLists = (plan) => {
     ({ data }) => {
       newBox.numberList = data.map(place => ({
       content: place.placeId, // placeId (혹은 적절한 속성 이름)를 content로 설정
-      title: place.title      // title 속성 추가
+      title: place.title,      // title 속성 추가
+      image: place.image
     }));
 
       // newBox.numberList = data.map(place => ({ content: place.placeId }));
@@ -257,21 +215,14 @@ const addPlanToStateLists = (plan) => {
     );
 };
 
-
-
-//todo : like 눌렀으면 눌렀따고 표시하기
-//todo : 게시물 삭제
-
-  const state = reactive({
-    lists: [
-      {
-        id: 1,
-        numberList: [] //[ { content: 125266 }, { content: 125405 }, { content: 125406 }, { content: 125407 } ]
-      },
-    ]
-  });
-
-
+const state = reactive({
+  lists: [
+    {
+      id: 1,
+      numberList: []
+    },
+  ]
+});
 
 const addNewBox = () => {
   if (newItem.date) {
@@ -288,104 +239,47 @@ const addNewBox = () => {
   }
 };
 
-
-// 새 컬럼 추가 함수
-// const register = () => {
-//     if (newItem.content) {
-//       const newBoxItem = {
-//         content: newItem.content,
-//       };
-//       const firstColumn = state.lists.find(column => column.id === 1);
-//       if (firstColumn) firstColumn.numberList.push(newBoxItem);
-//       newItem.content = '';
-//     }
-//   };
 const newItem = reactive({
     content: '',
     date: ''
 });
 
 const startDrag = (event, item, listIndex) => {
-  // 드래그할 아이템의 정보와 원래 위치(리스트 인덱스)를 설정
   event.dataTransfer.setData('draggedItem', JSON.stringify(item));
   event.dataTransfer.setData('fromListIndex', listIndex.toString());
 };
 const onDrop = (event, toListIndex) => {
-  // 드래그된 아이템과 그 원래 위치를 데이터 전송 객체에서 가져옴
   const draggedItem = JSON.parse(event.dataTransfer.getData('draggedItem'));
   const fromListIndex = parseInt(event.dataTransfer.getData('fromListIndex'));
 
-  // 드래그된 아이템이 원래 있던 리스트에서 제거
   const fromList = state.lists[fromListIndex];
   const itemIndex = fromList.numberList.findIndex(item => item.content === draggedItem.content);
   if (itemIndex > -1) {
     fromList.numberList.splice(itemIndex, 1);
   }
 
-  // 드래그된 아이템을 새 위치에 추가
   const toList = state.lists[toListIndex];
   toList.numberList.push(draggedItem);
 };
 
-// const savePlans = () => {
-//   const plan = state.lists
-//     .filter(item => item.id >= 2)
-//     .map(item => {
-//       return {
-//         date: item.date,
-//         place: item.numberList.map(numItem => numItem.content)
-//       };
-//     });
-    
-//   console.log(plan); // 저장된 계획 확인
-
-  
-// };
-
-
-
-// const savePlans = () => {
-//   const newPlans = state.lists
-//     .filter(item => item.id >= 2 && !plans.value.some(p => p.date === item.date))
-//     .map(item => {
-//       const formattedDate = item.date.replace(/-/g, '');
-//       return {
-//         date: formattedDate,
-//         places: item.numberList.map(numItem => numItem.content)
-//       };
-//     });
-
-
-//   saveNewPlan(route.params.teamId, newPlans);
-
-//   console.log("저장");
-// };
-
-
 const savePlans = () => {
   const newPlans = state.lists
-    .filter(item => item.id >= 2 && !plans.value.some(p => p.date === item.date))
-    .map(item => {
-      const formattedDate = item.date.replace(/-/g, '');
-      const places = item.numberList.map(numItem => ({
-        title: numItem.title,  // 제목 추가
-        content: numItem.content // 콘텐츠 ID
-      }));
+  .filter(item => item.id >= 2 && !plans.value.some(p => p.date === item.date))
+  .map(item => {
+    const formattedDate = item.date.replace(/-/g, '');
+    const places = item.numberList.map(numItem => ({
+      title: numItem.title,  // 제목 추가
+      content: numItem.content, // 콘텐츠 ID
+      image: numItem.image,
+    }));
+    console.log(places);
       return {
         date: formattedDate,
         places: places
       };
     });
     saveNewPlan(route.params.teamId, newPlans);
-  // 서버에 newPlans 전송
-  // 예: axios.post('/api/save/' + teamId, newPlans)
 };
-
-
-
-
-
-
 
 const deleteItem = (item, listIndex) => {
   const list = state.lists[listIndex];
@@ -404,58 +298,39 @@ const deleteBox = (index) => {
   </script>
   
   <style scoped>
-  .playground {
-    display: flex;
-    flex-direction: row; /* 박스들을 수평으로 나열 */
-  }
-  
-  .col {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 500px;
-    width: 150px;
-    background-color: #fff;
-    border: 1px solid lightgrey;
-    margin-left: 5px;
-    border-radius: 8px;
-  }
-  
-  .content-with-delete-button {
+.content-with-delete-button {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-
 .box p {
   margin: 0; /* p 태그의 기본 마진 제거 */
   font-size: 1.1em; /* 폰트 크기 증가 */
-  color: white; /* 폰트 색상 */
+  color: darkslategray; /* 폰트 색상 */
 }
 
-.attraction-image {
-  width: 180px; /* 이미지 크기 조정 */
-  height: auto; /* 이미지 높이 자동 조정 */
-}
+
 .box {
   width: 200px; /* 박스 너비 설정 */
-  min-height: 50px; /* 박스 최소 높이 설정 */
+  min-height: 250px; /* 박스 최소 높이 설정 */
   margin-top: 10px; /* 박스 간의 상단 마진 */
-  padding: 10px; /* 내부 패딩 */
-  background-color: #7b71b7; /* 박스 배경색 */
-  border-radius: 5px; /* 박스 테두리 둥글기 */
+  padding: 15px; /* 내부 패딩 증가 */
+  background-color: #fff; /* 박스 배경색을 흰색으로 변경 */
+  border-radius: 10px; /* 박스 테두리 둥글기 증가 */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); /* 그림자 효과 추가 */
   box-sizing: border-box; /* 패딩을 포함한 박스 크기 계산 */
-
-  /* 콘텐츠가 많아지면 박스 높이가 자동으로 늘어남 */
   display: flex;
   flex-direction: column;
+  justify-content: center; /* 세로 방향 중앙 정렬 */
+  align-items: center; /* 가로 방향 중앙 정렬 */
+  transition: transform 0.3s; /* 부드러운 변환 효과 추가 */
 }
 
-.box p {
-  margin: 0 0 10px 0; /* 아래쪽 마진 추가 */
-  word-wrap: break-word;
+.box:hover {
+  transform: scale(1.05); /* 마우스 오버 시 약간 확대 */
 }
+
 .col {
   display: flex;
   flex-direction: column;
@@ -465,27 +340,251 @@ const deleteBox = (index) => {
   background-color: #fff;
   border: 1px solid lightgrey;
   border-radius: 8px;
-  max-height: 500px; /* 최대 높이 설정 */
+  max-height: 600px; /* 최대 높이 설정 */
   overflow-y: auto; /* 세로 스크롤바가 필요할 때 나타남 */
+  flex: 0 0 300px;
+}
+
+.playground {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+}
+
+
+
+.box-image {
+  width: 150px; /* 이미지 너비 고정 */
+  height: 150px; /* 이미지 높이 고정 */
+  object-fit: cover; /* 이미지를 컨테이너에 맞추고 필요한 경우 잘라냄 */
+  object-position: center; /* 이미지의 중앙 부분을 항상 표시 */
+  display: block;
+  margin: 30px auto 0; /* 상단 여백 30px, 나머지는 자동으로 조정 */
+  border-radius: 10px;
 }
 
 
 .playground {
   display: flex;
   flex-direction: row;
-  overflow-x: auto; /* 가로 스크롤바 설정 */
-  /* 기타 스타일 */
+  overflow-x: auto; /* 요소들이 넘칠 때 가로 스크롤바 생성 */
 }
 
+.content-container {
+  display: flex; /* Flexbox 레이아웃 사용 */
+  flex-direction: column; /* 자식 요소들을 세로 방향으로 정렬 */
+  justify-content: center; /* 세로 방향 중앙 정렬 */
+  align-items: center; /* 가로 방향 중앙 정렬 */
+  width: 100%;
+  text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+.box {
+  position: relative; /* 상대적 위치 설정 */
+  /* 기존 스타일 유지 */
+}
+
+
+ .delete-button {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  opacity: 0.5;
+  filter: gray;
+  -webkit-filter: grayscale(100%);
+  transition: all 0.3s ease;
+}
+
+.delete-button svg {
+  display: block;
+  width: 100%;
+  fill: none;
+  height: 100%;
+  stroke: #F26175;
+  stroke-width: 2;
+}
+.delete-button svg circle {
+  stroke-dasharray: 64;
+  transition: all 0.3s ease;
+}
+
+.delete-button .cross {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(135deg);
+  transition: all 0.3s ease;
+}
+
+.delete-button .cross:before, .delete-button .cross:after {
+  content: "";
+  position: absolute;
+  background: #F26175; /* 십자가 색상 */
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(0deg); /* 수직 교차로 X 모양 생성 */
+  transition: all 0.3s ease;
+}
+
+.delete-button .cross:before {
+  width: 15px; /* 가로선 길이 */
+  height: 3px; /* 가로선 두께 */
+}
+
+.delete-button .cross:after {
+  width: 3px; /* 세로선 두께 */
+  height: 15px; /* 세로선 길이 */
+}
+
+
+.delete-button:hover {
+  filter: none;
+  -webkit-filter: grayscale(0%);
+  opacity: 1;
+} 
+/* .delete-button {
+  position: absolute; 
+  top: 10px; 
+  right: 10px; 
+ } */
+ .box-title {
+  font-size: 1.4em; /* 폰트 크기를 증가시켜 제목처럼 보이게 함 */
+  font-weight: bold; /* 굵은 글씨체로 표시 */
+  color: #333; /* 제목의 색상 */
+  margin-bottom: 15px; /* 제목 아래에 여백 추가 */
+  text-align: center; /* 중앙 정렬 */
+  width: 100%; /* 전체 너비 사용 */
+}
+/* 첫 번째 delete-button 위치 */
+/* .delete-box-button-position {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+} */
+
+
+/* 두 번째 delete-button 위치 */
+.delete-item-button-position {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+}
+.title-and-delete-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative; /* 상대적 위치 설정 */
+}
+
+.box-title {
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+  margin-top: 20px; /* 상단 여백 추가 */
+  text-align: center;
+  width: 100%;
+}
+
+
+.delete-box-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.playground {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto; /* 요소들이 넘칠 때 가로 스크롤바 생성 */
+}
+
+/* col 클래스에 스크롤바 스타일 적용 */
 .col {
-  flex-shrink: 0; /* 컬럼 축소 방지 */
-  width: 150px; /* 혹은 적절한 너비 */
-  max-height: 500px; /* 세로 최대 높이 */
-  overflow-y: auto; /* 세로 스크롤바 설정 */
-  /* 기타 스타일 */
+  /* 기존 스타일 유지 */
+  overflow-y: scroll; /* 스크롤바 활성화 */
 }
 
+.col::-webkit-scrollbar {
+  width: .4em; 
+}
 
+.col::-webkit-scrollbar,
+.col::-webkit-scrollbar-thumb {
+  overflow: visible;
+  border-radius: 4px;
+}
 
+.col::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,.2); 
+}
+
+/* 스크롤바 숨김 효과를 위한 커버 스타일 */
+.col-cover {
+  position: absolute;
+  background: #fff;
+  height: 100%;  
+  top: 0;
+  right: 0;
+  width: .4em;
+  transition: all .5s;
+  opacity: 1;
+}
+
+/* 마우스 오버하지 않았을 때 스크롤바 숨김 */
+.col::-webkit-scrollbar-thumb {
+  background-color: transparent; /* 투명한 스크롤바 */
+}
+
+/* 마우스 오버 시 스크롤바 표시 */
+.col:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2); /* 스크롤바 색상 설정 */
+}
+
+/* 가로 스크롤바가 있는 요소에 대한 기본 스타일 */
+.playground {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto; /* 가로 스크롤바 활성화 */
+}
+
+/* 웹킷 브라우저용 스크롤바 스타일 */
+.playground::-webkit-scrollbar {
+  height: .4em; /* 스크롤바 높이 설정 */
+}
+
+/* 기본 상태에서 스크롤바 숨김 */
+.playground::-webkit-scrollbar-thumb {
+  background-color: transparent; /* 투명한 스크롤바 */
+}
+
+/* 마우스 오버 시 스크롤바 표시 */
+.playground:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2); /* 스크롤바 색상 설정 */
+}
+.search-space {
+  background-color: white;
+  border: solid 1px;
+  border-color: var(--gray);
+  border-radius: 100px;
+  padding: 5px 10px;
+  display: flex;
+  height: 40px;
+  margin-top: 10px;
+  flex-direction: row;
+}
+.search-space input {
+  border: none;
+}
+.search-space input:focus {
+  outline: none;
+}
+.search-space img {
+  width: 20px;
+  margin: 5px;
+}
   </style>
   
