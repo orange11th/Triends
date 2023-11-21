@@ -10,4 +10,6 @@ public interface MemberService {
 
 	Member userInfo(String userId);
 
+	void modify(Member member);
+
 }

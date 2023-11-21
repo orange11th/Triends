@@ -8,6 +8,16 @@
 		<result column="user_name" property="userName" />
 		<result column="user_pass" property="userPass" />
 	</resultMap>
+	
+	<update id="update" parameterType="member">
+		update member
+		set
+		user_name = #{userName},
+		user_pass = #{userPass},
+		email = #{email},
+		phone = #{phone}
+		where user_id = #{userId}
+	</update>
 
 	<select id="select" resultMap="memberMap">
 		select user_id, user_name, user_pass, email, phone
