@@ -32,6 +32,7 @@ public class PlanController {
 	
 	@PostMapping("save/{teamId}")
     public ResponseEntity<?> save(@PathVariable int teamId, @RequestBody List<Map<String, Object>> plans) {
+		System.out.println("save!");
 		System.out.println(plans);
 		try {
 			planService.savePlans(teamId, plans);
@@ -80,6 +81,8 @@ public class PlanController {
 	public ResponseEntity<?> listPlanPlace(@PathVariable int planId) {
 		try {
 			List<PlanPlace> planPlaceList = planService.listPlanPlace(planId);
+			System.out.println("planPlaceList");
+			System.out.println(planPlaceList);
 			HttpHeaders header = new HttpHeaders();
 			header.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
 			return ResponseEntity.ok().headers(header).body(planPlaceList);

@@ -58,6 +58,7 @@ public class PlanServiceImpl implements PlanService {
 	            planPlace.setPlanId(planId);
 	            planPlace.setPlaceId((Integer) place.get("content")); // content ID 추출
 	            planPlace.setTitle((String) place.get("title")); // title 추출
+	            planPlace.setImage((String) place.get("image"));
 	            planMapper.insertPlanPlace(planPlace); // 새 PlanPlace 삽입
 	        }
 	    }
