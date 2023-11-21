@@ -24,12 +24,6 @@ watch(sidoCode, (newVal) => {
   param.value.sido = newVal;
 });
 
-// const onMoveMap = (map) => {
-//   map.setCenter(
-//     new window.naver.maps.LatLng(selectSido.value.lat, selectSido.value.lng)
-//   );
-// };
-
 const selectSido = ref([
   { text: "서울특별시", value: "1", lat: "37.5666", lng: "126.9784" },
   { text: "인천광역시", value: "2", lat: "37.456", lng: "126.7052" },
@@ -70,6 +64,13 @@ function getAttractionList() {
     (error) => console.error()
   );
 }
+
+watch(sidoCode, (newVal) => {
+  const selectedSido = selectSido.value.find(sido => sido.value === newVal);
+  if (selectedSido && map.value) {
+    map.value.setCenter(new naver.maps.LatLng(selectedSido.lat, selectedSido.lng));
+  }
+});
 
 const param = ref({
   sido: sidoCode.value,
