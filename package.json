@@ -9,6 +9,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@types/navermaps": "^3.7.3",
     "axios": "^1.6.2",
     "bootstrap": "^5.3.2",
     "http-status": "^1.7.3",

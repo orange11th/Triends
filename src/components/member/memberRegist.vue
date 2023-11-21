@@ -90,7 +90,7 @@ function moveLogin() {
 </template>
 <style scoped>
 h1 {
-  margin: 50px;
+  margin-bottom: 40px;
 }
 .diff-pass {
   font-size: 11px;

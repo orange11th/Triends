@@ -1,14 +1,15 @@
 <script setup>
-import { reactive, ref, onMounted } from "vue";
+import { ref, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import { useMemberStore } from "@/stores/member";
+import { userModify } from "@/api/member";
 
 const route = useRoute();
 const router = useRouter();
 const memberStore = useMemberStore();
 
-const clickedItem = ref(null); // 클릭된 아이템을 추적하기 위한 ref 생성
+const { getUserInfo } = memberStore;
 
 const startEditing = (no) => {
   isEditing.value[no] = true;
@@ -35,6 +36,15 @@ const changeUserInfo = ref({
   phone: ""
 });
 
+function modify() {
+  userModify(changeUserInfo.value,
+  ()=>{
+    getUserInfo(sessionStorage.getItem("accessToken"));
+   changed.value=false},
+  (error)=>(console.log(error)))
+  changeUserInfo.value.userPass=null;
+}
+
 onMounted(() => {
   checkToken(sessionStorage.getItem("accessToken"));
   if (!isValidToken.value) {
@@ -50,13 +60,23 @@ onMounted(() => {
   <div class="container">
     <div class="row">
       <!-- 사진 div (왼쪽) -->
-      <div class="col-md-6 image-div">
+      <div class="col-md-5 image-div">
         <img class="profile-image img-fluid" src="@/assets/img/slide/5.jpg" alt="" />
       </div>
+      <div class="col-md-1">
+      </div>
       <!-- 개인정보 div (오른쪽) -->
-      <div class="col-md-6">
+      <div class ="col-md-1">
+          <!-- <h1 style="margin: 80px 0 20px 0;">ID</h1>
+          <h1 style="margin: 32px 0;">Name</h1>
+          <h1 style="margin: 32px 0;">Pass</h1>
+          <h1 style="margin: 32px 0;">Email</h1>
+          <h1 style="margin: 32px 0;">Phone</h1> -->
+      </div>
+      <div class="col-md-5">
         <div class="col">
           <!-- 계획 제목 -->
+          <!-- <h1>My Info</h1> -->
           <div class="plan-title">
             <div style="padding:8px;">
               {{ changeUserInfo.userId }}
@@ -72,9 +92,9 @@ onMounted(() => {
           <div class="plan-title">  
             <div class="editable-text" v-if="!isEditing[2]" @click="startEditing(2)">
               <span v-if="!changeUserInfo.userPass">비밀번호 변경</span>
-              <span v-else>변경할 비밀번호: {{changeUserInfo.userPass}}</span> 
+              <span v-else>새 비밀번호: {{changeUserInfo.userPass}}</span> 
             </div>
-            <input v-else v-model="changeUserInfo.userPass" @blur="stopEditing(2)" placeholder="변경할 비밀번호" />
+            <input v-else v-model="changeUserInfo.userPass" @blur="stopEditing(2)" placeholder="새 비밀번호" />
           </div>
           <div class="plan-title">  
             <div class="editable-text" v-if="!isEditing[3]" @click="startEditing(3)">
@@ -88,7 +108,7 @@ onMounted(() => {
             </div>
             <input v-else v-model="changeUserInfo.phone" @blur="stopEditing(4)" placeholder="변경할 전화번호" />
           </div>
-          <button v-if="changed">수정하기</button>
+          <button class="modify-button" v-if="changed" @click="modify">수정하기</button>
         </div>
       </div>
     </div>
@@ -96,6 +116,30 @@ onMounted(() => {
 </template>
 
 <style scoped>
+.col{
+  position: relative;
+}
+.modify-button{
+  display: block;
+  position: absolute;
+  right: 14px;
+  float: left;
+  width: 120px;
+  padding: 0;
+  margin: 10px 20px 10px auto;
+  font-weight: 600;
+  text-align: center;
+  line-height: 50px;
+  color: #FFF;
+  border-radius: 5px;
+  transition: all 0.2s ;
+  background: #5DC8CD;
+  border-style: none;
+}
+.modify-button:hover{
+  background: #01939A;
+}
+
 .profile-image {
   border-radius: 100%;
 }

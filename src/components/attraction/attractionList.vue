@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, watch } from "vue";
+import { defineComponent, onMounted, ref, watch } from "vue";
 import { attractionList, searchList } from "@/api/attraction";
 import { useRouter } from "vue-router";
 import { NaverMap, NaverMarker, NaverInfoWindow } from "vue3-naver-maps";
@@ -8,6 +8,8 @@ import { NaverMap, NaverMarker, NaverInfoWindow } from "vue3-naver-maps";
 
 import "@/assets/css/attraction/map.css";
 import "@/assets/css/attraction/list.css";
+
+
 
 const router = useRouter();
 
@@ -120,35 +122,35 @@ const onShowInfoWindow = (index) => {
 const onLoadInfoWindow = (infoWindowObject) => {
   infoWindow.value = infoWindowObject;
 };
+
+const infoWindowOptions = ref({
+  maxWidth: 250,
+  backgroundColor: "transparent",
+  borderColor: "#2db400",
+  borderWidth: 0,
+  disableAnchor: true, //화살표 미사용
+  // anchorSize: new naver.maps.Size(15, 15),  //아래 화살표 (깊이,넓이)
+  anchorSkew: true, //화살표 기울이기
+  anchorColor: "#000",
+  // pixelOffset: new naver.maps.Point(100, 0) //정보 창의 꼬리에서 정보 창이 위치한 지점까지의 오프셋
+})
 </script>
 
 <template>
   <div class="main">
     <div class="map">
-      <naver-map
-        style="width: 100%; height: 700px"
-        :mapOptions="mapOptions"
-        :initLayers="initLayers"
-        @onLoad="onLoadMap($event)"
-      >
+      <naver-map style="width: 100%; height: 700px" :mapOptions="mapOptions" :initLayers="initLayers"
+        @onLoad="onLoadMap($event)">
         <div v-for="(attraction, index) in attractions" :key="attraction.contentId">
-          <naver-marker
-            :latitude="attraction.latitude"
-            :longitude="attraction.longitude"
-            @onLoad="onLoadMarker(index, $event)"
-            @mouseover="onShowInfoWindow(index)"
-            @mouseout="isOpen = false"
-            @click="moveDetail(attraction.contentId)"
-          >
+          <naver-marker :latitude="attraction.latitude" :longitude="attraction.longitude"
+            @onLoad="onLoadMarker(index, $event)" @mouseover="onShowInfoWindow(index)" @mouseout="isOpen = false"
+            @click="moveDetail(attraction.contentId)">
           </naver-marker>
         </div>
-        <naver-info-window
-          :marker="currentAttraction.marker"
-          :open="isOpen"
-          @onLoad="onLoadInfoWindow($event)"
-        >
-          <div class="infoWindow-content" style="width: 250px">
-            <img :src="currentAttraction.firstImage" alt="" style="width: 100%" />
+        <naver-info-window class="naver-info-window" :marker="currentAttraction.marker" :open="isOpen" :options="infoWindowOptions"
+          @onLoad="onLoadInfoWindow($event)">
+          <div class="infoWindow-content" style="width: 250px;">
+            <img :src="currentAttraction.firstImage" alt="" style="width: 100%; margin-bottom: 10px;" />
             <h4>{{ currentAttraction.title }}</h4>
             <p class="addr">{{ currentAttraction.addr1 }}</p>
             <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">
@@ -163,24 +165,15 @@ const onLoadInfoWindow = (infoWindowObject) => {
       <h2>여행지 탐색</h2>
       <div class="input-space">
         <div class="select-space">
-          <select
-            name="selectSidoCode"
-            id="selectSidoCode"
-            v-model="sidoCode"
-            @change="getAttractionList()"
-          >
+          <select name="selectSidoCode" id="selectSidoCode" v-model="sidoCode" @change="getAttractionList()">
             <optgroup label="시/도 선택">
               <option v-for="option in selectSido" :key="option.value" :value="option.value">
                 {{ option.text }}
               </option>
             </optgroup>
           </select>
-          <select
-            name="selectContentTypeId"
-            id="selectContentTypeId"
-            v-model="contentTypeId"
-            @change="getAttractionList()"
-          >
+          <select name="selectContentTypeId" id="selectContentTypeId" v-model="contentTypeId"
+            @change="getAttractionList()">
             <optgroup label="카테고리 선택">
               <option v-for="option in selectContentType" :key="option.value" :value="option.value">
                 {{ option.text }}
@@ -189,12 +182,7 @@ const onLoadInfoWindow = (infoWindowObject) => {
           </select>
         </div>
         <div class="search-space">
-          <input
-            type="text"
-            v-model="param.keyword"
-            placeholder="키워드를 입력하세요!"
-            @keyup.enter="searchAttractionList"
-          />
+          <input type="text" v-model="param.keyword" placeholder="키워드를 입력하세요!" @keyup.enter="searchAttractionList" />
           <a @click="searchAttractionList">
             <img src="@/assets/img/icon/search-icon.svg" alt="검색" />
           </a>
@@ -208,20 +196,13 @@ const onLoadInfoWindow = (infoWindowObject) => {
           <div class="text-space" @click.prevent="moveDetail(attraction.contentId)">
             <h5>{{ attraction.title }}</h5>
             <p class="addr">{{ attraction.addr1 }}</p>
-            <p
-              class="overview"
-              style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis"
-            >
+            <p class="overview" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis">
               {{ attraction.overview }}
             </p>
           </div>
           <!-- <heart></heart> -->
-          <img
-            id="attraction-img"
-            :src="attraction.firstImage"
-            @click.prevent="moveDetail(attraction.contentId)"
-            alt="사진"
-          />
+          <img id="attraction-img" :src="attraction.firstImage" @click.prevent="moveDetail(attraction.contentId)"
+            alt="사진" />
         </a>
         <hr />
       </div>
@@ -229,7 +210,18 @@ const onLoadInfoWindow = (infoWindowObject) => {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.naver-info-window{
+  padding: 30px;
+  display: flex;
+  width: 280px; 
+  background-color: rgb(255, 255, 255); 
+  border-radius: 10%;
+  justify-content: center;
+  border: 3px solid rgb(108, 108, 247);
+  /* text-align: center; */
+}
+</style>
 <!-- 시도코드 값				   타입 아이디 값
 1	  서울				     12	관광지
 2	  인천				     14	문화시설

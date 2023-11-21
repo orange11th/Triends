@@ -22,4 +22,8 @@ async function check(success,fail){
   await local.get(`/member/check`).then(success).catch(fail);
 }
 
-export { userConfirm, memberRegist, findById, check };
+async function userModify(param,success,fail){
+  await local.put(`/member`,JSON.stringify(param)).then(success).catch(fail);
+}
+
+export { userConfirm, memberRegist, findById, check, userModify };
