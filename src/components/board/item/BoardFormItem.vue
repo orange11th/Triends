@@ -6,7 +6,7 @@ import { registArticle } from "@/api/board";
 const router = useRouter();
 const route = useRoute();
 
-const props = defineProps({ type: String });
+const props = defineProps({ type: String, userId: String });
 
 const isUseId = ref(false);
 
@@ -47,7 +47,6 @@ watch(
   { immediate: true }
 );
 
-
 function onSubmit() {
   if (subjectErrMsg.value) {
     alert(subjectErrMsg.value);
@@ -61,20 +60,20 @@ function onSubmit() {
 function writeArticle() {
   console.log("글등록하자!!", article.value);
 
-
   const form = new FormData();
-  form.append('file', article.value.file);
-  form.append('title', article.value.title);
-  form.append('content', article.value.content);
-  form.append('userId', article.value.userId);
+  form.append("file", article.value.file);
+  form.append("title", article.value.title);
+  form.append("content", article.value.content);
+  form.append("userId", props.userId);
 
-
-  registArticle(form, (response) => {
-    console.log(response)
-    router.replace({ name: "article-list" });
-  },
+  registArticle(
+    form,
+    (response) => {
+      console.log(response);
+      router.replace({ name: "article-list" });
+    },
     (error) => {
-    console.log(error)
+      console.log(error);
     }
   );
 }
@@ -85,19 +84,17 @@ function onFileChange(e) {
 
 function updateArticle() {
   console.log(article.value.articleNo + "번글 수정하자!!", article.value);
-   // API 호출
+  // API 호출
 }
 
 function moveList() {
   router.push({ name: "article-list" });
 }
-
-
 </script>
 
 <template>
   <form @submit.prevent="onSubmit">
-    <div class="mb-3">
+    <!-- <div class="mb-3">
       <label for="userid" class="form-label">작성자 ID : </label>
       <input
         type="text"
@@ -106,7 +103,7 @@ function moveList() {
         :disabled="isUseId"
         placeholder="작성자ID..."
       />
-    </div>
+    </div> -->
     <div class="mb-3">
       <label for="title" class="form-label">제목 : </label>
       <input type="text" class="form-control" v-model="article.title" placeholder="제목..." />
@@ -115,7 +112,7 @@ function moveList() {
       <label for="content" class="form-label">내용 : </label>
       <textarea class="form-control" v-model="article.content" rows="10"></textarea>
     </div>
-    <input type="file" @change="onFileChange">
+    <input type="file" @change="onFileChange" />
 
     <div class="col-auto text-center">
       <button type="submit" class="btn btn-outline-primary mb-3" v-if="type === 'regist'">
