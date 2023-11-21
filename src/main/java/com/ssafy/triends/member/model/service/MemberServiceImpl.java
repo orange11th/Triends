@@ -25,6 +25,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 	@Override
 	public void modify(Member member) {
+		if(member.getUserPass() == null)
+			member.setUserPass(memberMapper.selectPassById(member.getUserId()));
 		memberMapper.update(member);
 	}
 }

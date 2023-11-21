@@ -9,6 +9,11 @@
 		<result column="user_pass" property="userPass" />
 	</resultMap>
 	
+	<select id="selectPassById">
+		select user_pass from member
+		where user_id = #{userId}
+	</select>
+	
 	<update id="update" parameterType="member">
 		update member
 		set

@@ -14,4 +14,6 @@ public interface MemberMapper {
 	Member selectById(String userId);
 
 	void update(Member member);
+
+	String selectPassById(String userId);
 }
