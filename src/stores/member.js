@@ -57,7 +57,7 @@ export const useMemberStore = defineStore(
             "getUserInfo() error code [토큰 만료되어 사용 불가능.] ::: ",
             error.response.status
           );
-          isValidToken.value = false;
+          userLogout();
         }
       );
     };

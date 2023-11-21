@@ -11,11 +11,6 @@ const memberStore = useMemberStore();
 const { userLogout, checkToken } = memberStore;
 const { isLogin, isValidToken, userInfo } = storeToRefs(memberStore);
 
-function logout() {
-  userLogout();
-  router.push({ name: "member-login" });
-}
-
 onMounted(() => {
   checkToken(sessionStorage.getItem("accessToken"));
   if (!isValidToken.value) {
@@ -27,7 +22,6 @@ onMounted(() => {
 <template>
   <div>
     {{ userInfo }}
-    <button @click="logout">로그아웃</button>
   </div>
 </template>
 
