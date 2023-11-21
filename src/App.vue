@@ -5,15 +5,13 @@ import TheFooter from "@/components/layout/TheFooter.vue";
 </script>
 
 <template>
-  <header>
-    <TheHeader></TheHeader>
-  </header>
-  <div class="wrapper">
+  <TheHeader></TheHeader>
+
+  <main>
     <RouterView></RouterView>
-  </div>
-  <footer>
-    <TheFooter></TheFooter>
-  </footer>
+  </main>
+
+  <TheFooter></TheFooter>
 </template>
 
 <style scoped></style>

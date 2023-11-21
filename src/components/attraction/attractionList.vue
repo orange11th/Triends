@@ -4,6 +4,9 @@ import { attractionList, searchList } from "@/api/attraction";
 import { useRouter } from "vue-router";
 import { NaverMap, NaverMarker, NaverInfoWindow } from "vue3-naver-maps";
 
+import "@/assets/css/attraction/map.css";
+import "@/assets/css/attraction/list.css";
+
 const router = useRouter();
 
 onMounted(() => {
@@ -117,55 +120,60 @@ const onLoadInfoWindow = (infoWindowObject) => {
 </script>
 
 <template>
-  <div>
-    <h2>여행지 탐색</h2>
-
-    <div class="tmp">
-      <select
-        name="selectSidoCode"
-        id="selectSidoCode"
-        v-model="sidoCode"
-        @change="getAttractionList()"
-      >
-        <optgroup label="시/도 선택">
-          <option
-            v-for="option in selectSido"
-            :key="option.value"
-            :value="option.value"
+  <div class="main">
+    <div class="condition-space">
+      <h2>여행지 탐색</h2>
+      <div class="input-space">
+        <div class="select-space">
+          <select
+            name="selectSidoCode"
+            id="selectSidoCode"
+            v-model="sidoCode"
+            @change="getAttractionList()"
           >
-            {{ option.text }}
-          </option>
-        </optgroup>
-      </select>
-      <select
-        name="selectContentTypeId"
-        id="selectContentTypeId"
-        v-model="contentTypeId"
-        @change="getAttractionList()"
-      >
-        <optgroup label="카테고리 선택">
-          <option
-            v-for="option in selectContentType"
-            :key="option.value"
-            :value="option.value"
+            <optgroup label="시/도 선택">
+              <option
+                v-for="option in selectSido"
+                :key="option.value"
+                :value="option.value"
+              >
+                {{ option.text }}
+              </option>
+            </optgroup>
+          </select>
+          <select
+            name="selectContentTypeId"
+            id="selectContentTypeId"
+            v-model="contentTypeId"
+            @change="getAttractionList()"
           >
-            {{ option.text }}
-          </option>
-        </optgroup>
-      </select>
-      <!-- <form action=""> -->
-      <input
-        type="text"
-        v-model="param.keyword"
-        placeholder="키워드를 입력하세요!"
-      />
-      <button @click="searchAttractionList">검색</button>
-      <!-- </form> -->
+            <optgroup label="카테고리 선택">
+              <option
+                v-for="option in selectContentType"
+                :key="option.value"
+                :value="option.value"
+              >
+                {{ option.text }}
+              </option>
+            </optgroup>
+          </select>
+          <div class="search-space">
+            <input
+              type="text"
+              v-model="param.keyword"
+              placeholder="키워드를 입력하세요!"
+            />
+            <a @click="searchAttractionList">
+              <img src="@/assets/img/icon/magnifying-glass-solid.svg" alt="검색"/>
+            </a>
+            <button @click="searchAttractionList">검색</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="map">
       <naver-map
-        style="width: 100%; height: 600px"
         :mapOptions="mapOptions"
         :initLayers="initLayers"
         @onLoad="onLoadMap($event)"
@@ -212,7 +220,7 @@ const onLoadInfoWindow = (infoWindowObject) => {
     </div>
 
     <div
-      class="tmp"
+      class="list"
       v-for="attraction in attractions"
       :key="attraction.contentId"
     >
