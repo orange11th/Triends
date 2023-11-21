@@ -1,6 +1,6 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue';
-import { insertLike, deleteLike, increaseBoardLike, decreaseBoardLike, checkLikeStatus } from "@/api/board";
+import { insertLike, deleteLike, increaseBoardLike, decreaseBoardLike, checkLikeStatus, deleteArticle } from "@/api/board";
 const props = defineProps({
   userId: String,
   article: Object
@@ -147,6 +147,23 @@ const toggleLike = (articleNo) => {
     );
   }
 };
+
+import { defineEmits } from 'vue';
+
+const confirmDelete = (articleNo) => {
+  if (confirm("정말로 삭제하시겠습니까?")) {
+    deleteArticle(articleNo, (response) => {
+      console.log(response)
+      emit('delete', articleNo);
+    },
+      (error) => {
+      console.log(error)
+      }
+    );;
+  }
+};
+
+const emit = defineEmits(['delete']);
 </script>
 
 <template>
@@ -210,7 +227,6 @@ const toggleLike = (articleNo) => {
       <!-- <button class="like-button" @click="likeArticle">💚</button> -->
       <!-- 고양이 버튼 -->
       
-
       <h1 class="heading">{{ article.title }}</h1>
       <div class="data">
         <span class="user-id">{{ article.userName }}</span>
@@ -222,6 +238,7 @@ const toggleLike = (articleNo) => {
       <p class="texts">
         {{ article.content }}
       </p>
+      <button v-if="props.userId === props.article.userId" @click="confirmDelete(article.no)">삭제</button>
     </div>
   </div>
 </template>

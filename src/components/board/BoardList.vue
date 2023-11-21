@@ -37,6 +37,13 @@ const getArticleList = () => {
 const moveWrite = () => {
   router.push({ name: "article-write" });
 };
+
+// 삭제 이벤트 핸들러
+const handleDeleteArticle = (articleNo) => {
+  // 해당하는 글 번호를 가진 아이템을 배열에서 제거
+  articles.value = articles.value.filter(article => article.no !== articleNo);
+};
+
 </script>
 
 <template>
@@ -61,6 +68,7 @@ const moveWrite = () => {
                   :key="article.no"
                   :article="article"
                   :userId="userId"
+                  @delete="handleDeleteArticle"
                 ></BoardListItem>
         </div>
       </div>

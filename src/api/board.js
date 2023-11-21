@@ -38,6 +38,10 @@ function checkLikeStatus(like, success, fail) {
   local.get(`/like/${like.userId}/${like.boardId}`).then(success).catch(fail);
 }
 
+function deleteArticle(articleNo, success, fail) {
+  local.delete(`/board/${articleNo}`).then(success).catch(fail);
+}
+
 export {
   listArticle,
   registArticle,
@@ -46,4 +50,5 @@ export {
   increaseBoardLike,
   decreaseBoardLike,
   checkLikeStatus,
+  deleteArticle,
 };
