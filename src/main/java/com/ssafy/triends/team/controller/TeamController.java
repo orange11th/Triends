@@ -39,7 +39,8 @@ public class TeamController {
 	//받은 초대 목록
 	@GetMapping("inviteList/{userId}")
 	public ResponseEntity<List<TeamInvite>> myInviteList(@PathVariable String userId){
-		return ResponseEntity.ok().body(teamService.myInviteList(userId));
+		List<TeamInvite> list = teamService.myInviteList(userId);
+		return ResponseEntity.ok().body(list);
 	}
 	
 	@GetMapping("invite/{teamId}/{fromUserId}/{toUserId}")
@@ -86,6 +87,7 @@ public class TeamController {
 	//userId가 속한팀 + 그 팀들 목록
 	@GetMapping("{userId}")
 	public ResponseEntity<List<Team>> listTeamByUserId(@PathVariable String userId) {
-		return ResponseEntity.ok().body(teamService.listTeamByUserId(userId));
+		List<Team> list = teamService.listTeamByUserId(userId);
+		return ResponseEntity.ok().body(list);
 	}
 }
