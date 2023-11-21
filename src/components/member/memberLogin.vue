@@ -21,7 +21,7 @@ const login = async () => {
     getUserInfo(sessionStorage.getItem("accessToken"));
     router.push("/");
   } else {
-    alert("로그인 실패")
+    alert("로그인 실패");
   }
 };
 
@@ -40,7 +40,13 @@ function moveRegist() {
         <input class="login-input" type="text" placeholder="ID" v-model="loginInfo.userId" />
       </div>
       <div>
-        <input class="login-input" type="password" placeholder="Password" v-model="loginInfo.userPass" />
+        <input
+          class="login-input"
+          type="password"
+          placeholder="Password"
+          v-model="loginInfo.userPass"
+          @keyup.enter="login"
+        />
       </div>
       <div>
         <button class="login-button" @click="login">Login</button>

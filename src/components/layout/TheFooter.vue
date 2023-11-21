@@ -7,10 +7,10 @@ import "@/assets/css/footer.css";
     <section>
       <div class="logo-space">
         <a href="#">
-          <img src="/src/assets/img/icon/footer-logo.svg" alt="" id="sub-logo"/>
+          <img src="/src/assets/img/icon/footer-logo.svg" alt="" id="sub-logo" />
         </a>
         <div class="copyright-space">
-          <p>　</p>
+          <p></p>
           <p>Samsung Software Academy For Youth</p>
           <p>2023 ⓒ All rights reserved</p>
         </div>
@@ -18,20 +18,20 @@ import "@/assets/css/footer.css";
       <div class="content-space">
         <div>
           <span class="subtitle">Promoter</span>
-          <span>Kwon Hyun Jeong</span>
-          <span>Lee Hyeo Jae</span>
+          <span>Kwon Hyeon Jeong</span>
+          <span>Lee Hyo Jae</span>
           <span>Park Si Yeon</span>
         </div>
         <div>
           <span class="subtitle">Designer</span>
-          <span>Kwon Hyun Jeong</span>
-          <span>Lee Hyeo Jae</span>
+          <span>Kwon Hyeon Jeong</span>
+          <span>Lee Hyo Jae</span>
           <span>Park Si Yeon</span>
         </div>
         <div>
           <span class="subtitle">Devleoper</span>
-          <span>Kwon Hyun Jeong</span>
-          <span>Lee Hyeo Jae</span>
+          <span>Kwon Hyeon Jeong</span>
+          <span>Lee Hyo Jae</span>
           <span>Park Si Yeon</span>
         </div>
       </div>

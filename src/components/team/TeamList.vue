@@ -33,9 +33,28 @@ function getTeamList() {
   );
 }
 
+function getInviteList() {
+  myInviteList(
+    userId.value,
+    ({ data }) => {
+      inviteList.value = data;
+    },
+    console.error()
+  );
+}
+
+//팀 추가
 function makeTeam() {
-  if (teamName.value != null)
-    registTeam(teamName.value, userId.value, router.push(route.path), console.error());
+  if (teamName.value != null) {
+    registTeam(
+      teamName.value,
+      userId.value,
+      //success
+      () => getTeamList(),
+      //error
+      console.error()
+    );
+  }
 }
 
 onMounted(() => {
@@ -46,23 +65,24 @@ onMounted(() => {
   } else {
     userId.value = userInfo.value.userId;
     getTeamList();
-    myInviteList(
-      userId.value,
-      ({ data }) => {
-        inviteList.value = data;
-      },
-      console.error()
-    );
+    getInviteList();
   }
 });
 </script>
 
 <template>
   <div class="container">
-    <h1 class="team-title">My team</h1>
+    <div class="team-header">
+      <span class="team-title">My team</span>
+      <TeamInviteItem
+        :userId="userId"
+        :inviteList="inviteList"
+        @acceptInvite="getTeamList"
+        @updateInviteList="getInviteList"
+      />
+    </div>
     <input type="text" placeholder="팀 이름" v-model="teamName" />
     <button @click.prevent="makeTeam">팀 만들기</button>
-    <TeamInviteItem :userId="userId" :inviteList="inviteList" />
     <ul class="team-list">
       <TeamMemberItem v-for="team in teamList" :key="team.teamId" :team="team" />
     </ul>
@@ -74,10 +94,13 @@ onMounted(() => {
   color: black;
   margin: 50px 100px;
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-size: 60px;
 }
 
 .team-list {
   list-style: none;
   padding: 0;
+  max-height: 550px;
+  overflow-y: auto;
 }
 </style>

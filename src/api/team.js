@@ -2,10 +2,11 @@ import { localAxios } from "../utils/http-common";
 
 const local = localAxios();
 
-function myTeamList(userId, success, fail) {
-  local.get(`team/${userId}`).then(success).catch(fail);
+async function myTeamList(userId, success, fail) {
+  await local.get(`team/${userId}`).then(success).catch(fail);
 }
 
+//속한 팀+ 팀원
 async function teamInviteList(teamId, success, fail) {
   await local.get(`/team/invite/${teamId}`).then(success).catch(fail);
 }
@@ -14,7 +15,7 @@ async function teamInvite(teamId, fromUserId, toUserId, success, fail) {
   await local.get(`/team/invite/${teamId}/${fromUserId}/${toUserId}`).then(success).catch(fail);
 }
 
-async function deleteInvite(teamId,userId,success,fail){
+async function deleteInvite(teamId, userId, success, fail) {
   await local.delete(`/team/invite/${teamId}/${userId}`).then(success).catch(fail);
 }
 
@@ -36,7 +37,6 @@ async function leaveTeam(teamId, userId, success, fail) {
   await local.delete(`/team/leave/${teamId}/${userId}`).then(success).catch(fail);
 }
 
-
 function planList(teamId, success, fail) {
   local.get(`plan/team/${teamId}`).then(success).catch(fail);
 }
@@ -48,4 +48,16 @@ function placeList(planId, success, fail) {
 function saveNewPlan(teamId, plans, success, fail) {
   local.post(`plan/save/${teamId}`, plans).then(success).catch(fail);
 }
-export { myTeamList, teamInviteList, teamInvite, registTeam, leaveTeam, myInviteList, registMember, deleteInvite, planList, placeList, saveNewPlan };
+export {
+  myTeamList,
+  teamInviteList,
+  teamInvite,
+  registTeam,
+  leaveTeam,
+  myInviteList,
+  registMember,
+  deleteInvite,
+  planList,
+  placeList,
+  saveNewPlan,
+};

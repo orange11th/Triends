@@ -100,13 +100,7 @@ const mapOptions = {
   zoomControl: false,
   zoomControlOptions: { position: "TOP_RIGHT" },
 };
-const initLayers = [
-  "BACKGROUND",
-  "BACKGROUND_DETAIL",
-  "POI_KOREAN",
-  "TRANSIT",
-  "ENGLISH",
-];
+const initLayers = ["BACKGROUND", "BACKGROUND_DETAIL", "POI_KOREAN", "TRANSIT", "ENGLISH"];
 
 const onLoadMap = (mapObject) => {
   map.value = mapObject;
@@ -136,10 +130,7 @@ const onLoadInfoWindow = (infoWindowObject) => {
         :initLayers="initLayers"
         @onLoad="onLoadMap($event)"
       >
-        <div
-          v-for="(attraction, index) in attractions"
-          :key="attraction.contentId"
-        >
+        <div v-for="(attraction, index) in attractions" :key="attraction.contentId">
           <naver-marker
             :latitude="attraction.latitude"
             :longitude="attraction.longitude"
@@ -156,20 +147,10 @@ const onLoadInfoWindow = (infoWindowObject) => {
           @onLoad="onLoadInfoWindow($event)"
         >
           <div class="infoWindow-content" style="width: 250px">
-            <img
-              :src="currentAttraction.firstImage"
-              alt=""
-              style="width: 100%"
-            />
+            <img :src="currentAttraction.firstImage" alt="" style="width: 100%" />
             <h4>{{ currentAttraction.title }}</h4>
             <p class="addr">{{ currentAttraction.addr1 }}</p>
-            <p
-              style="
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-              "
-            >
+            <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">
               {{ currentAttraction.overview }}
             </p>
           </div>
@@ -188,11 +169,7 @@ const onLoadInfoWindow = (infoWindowObject) => {
             @change="getAttractionList()"
           >
             <optgroup label="시/도 선택">
-              <option
-                v-for="option in selectSido"
-                :key="option.value"
-                :value="option.value"
-              >
+              <option v-for="option in selectSido" :key="option.value" :value="option.value">
                 {{ option.text }}
               </option>
             </optgroup>
@@ -204,11 +181,7 @@ const onLoadInfoWindow = (infoWindowObject) => {
             @change="getAttractionList()"
           >
             <optgroup label="카테고리 선택">
-              <option
-                v-for="option in selectContentType"
-                :key="option.value"
-                :value="option.value"
-              >
+              <option v-for="option in selectContentType" :key="option.value" :value="option.value">
                 {{ option.text }}
               </option>
             </optgroup>
@@ -229,25 +202,14 @@ const onLoadInfoWindow = (infoWindowObject) => {
     </div>
 
     <div class="list">
-      <div
-        class="list-item"
-        v-for="attraction in attractions"
-        :key="attraction.contentId"
-      >
+      <div class="list-item" v-for="attraction in attractions" :key="attraction.contentId">
         <a class="detail">
-          <div
-            class="text-space"
-            @click.prevent="moveDetail(attraction.contentId)"
-          >
+          <div class="text-space" @click.prevent="moveDetail(attraction.contentId)">
             <h5>{{ attraction.title }}</h5>
             <p class="addr">{{ attraction.addr1 }}</p>
             <p
               class="overview"
-              style="
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-              "
+              style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis"
             >
               {{ attraction.overview }}
             </p>

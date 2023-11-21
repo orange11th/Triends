@@ -10,31 +10,76 @@ const memberStore = useMemberStore();
 
 const props = defineProps({
   userId: String,
-  inviteList: Object,
+  inviteList: Array,
 });
 
+const emit = defineEmits(["acceptInvite", "updateInviteList"]);
+
 function accept(teamId) {
-  registMember(teamId, props.userId, console.log("success"), console.error());
+  event.stopPropagation();
+  registMember(
+    teamId,
+    props.userId,
+    () => {
+      emit("acceptInvite");
+      emit("updateInviteList");
+    },
+    console.error()
+  );
 }
 
 function reject(teamId) {
-  deleteInvite(teamId, props.userId, console.log("success"), console.error());
+  event.stopPropagation();
+  deleteInvite(teamId, props.userId, () => emit("updateInviteList"), console.error());
 }
 </script>
 
 <template>
-  <div>
-    <h2>내가 받은 초대 목록</h2>
-    <ul>
-      <li v-for="invite in inviteList" :key="invite.teamId">
-        {{ invite.fromUserName }} ({{ invite.fromUserId }})님이 {{ invite.teamName }} ({{
-          invite.teamId
-        }})팀에 초대하였습니다.
-        <a href="" @click.prevent="accept(invite.teamId)">수락</a>
-        / <a href="" @click.prevent="reject(invite.teamId)">거절</a>
-      </li>
-    </ul>
-  </div>
+  <ul style="display: inline-block">
+    <li class="nav-item dropdown" style="list-style: none">
+      <a
+        class="nav-link dropdown-toggle"
+        href="#"
+        id="navbarDropdown"
+        role="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        <img
+          v-show="!inviteList.length"
+          class="invite-icon"
+          src="@/assets/img/icon/team-invite-none.png"
+          alt=""
+        />
+        <img
+          v-show="inviteList.length"
+          class="invite-icon"
+          src="@/assets/img/icon/team-invite.png"
+          alt=""
+        />
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <li v-for="invite in inviteList" :key="invite.teamId">
+          {{ invite.fromUserName }} ({{ invite.fromUserId }})님이 {{ invite.teamName }} ({{
+            invite.teamId
+          }})팀에 초대하였습니다.
+          <a href="" @click.prevent="accept(invite.teamId, invite.toUserId, invite.fromUserId)"
+            >수락</a
+          >
+          /
+          <a href="" @click.prevent="reject(invite.teamId, invite.toUserId, invite.fromUserId)"
+            >거절</a
+          >
+          <hr class="dropdown-divider" />
+        </li>
+      </ul>
+    </li>
+  </ul>
 </template>
 
-<style scoped></style>
+<style scoped>
+.invite-icon {
+  height: 74px;
+  width: auto;
+}
+</style>
