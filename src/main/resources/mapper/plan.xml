@@ -37,7 +37,7 @@
 	</insert>
 	 -->
 	<select id="listPlanPlace" resultMap="planPlaceMap" parameterType="int">
-	    SELECT plan_id, place_id, title
+	    SELECT plan_id, place_id, title, image
 	    FROM plan_place
 	    WHERE plan_id = #{planId}
 	</select>	
@@ -50,7 +50,7 @@
     </delete>
     
     <insert id="insertPlanPlace" parameterType="com.ssafy.triends.team.model.PlanPlace">
-        INSERT INTO plan_place (plan_id, place_id, title) VALUES (#{planId}, #{placeId}, #{title})
+        INSERT INTO plan_place (plan_id, place_id, title, image) VALUES (#{planId}, #{placeId}, #{title}, #{image})
     </insert>
 	
 </mapper>

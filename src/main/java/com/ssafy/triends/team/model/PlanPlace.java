@@ -7,4 +7,5 @@ public class PlanPlace {
 	private int planId;
 	private int placeId;
 	private String title;
+	private String image;
 }
