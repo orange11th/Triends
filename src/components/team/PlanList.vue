@@ -13,49 +13,88 @@
             </svg>
             <div class="cross"></div>
         </button>
-        
-        <!-- <button @click="deleteBox(idx)">X</button> -->
       </div>
     </div>
       <div v-if="item.id === 1" class="travel-destination">
-      <div class="new-item-input">
-        <select
-        name="selectSidoCode"
-        id="selectSidoCode"
-        v-model="sidoCode"
-      >
-        <optgroup label="시/도 선택">
-          <option
-            v-for="option in selectSido"
-            :key="option.value"
-            :value="option.value"
-          >
-            {{ option.text }}
-          </option>
-        </optgroup>
-      </select>
-      <input
-      type="text"
-      v-model="param.keyword"
-      placeholder="키워드를 입력하세요!"
-      @keyup.enter="searchAttractionList"
-      />
-      <button @click="searchAttractionList">검색</button>
+      <div class="plus-search">
 
 
-      <div class="search-space">
+        <!-- <div class="search-space">
+          <input
+            type="text"
+            placeholder="우리 언제 갈까?"
+            readonly
+          />
+          <a @click="toggleNewItemInput">
+            <img src="@/assets/img/icon/plus-icon.svg" alt="검색" />
+          </a>
+        </div> -->
+        <div class="search-space">
+          <input
+            type="text"
+            id="customInput"
+            readonly
+          />
+          <span id="placeholderText">우리 <span class="highlight">언제</span> 갈까?</span>
+          <a @click="toggleNewItemInput">
+            <img src="@/assets/img/icon/plus-icon.svg" alt="검색" />
+          </a>
+        </div>
+
+        <!-- 조건부 렌더링된 날짜 입력 및 추가 버튼 컨테이너 -->
+        <div v-if="isNewItemInputVisible" class="new-item-container">
+          <div class="input-button-container">
+            <input type="date" v-model="newItem.date" placeholder="날짜 선택" />
+            <button id="save" @click="addNewBox">추가</button>
+          </div>
+        </div>
+        <hr class="hr-3">
+      <div class="input-space">
+        <div class="select-space">
+          <select
+            name="selectSidoCode"
+            id="selectSidoCode"
+            v-model="sidoCode"
+            @change="getAttractionList()"
+            >
+            <optgroup label="시/도 선택">
+              <option v-for="option in selectSido" :key="option.value" :value="option.value">
+                {{ option.text }}
+              </option>
+            </optgroup>
+          </select>
+        </div>
+        
+        
+
+        <div class="search-space">
+          <input
+            type="text"
+            id="customInput1"
+            v-model="param.keyword"
+            @keyup.enter="searchAttractionList"
+            @focus="hidePlaceholder" @blur="showPlaceholder"
+          />
+          <span id="placeholderText1">우리 <span class="highlight">어디</span> 갈까?</span>
+          <a @click="searchAttractionList">
+            <img src="@/assets/img/icon/search-icon.svg" alt="검색" />
+          </a>
+        </div>
+
+        <!-- <div class="search-space">
           <input
             type="text"
             v-model="param.keyword"
-            placeholder="키워드를 입력하세요!"
+            placeholder="우리 어디 갈까?"
             @keyup.enter="searchAttractionList"
           />
           <a @click="searchAttractionList">
             <img src="@/assets/img/icon/search-icon.svg" alt="검색" />
           </a>
-        </div>
-    </div>
+        </div> -->
 
+      </div>
+      </div>
     
       </div>
       <div v-for="(numItem, numIdx) in item.numberList" :key="numIdx" class="box" draggable="true" @dragstart="startDrag($event, numItem, idx)">
@@ -76,12 +115,12 @@
     </div>
     </div>
   </div>
+
   <div class="new-item-input">
-    <div>여기서 새로운 날짜 선택해서 계획박스 추가할 수 있음</div>
-  <input type="date" v-model="newItem.date" placeholder="날짜 선택" />
-  <button @click="addNewBox">추가</button>
-  <div>이때 최종저장 시키는 것</div>
-  <button @click="savePlans">저장</button>
+  <div class="save-button-container">
+    <button id="save" @click="savePlans">Save</button>   
+  <!-- <button id="save_button">저장</button> -->
+  </div>
   <li v-for="team in plans" :key="team.teamId" class="team-item">
     <h1>{{team}}</h1>
   </li>
@@ -166,6 +205,7 @@ onMounted(() => {
 const getPlanList = () => {
   planList(route.params.teamId,
     ({ data }) => {
+      console.log(data);
       data.forEach(plan => {
           addPlanToStateLists(plan);
       });
@@ -175,10 +215,6 @@ const getPlanList = () => {
       }
   );
 }
-
-const sortStateListsByDate = () => {
-  state.lists.sort((a, b) => new Date(a.date) - new Date(b.date));
-};
 
 const addPlanToStateLists = (plan) => {
   // YYYYMMDD 형식에서 YYYY, MM, DD 추출
@@ -294,6 +330,25 @@ const deleteBox = (index) => {
 };
 
 
+// 데이터 속성 추가
+const isNewItemInputVisible = ref(false);
+
+// 날짜 입력 표시를 토글하는 메서드
+const toggleNewItemInput = () => {
+  isNewItemInputVisible.value = !isNewItemInputVisible.value;
+};
+
+const hidePlaceholder = () => {
+  document.getElementById('placeholderText1').style.display = 'none';
+};
+
+const showPlaceholder = () => {
+  if (!document.getElementById('customInput1').value) {
+    document.getElementById('placeholderText1').style.display = 'block';
+  }
+};
+
+
 
   </script>
   
@@ -313,7 +368,7 @@ const deleteBox = (index) => {
 
 .box {
   width: 200px; /* 박스 너비 설정 */
-  min-height: 250px; /* 박스 최소 높이 설정 */
+  min-height: 300px; /* 박스 최소 높이 설정 */
   margin-top: 10px; /* 박스 간의 상단 마진 */
   padding: 15px; /* 내부 패딩 증가 */
   background-color: #fff; /* 박스 배경색을 흰색으로 변경 */
@@ -325,8 +380,9 @@ const deleteBox = (index) => {
   justify-content: center; /* 세로 방향 중앙 정렬 */
   align-items: center; /* 가로 방향 중앙 정렬 */
   transition: transform 0.3s; /* 부드러운 변환 효과 추가 */
+  margin-top: 10px; /* 상단 마진 추가 */
+  margin-bottom: 10px; /* 하단 마진 추가 */
 }
-
 .box:hover {
   transform: scale(1.05); /* 마우스 오버 시 약간 확대 */
 }
@@ -343,6 +399,8 @@ const deleteBox = (index) => {
   max-height: 600px; /* 최대 높이 설정 */
   overflow-y: auto; /* 세로 스크롤바가 필요할 때 나타남 */
   flex: 0 0 300px;
+  margin-left: 10px; /* 왼쪽에 마진 추가 */
+  margin-right: 10px; /* 오른쪽에 마진 추가 */
 }
 
 .playground {
@@ -361,6 +419,7 @@ const deleteBox = (index) => {
   display: block;
   margin: 30px auto 0; /* 상단 여백 30px, 나머지는 자동으로 조정 */
   border-radius: 10px;
+  margin-bottom: 10px; /* 상단 마진 추가 */
 }
 
 
@@ -378,6 +437,7 @@ const deleteBox = (index) => {
   width: 100%;
   text-align: center; /* 텍스트 중앙 정렬 */
 }
+
 
 .box {
   position: relative; /* 상대적 위치 설정 */
@@ -566,14 +626,16 @@ const deleteBox = (index) => {
   background-color: rgba(0, 0, 0, 0.2); /* 스크롤바 색상 설정 */
 }
 .search-space {
+  position:relative;
   background-color: white;
   border: solid 1px;
   border-color: var(--gray);
   border-radius: 100px;
   padding: 5px 10px;
   display: flex;
+  width: 270px;
   height: 40px;
-  margin-top: 10px;
+  margin-top: 3px;
   flex-direction: row;
 }
 .search-space input {
@@ -585,6 +647,132 @@ const deleteBox = (index) => {
 .search-space img {
   width: 20px;
   margin: 5px;
+}
+
+
+
+.input-space {
+    display: flex;
+    flex-direction: column;
+}
+
+.search-space input {
+    width: 100%; /* 검색창의 너비 조정 */
+    padding: 5px; /* 검색창의 패딩 조정 */
+}
+
+/* 기타 필요한 스타일 추가 */
+
+.input-space {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.save-button-container {
+  position: fixed; /* 고정 위치 */
+  bottom: 210px; /* 아래에서 20px */
+  right: 60px; /* 오른쪽에서 20px */
+}
+
+
+
+#save {
+  background-color: #b0d9b1;
+  border: 2px solid #b0d9b1;
+  border-radius: 25px; /* 더 큰 둥근 모서리 */
+  font-size: 16px; /* 글꼴 크기를 더 크게 */
+  padding: 10px 20px; /* 상하, 좌우 패딩을 늘림 */
+  cursor: pointer;
+}
+
+#save:hover {
+  box-shadow: inset -5px 5px 15px -5px #b0d9b1, inset 0 -5px 15px -5px #b0d9b1, 2px 5px 5px darkgreen;
+  cursor: pointer;
+}
+
+
+input[type="date"] {
+  background-color: #fafafa; /* 배경색 */
+  border: 1px solid #ddd; /* 테두리 */
+  border-radius: 30px; /* 테두리 둥글기 */
+  padding: 8px 20px; /* 패딩 */
+  font-size: 16px; /* 글꼴 크기 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 */
+  color: #333; /* 글꼴 색상 */
+}
+
+/* 포커스 시 스타일 */
+input[type="date"]:focus {
+  border-color: #a4c639; /* 포커스 시 테두리 색상 */
+  box-shadow: 0 0 8px rgba(164, 198, 57, 0.5); /* 포커스 시 그림자 */
+}
+
+.input-button-container {
+  display: flex; /* Flexbox 레이아웃 적용 */
+  gap: 25px; /* 요소들 사이의 간격 */
+}
+
+hr.hr-3 {
+  border: 0;
+  height: 0;
+  border-top: 1px solid #8c8c8c;
+}
+/* 
+.select-space {
+  width: 300px;
+  margin-right: 100px;
+  margin-top: 5px;
+}
+.select-space, .search-space {
+    margin-bottom: 10px;
+} */
+
+.select-space {
+  display: flex;
+  flex-direction: row;
+}
+.select-space select {
+  width: 175px;
+  margin-right: 90px;
+  border: solid 1px;
+  border-color: var(--gray);
+  border-radius: 100px;
+  padding: 5px 10px;
+  display: flex;
+  flex-direction: row;
+  height: 40px;
+  background-color: white;
+}
+select:focus {
+  outline: none;
+}
+
+
+.search-space {
+    margin-bottom: 8px;
+}
+.select-space{
+    margin-bottom: 7px;
+}
+#placeholderText {
+  position: absolute;
+  left: 15px; /* 입력 필드 내부의 여백 조정 */
+  top: 7px;
+  color: darkgray; /* 일반 텍스트 색상 */
+  pointer-events: none; /* 텍스트 위에서의 클릭 방지 */
+}
+#placeholderText1 {
+  position: absolute;
+  left: 15px; /* 입력 필드 내부의 여백 조정 */
+  top: 7px;
+  color: darkgray; /* 일반 텍스트 색상 */
+  pointer-events: none; /* 텍스트 위에서의 클릭 방지 */
+}
+.highlight {
+  color: darkgreen; /* 강조 텍스트 색상 */
+  font-weight: bold;
 }
   </style>
   
