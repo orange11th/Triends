@@ -4,6 +4,7 @@ import { useRoute, useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import { useMemberStore } from "@/stores/member";
 import { userModify } from "@/api/member";
+import memberInfoGame from "./item/memberInfoGame.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -57,19 +58,23 @@ onMounted(() => {
   <div class="container">
     <div class="row">
       <!-- 사진 div (왼쪽) -->
-      <div class="col-md-5 image-div">
-        <img class="profile-image img-fluid" src="@/assets/img/slide/5.jpg" alt="" />
-      </div>
-      <div class="col-md-1"></div>
-      <!-- 개인정보 div (오른쪽) -->
-      <div class="col-md-1">
-        <!-- <h1 style="margin: 80px 0 20px 0;">ID</h1>
-          <h1 style="margin: 32px 0;">Name</h1>
-          <h1 style="margin: 32px 0;">Pass</h1>
-          <h1 style="margin: 32px 0;">Email</h1>
-          <h1 style="margin: 32px 0;">Phone</h1> -->
-      </div>
       <div class="col-md-5">
+        <memberInfoGame />
+      </div>
+      <!-- 개인정보 div (오른쪽) -->
+      <div class="col-md-2">
+        <div class="row">
+          <div id="col-md-6"></div>
+          <div id="col-md-6">
+            <h1 style="margin: 32px 0 32px 70px">ID</h1>
+            <h1 style="margin: 32px 0 32px 70px">Name</h1>
+            <h1 style="margin: 32px 0 32px 70px">c.Pass</h1>
+            <h1 style="margin: 32px 0 32px 70px">Email</h1>
+            <h1 style="margin: 32px 0 32px 70px">Phone</h1>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
         <div class="col">
           <!-- 계획 제목 -->
           <!-- <h1>My Info</h1> -->
@@ -154,10 +159,6 @@ onMounted(() => {
 }
 .modify-button:hover {
   background: #01939a;
-}
-
-.profile-image {
-  border-radius: 100%;
 }
 
 .plan-title {

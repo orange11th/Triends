@@ -22,7 +22,7 @@ getAttractionDetail();
 
 <template>
   <div class="container">
-    <h2 class="attr-title">{{ attraction.title }}</h2>
+    <h1 class="attr-title">{{ attraction.title }}</h1>
     <img class="attr-image" :src="attraction.firstImage" alt="" />
     <div class="info-row">
       <div class="info-item">
@@ -44,7 +44,7 @@ getAttractionDetail();
 </template>
 
 <style scoped>
-.attr-image{
+.attr-image {
   align-self: center;
 }
 .overview {

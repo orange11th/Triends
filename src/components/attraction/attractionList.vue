@@ -9,8 +9,6 @@ import { NaverMap, NaverMarker, NaverInfoWindow } from "vue3-naver-maps";
 import "@/assets/css/attraction/map.css";
 import "@/assets/css/attraction/list.css";
 
-
-
 const router = useRouter();
 
 onMounted(() => {
@@ -46,13 +44,13 @@ const selectSido = ref([
   { text: "제주도", value: "39", lat: "33.4995", lng: "126.5311" },
 ]);
 const selectContentType = ref([
-  { text: "관광지", value: "12" },
-  { text: "문화시설", value: "14" },
-  { text: "축제", value: "15" },
-  { text: "레저", value: "28" },
-  { text: "숙박", value: "32" },
-  { text: "상점", value: "38" },
-  { text: "식당", value: "39" },
+  { text: "관광지", value: "12", src: "/src/assets/img/icon/관광지.svg" },
+  { text: "문화시설", value: "14", src: "/src/assets/img/icon/문화시설.svg" },
+  { text: "축제", value: "15", src: "/src/assets/img/icon/축제.svg" },
+  { text: "레저", value: "28", src: "/src/assets/img/icon/레저.svg" },
+  { text: "숙박", value: "32", src: "/src/assets/img/icon/숙박.svg" },
+  { text: "상점", value: "38", src: "/src/assets/img/icon/쇼핑.svg" },
+  { text: "식당", value: "39", src: "/src/assets/img/icon/음식.svg" },
 ]);
 
 function getAttractionList() {
@@ -60,7 +58,7 @@ function getAttractionList() {
     sidoCode.value,
     contentTypeId.value,
     ({ data }) => {
-      console.log();
+      // console.log();
       attractions.value = data;
     },
     (error) => console.error()
@@ -68,7 +66,7 @@ function getAttractionList() {
 }
 
 watch(sidoCode, (newVal) => {
-  const selectedSido = selectSido.value.find(sido => sido.value === newVal);
+  const selectedSido = selectSido.value.find((sido) => sido.value === newVal);
   if (selectedSido && map.value) {
     map.value.setCenter(new naver.maps.LatLng(selectedSido.lat, selectedSido.lng));
   }
@@ -78,6 +76,7 @@ const param = ref({
   sido: sidoCode.value,
   keyword: "",
 });
+
 const searchAttractionList = () => {
   console.log("검색합니다.", param.value);
   searchList(
@@ -133,24 +132,47 @@ const infoWindowOptions = ref({
   anchorSkew: true, //화살표 기울이기
   anchorColor: "#000",
   // pixelOffset: new naver.maps.Point(100, 0) //정보 창의 꼬리에서 정보 창이 위치한 지점까지의 오프셋
-})
+});
+
+function clickImageButton(value) {
+  contentTypeId.value = value;
+  getAttractionList();
+}
 </script>
 
 <template>
   <div class="main">
     <div class="map">
-      <naver-map style="width: 100%; height: 700px" :mapOptions="mapOptions" :initLayers="initLayers"
-        @onLoad="onLoadMap($event)">
+      <naver-map
+        style="width: 100%; height: 700px"
+        :mapOptions="mapOptions"
+        :initLayers="initLayers"
+        @onLoad="onLoadMap($event)"
+      >
         <div v-for="(attraction, index) in attractions" :key="attraction.contentId">
-          <naver-marker :latitude="attraction.latitude" :longitude="attraction.longitude"
-            @onLoad="onLoadMarker(index, $event)" @mouseover="onShowInfoWindow(index)" @mouseout="isOpen = false"
-            @click="moveDetail(attraction.contentId)">
+          <naver-marker
+            :latitude="attraction.latitude"
+            :longitude="attraction.longitude"
+            @onLoad="onLoadMarker(index, $event)"
+            @mouseover="onShowInfoWindow(index)"
+            @mouseout="isOpen = false"
+            @click="moveDetail(attraction.contentId)"
+          >
           </naver-marker>
         </div>
-        <naver-info-window class="naver-info-window" :marker="currentAttraction.marker" :open="isOpen" :options="infoWindowOptions"
-          @onLoad="onLoadInfoWindow($event)">
-          <div class="infoWindow-content" style="width: 250px;">
-            <img :src="currentAttraction.firstImage" alt="" style="width: 100%; margin-bottom: 10px;" />
+        <naver-info-window
+          class="naver-info-window"
+          :marker="currentAttraction.marker"
+          :open="isOpen"
+          :options="infoWindowOptions"
+          @onLoad="onLoadInfoWindow($event)"
+        >
+          <div class="infoWindow-content" style="width: 250px">
+            <img
+              :src="currentAttraction.firstImage"
+              alt=""
+              style="width: 100%; margin-bottom: 10px"
+            />
             <h4>{{ currentAttraction.title }}</h4>
             <p class="addr">{{ currentAttraction.addr1 }}</p>
             <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">
@@ -165,44 +187,75 @@ const infoWindowOptions = ref({
       <h2>여행지 탐색</h2>
       <div class="input-space">
         <div class="select-space">
-          <select name="selectSidoCode" id="selectSidoCode" v-model="sidoCode" @change="getAttractionList()">
+          <select
+            name="selectSidoCode"
+            id="selectSidoCode"
+            v-model="sidoCode"
+            @change="getAttractionList()"
+          >
             <optgroup label="시/도 선택">
               <option v-for="option in selectSido" :key="option.value" :value="option.value">
                 {{ option.text }}
               </option>
             </optgroup>
           </select>
-          <select name="selectContentTypeId" id="selectContentTypeId" v-model="contentTypeId"
-            @change="getAttractionList()">
+
+          <!-- <select
+            name="selectContentTypeId"
+            id="selectContentTypeId"
+            v-model="contentTypeId"
+            @change="getAttractionList()"
+          >
             <optgroup label="카테고리 선택">
               <option v-for="option in selectContentType" :key="option.value" :value="option.value">
                 {{ option.text }}
               </option>
             </optgroup>
-          </select>
+          </select> -->
         </div>
         <div class="search-space">
-          <input type="text" v-model="param.keyword" placeholder="키워드를 입력하세요!" @keyup.enter="searchAttractionList" />
+          <input
+            type="text"
+            v-model="param.keyword"
+            placeholder="키워드를 입력하세요!"
+            @keyup.enter="searchAttractionList"
+          />
           <a @click="searchAttractionList">
             <img src="@/assets/img/icon/search-icon.svg" alt="검색" />
           </a>
         </div>
       </div>
     </div>
-
+    <div>
+      <a v-for="option in selectContentType" :key="option.value" href="#">
+        <img
+          class="content-type-image"
+          :src="option.src"
+          :alt="option.text"
+          @click="clickImageButton(option.value)"
+        />
+      </a>
+    </div>
     <div class="list">
       <div class="list-item" v-for="attraction in attractions" :key="attraction.contentId">
         <a class="detail">
           <div class="text-space" @click.prevent="moveDetail(attraction.contentId)">
             <h5>{{ attraction.title }}</h5>
             <p class="addr">{{ attraction.addr1 }}</p>
-            <p class="overview" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis">
+            <p
+              class="overview"
+              style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis"
+            >
               {{ attraction.overview }}
             </p>
           </div>
           <!-- <heart></heart> -->
-          <img id="attraction-img" :src="attraction.firstImage" @click.prevent="moveDetail(attraction.contentId)"
-            alt="사진" />
+          <img
+            id="attraction-img"
+            :src="attraction.firstImage"
+            @click.prevent="moveDetail(attraction.contentId)"
+            alt="사진"
+          />
         </a>
         <hr />
       </div>
@@ -211,11 +264,14 @@ const infoWindowOptions = ref({
 </template>
 
 <style scoped>
-.naver-info-window{
+.content-type-image {
+  margin: 15px 25px;
+}
+.naver-info-window {
   padding: 30px;
   display: flex;
-  width: 280px; 
-  background-color: rgb(255, 255, 255); 
+  width: 280px;
+  background-color: rgb(255, 255, 255);
   border-radius: 10%;
   justify-content: center;
   border: 3px solid rgb(108, 108, 247);
