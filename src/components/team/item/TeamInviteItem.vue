@@ -72,6 +72,7 @@ function reject(teamId) {
           >
           <hr class="dropdown-divider" />
         </li>
+        <li v-if="inviteList.length == 0">받은 초대가 없습니다.</li>
       </ul>
     </li>
   </ul>

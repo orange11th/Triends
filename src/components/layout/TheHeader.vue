@@ -8,13 +8,13 @@ import "@/assets/css/header.css";
 const memberStore = useMemberStore();
 
 const { userLogout } = memberStore;
-const { isLogin, isValidToken } = storeToRefs(memberStore);
+const { isLogin, isValidToken, isAlert, userInfo } = storeToRefs(memberStore);
 
 const router = useRouter();
 
 function logout() {
   userLogout();
-  console.log("로그아웃", isLogin.value);
+  console.log("로그아웃", isLogin.value, isAlert.value);
   router.push({ name: "member-login" });
 }
 </script>
@@ -25,11 +25,7 @@ function logout() {
       <div class="logo-space">
         <RouterLink :to="{ name: 'home' }">
           <a href="#">
-            <img
-              src="/src/assets/img/icon/main-logo.svg"
-              alt="main-logo"
-              id="main-logo"
-            />
+            <img src="/src/assets/img/icon/main-logo.svg" alt="main-logo" id="main-logo" />
           </a>
         </RouterLink>
       </div>
@@ -43,12 +39,9 @@ function logout() {
           </RouterLink>
         </div>
         <div class="menu-space" v-show="isLogin">
+          <!-- <span v-show="isLogin">{{ userInfo.userName }}님 환영합니다!</span> -->
           <ul>
-            <li
-              v-show="isLogin"
-              class="nav-item dropdown"
-              style="list-style: none"
-            >
+            <li v-show="isLogin" class="nav-item dropdown" style="list-style: none">
               <a
                 class="nav-link dropdown-toggle"
                 href="#"
@@ -79,13 +72,12 @@ function logout() {
                   </RouterLink>
                 </li>
                 <li>
-                  <a href="#" @click.prevent="logout" class="dropdown-item"
-                    >로그아웃</a
-                  >
+                  <a href="#" @click.prevent="logout" class="dropdown-item">로그아웃</a>
                 </li>
               </ul>
             </li>
           </ul>
+          <span v-if="isAlert">새로운 알림이 있습니다</span>
         </div>
       </div>
     </nav>

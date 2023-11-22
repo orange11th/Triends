@@ -12,11 +12,12 @@ export const useMemberStore = defineStore(
     const isLoginError = ref(false);
     const userInfo = ref(null);
     const isValidToken = ref(false);
+    const isAlert = ref(false);
 
     const userLogin = async (loginInfo) => {
       await userConfirm(
         loginInfo,
-        (response) => {
+        async (response) => {
           if (response.status === httpStatusCode.CREATE) {
             let { data } = response;
 
@@ -25,6 +26,7 @@ export const useMemberStore = defineStore(
             isLoginError.value = false;
             isValidToken.value = true;
             sessionStorage.setItem("accessToken", accessToken);
+            await getUserInfo(accessToken);
           } else {
             console.log("로그인 실패했다");
             isLogin.value = false;
@@ -38,11 +40,11 @@ export const useMemberStore = defineStore(
       );
     };
 
-    const getUserInfo = (token) => {
+    const getUserInfo = async (token) => {
       let decodeToken = jwtDecode(token);
       console.log("2. decodeToken", decodeToken);
       console.log("2. decodeToken.userId", decodeToken.userId);
-      findById(
+      await findById(
         decodeToken.userId,
         (response) => {
           if (response.status === httpStatusCode.OK) {
@@ -65,7 +67,7 @@ export const useMemberStore = defineStore(
     const checkToken = (token) => {
       check(
         (response) => {
-          console.log(response.status);
+          console.log("checkToken", response.status);
         },
         async (error) => {
           userLogout();
@@ -77,9 +79,11 @@ export const useMemberStore = defineStore(
       isLogin.value = false;
       userInfo.value = null;
       isValidToken.value = false;
+      isAlert.value = false;
     };
 
     return {
+      isAlert,
       isLogin,
       isLoginError,
       userInfo,

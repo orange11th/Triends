@@ -17,8 +17,8 @@ const loginInfo = ref({
 
 const login = async () => {
   await userLogin(loginInfo.value);
+
   if (isLogin.value) {
-    getUserInfo(sessionStorage.getItem("accessToken"));
     router.push("/");
   } else {
     alert("로그인 실패");
