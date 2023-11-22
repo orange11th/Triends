@@ -8,13 +8,13 @@ import "@/assets/css/header.css";
 const memberStore = useMemberStore();
 
 const { userLogout } = memberStore;
-const { isLogin, isValidToken } = storeToRefs(memberStore);
+const { isLogin, isValidToken, isAlert, userInfo } = storeToRefs(memberStore);
 
 const router = useRouter();
 
 function logout() {
   userLogout();
-  console.log("로그아웃", isLogin.value);
+  console.log("로그아웃", isLogin.value, isAlert.value);
   router.push({ name: "member-login" });
 }
 </script>
@@ -46,29 +46,20 @@ function logout() {
         <div class="menu-space" v-show="isLogin">
           <RouterLink :to="{ name: 'attraction-list' }">
             <a class="menu-icon" href="">
-              <img
-                class="clickable-img"
-                src="@/assets/img/icon/compass.svg"
-                alt=""
-              />
+              <img class="clickable-img" src="@/assets/img/icon/compass.svg" alt="" />
             </a>
           </RouterLink>
           <RouterLink :to="{ name: 'board' }">
             <a class="menu-icon" href="">
-              <img
-                class="clickable-img"
-                src="@/assets/img/icon/board.svg"
-                alt=""
-              />
+              <img class="clickable-img" src="@/assets/img/icon/board.svg" alt="" />
             </a>
           </RouterLink>
           <RouterLink :to="{ name: 'team-list' }">
-            <a class="menu-icon" href="">
-              <img
-                class="clickable-img"
-                src="@/assets/img/icon/team.svg"
-                alt=""
-              />
+            <a v-if="!isAlert" class="menu-icon" href="">
+              <img class="clickable-img" src="@/assets/img/icon/team.svg" alt="" />
+            </a>
+            <a v-if="isAlert" class="menu-icon" href="">
+              <img class="clickable-img" src="@/assets/img/icon/team-alert.svg" alt="" />
             </a>
           </RouterLink>
           <a
@@ -79,12 +70,7 @@ function logout() {
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            <img
-              class="clickable-img"
-              src="@/assets/img/icon/user.svg"
-              alt=""
-              srcset=""
-            />
+            <img class="clickable-img" src="@/assets/img/icon/user.svg" alt="" srcset="" />
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li>
@@ -93,11 +79,10 @@ function logout() {
               </RouterLink>
             </li>
             <li>
-              <a href="#" @click.prevent="logout" class="dropdown-item"
-                >Logout</a
-              >
+              <a href="#" @click.prevent="logout" class="dropdown-item">Logout</a>
             </li>
           </ul>
+          <span v-if="isLogin" class="user-name">{{ userInfo.userName }}님 환영합니다</span>
         </div>
       </div>
     </nav>

@@ -15,7 +15,7 @@ const route = useRoute();
 
 const memberStore = useMemberStore();
 const { checkToken } = memberStore;
-const { isValidToken, userInfo } = storeToRefs(memberStore);
+const { isValidToken, userInfo, isAlert } = storeToRefs(memberStore);
 
 const userId = ref();
 
@@ -40,6 +40,7 @@ function getInviteList() {
     userId.value,
     ({ data }) => {
       inviteList.value = data;
+      isAlert.value = inviteList.value.length;
     },
     console.error()
   );
