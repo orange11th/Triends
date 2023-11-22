@@ -57,7 +57,7 @@ function moveRegist() {
 
 <style scoped>
 h1 {
-  margin: 50px;
+  margin-bottom: 40px;
 }
 
 .login-input {
