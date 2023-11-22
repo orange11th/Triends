@@ -52,9 +52,7 @@ const handleDeleteArticle = (articleNo) => {
       <div class="col-lg-10">
         <div class="row align-self-center mb-2">
           <div class="col-md-2 text-start">
-            <button type="button" class="btn btn-outline-primary btn-sm" @click="moveWrite">
-              글쓰기
-            </button>
+            <button id="save" @click="moveWrite">글쓰기</button>
           </div>
         </div>
         <div class="board-list">
@@ -78,5 +76,21 @@ const handleDeleteArticle = (articleNo) => {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+}
+#save {
+  margin-top: 30px;
+  margin-left: 960px;
+  width: 100px;
+  background-color: #b0d9b1;
+  border: 2px solid #b0d9b1;
+  border-radius: 25px; /* 더 큰 둥근 모서리 */
+  font-size: 16px; /* 글꼴 크기를 더 크게 */
+  padding: 10px 20px; /* 상하, 좌우 패딩을 늘림 */
+  cursor: pointer;
+}
+
+#save:hover {
+  box-shadow: inset -5px 5px 15px -5px #b0d9b1, inset 0 -5px 15px -5px #b0d9b1, 2px 5px 5px darkgreen;
+  cursor: pointer;
 }
 </style>
