@@ -65,6 +65,18 @@ function leave(teamId) {
     console.error()
   );
 }
+
+function moveChat(teamId) {
+  // console.log(props.team.teamList);
+  router.push({
+    name: "team-chat",
+    params: { 
+      teamId: teamId,
+      // 'someData'는 간단한 데이터일 경우에만 추가 가능
+      teamList: JSON.stringify(props.team.teamList),
+    }
+  });
+};
 </script>
 
 <template>
@@ -76,9 +88,10 @@ function leave(teamId) {
           <h2 class="team-info">
             {{ props.team.teamName }}　|　
           </h2>
-          <a id="여기에 영상통화로 접속하는 기능 삽입" href="#">
+          <a id="여기에 영상통화로 접속하는 기능 삽입" href="#"  @click="moveChat(props.team.teamId)">
             <img src="" alt="영통">
           </a>
+          
         </div>
         <div class="team-plan"></div>
       </div>
