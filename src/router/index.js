@@ -23,7 +23,6 @@ const headerAlert = () => (to, from, next) => {
   const { checkToken } = memberStore;
   const { userInfo, isAlert } = storeToRefs(memberStore);
 
-  console.log("headerAlert 실행!");
   checkToken(sessionStorage.getItem("accessToken"));
   if (userInfo.value) {
     myInviteList(
