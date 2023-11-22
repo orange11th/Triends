@@ -26,6 +26,7 @@ nav {
 
 .menu-space {
   display: flex;
+  align-items: center;
 }
 
 .menu-btn {
@@ -34,13 +35,13 @@ nav {
   justify-content: center;
 
   width: 100px;
-  padding: 10px 15px;
+  padding: 10px;
   margin: 5px;
 
   font-weight: 900;
-  text-decoration: none;
+  /* text-decoration: none; */
 
-  border: 3px solid var(--main-black);
+  /* border: 2px solid var(--main-black); */
   border-radius: 10px;
 }
 .light {
@@ -52,6 +53,9 @@ nav {
   color: var(--main-leaf);
 }
 
+.user-name {
+  padding: 10px;
+}
 .menu-icon {
   display: flex;
   padding: 10px;
@@ -85,12 +89,3 @@ nav {
   text-decoration: none;
 } */
 
-.clickable:hover {
-  box-shadow: 1px 5px 3px rgb(0, 0, 0, 0.3);
-  transition: 0.1s;
-}
-
-.clickable-img:hover {
-  filter: drop-shadow(1px 5px 3px rgb(0, 0, 0, 0.3));
-  transition: 0.1s;
-}

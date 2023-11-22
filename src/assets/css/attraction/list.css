@@ -70,9 +70,6 @@ select:focus {
 .search-space input {
   border: none;
 }
-.search-space input:focus {
-  outline: none;
-}
 .search-space img {
   width: 20px;
   margin: 5px;

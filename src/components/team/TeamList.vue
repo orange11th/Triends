@@ -71,6 +71,15 @@ onMounted(() => {
     getInviteList();
   }
 });
+
+const isCreating = ref(false);
+function nowCreating() {
+  isCreating.value = true;
+}
+function doneCreating() {
+  isCreating.value = false;
+  makeTeam();
+}
 </script>
 
 <template>
@@ -86,10 +95,24 @@ onMounted(() => {
     </div>
 
     <div class="team-list-space">
-      <div class="create-team"></div>
+      <div class="create-team" v-if="!isCreating">
+        <a @click="nowCreating">
+          <img src="@/assets/img/icon/plus-solid.svg" alt="" />
+          <span>create new team</span>
+        </a>
+      </div>
+      <div class="create-team" v-if="isCreating">
+        <input type="text" placeholder="팀 이름" v-model="teamName" />
+        <a @click.prevent="doneCreating">
+          <img
+            id="create"
+            class="clickable-img"
+            src="@/assets/img/icon/create.svg"
+            alt=""
+          />
+        </a>
+      </div>
     </div>
-    <input type="text" placeholder="팀 이름" v-model="teamName" />
-    <button @click.prevent="makeTeam">팀 만들기</button>
     <ul class="team-list">
       <TeamMemberItem
         v-for="team in teamList"

@@ -1,4 +1,11 @@
 .invite-icon {
-  height: 74px;
-  width: auto;
+  height: 25px;
+}
+
+#smaller-img {
+  height: 35px;
+}
+
+.dropdown-menu li {
+  padding: 5px 10px;
 }
