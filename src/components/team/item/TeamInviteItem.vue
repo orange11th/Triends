@@ -5,6 +5,8 @@ import { myInviteList, registMember, deleteInvite } from "@/api/team";
 import { storeToRefs } from "pinia";
 import { useMemberStore } from "@/stores/member";
 
+import "@/assets/css/team/teamInvite.css";
+
 const router = useRouter();
 const memberStore = useMemberStore();
 
@@ -78,8 +80,5 @@ function reject(teamId) {
 </template>
 
 <style scoped>
-.invite-icon {
-  height: 74px;
-  width: auto;
-}
+
 </style>

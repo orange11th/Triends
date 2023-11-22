@@ -75,7 +75,7 @@ onMounted(() => {
 <template>
   <div class="container">
     <div class="team-header">
-      <span class="team-title">My team</span>
+      <h1>TeamSpace</h1>
       <TeamInviteItem
         :userId="userId"
         :inviteList="inviteList"
@@ -83,26 +83,20 @@ onMounted(() => {
         @updateInviteList="getInviteList"
       />
     </div>
+
+    <div class="team-list-space">
+      <div class="create-team"></div>
+    </div>
     <input type="text" placeholder="팀 이름" v-model="teamName" />
     <button @click.prevent="makeTeam">팀 만들기</button>
     <ul class="team-list">
-      <TeamMemberItem v-for="team in teamList" :key="team.teamId" :team="team" />
+      <TeamMemberItem
+        v-for="team in teamList"
+        :key="team.teamId"
+        :team="team"
+      />
     </ul>
   </div>
 </template>
 
-<style scoped>
-.team-title {
-  color: black;
-  margin: 50px 100px;
-  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
-  font-size: 60px;
-}
-
-.team-list {
-  list-style: none;
-  padding: 0;
-  max-height: 550px;
-  overflow-y: auto;
-}
-</style>
+<style scoped></style>
