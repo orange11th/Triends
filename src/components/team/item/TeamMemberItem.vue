@@ -4,8 +4,10 @@ import { useRouter, useRoute } from "vue-router";
 import { teamInviteList, teamInvite, leaveTeam } from "@/api/team";
 import { storeToRefs } from "pinia";
 import { useMemberStore } from "@/stores/member";
+import TeamInviteSearch from "./TeamInviteSearchItem.vue"
 
 import "@/assets/css/team/teamMember.css";
+
 
 const router = useRouter();
 const route = useRoute();
@@ -40,20 +42,6 @@ const closeModal = () => {
 };
 
 const inviteList = ref([]);
-
-function inviteTeam(teamId, userId) {
-  teamInvite(
-    teamId,
-    userInfo.value.userId,
-    userId,
-    () => {
-      alert(`${userId} 초대 완료!`);
-    },
-    (error) => {
-      alert("이미 초대한 사용자입니다.");
-    }
-  );
-}
 
 function leave(teamId) {
   leaveTeam(
@@ -120,17 +108,7 @@ function leave(teamId) {
       <!-- 모달 구현 -->
       <div v-show="modalState" class="modal-overlay" @click="closeModal">
         <div v-show="modalState" class="modal" @click.stop>
-          <h1>teamId: {{ props.team.teamId }}</h1>
-          <ul>
-            <li v-for="(invite, index) in inviteList" :key="index">
-              <span>{{ invite.userName }}</span>
-              <a
-                href=""
-                @click.prevent="inviteTeam(props.team.teamId, invite.userId)"
-                >({{ invite.userId }})</a
-              >
-            </li>
-          </ul>
+          <TeamInviteSearch :inviteList="inviteList" :team="team"/>
           <button class="close-button" @click="closeModal">닫기</button>
         </div>
       </div>
