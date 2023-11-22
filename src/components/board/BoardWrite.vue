@@ -14,13 +14,7 @@ const { isValidToken, userInfo } = storeToRefs(memberStore);
 const userId = ref();
 
 onMounted(() => {
-  checkToken(sessionStorage.getItem("accessToken"));
-  if (!isValidToken.value) {
-    alert("토큰이 만료되었습니다.");
-    router.replace({ name: "member-login" });
-  } else {
-    userId.value = userInfo.value.userId;
-  }
+  userId.value = userInfo.value.userId;
 });
 </script>
 

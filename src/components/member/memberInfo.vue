@@ -13,18 +13,18 @@ const { getUserInfo } = memberStore;
 
 const startEditing = (no) => {
   isEditing.value[no] = true;
-  changed.value=true;
+  changed.value = true;
 };
 
 const stopEditing = (no) => {
   isEditing.value[no] = false;
-  changed.value=true;
+  changed.value = true;
 };
 
 const { userLogout, checkToken } = memberStore;
 const { isLogin, isValidToken, userInfo } = storeToRefs(memberStore);
 
-const isEditing = ref([false,false,false,false,false])
+const isEditing = ref([false, false, false, false, false]);
 
 const changed = ref(false);
 
@@ -33,26 +33,23 @@ const changeUserInfo = ref({
   userPass: "",
   userName: "",
   email: "",
-  phone: ""
+  phone: "",
 });
 
 function modify() {
-  userModify(changeUserInfo.value,
-  ()=>{
-    getUserInfo(sessionStorage.getItem("accessToken"));
-   changed.value=false},
-  (error)=>(console.log(error)))
-  changeUserInfo.value.userPass=null;
+  userModify(
+    changeUserInfo.value,
+    () => {
+      getUserInfo(sessionStorage.getItem("accessToken"));
+      changed.value = false;
+    },
+    (error) => console.log(error)
+  );
+  changeUserInfo.value.userPass = null;
 }
 
 onMounted(() => {
-  checkToken(sessionStorage.getItem("accessToken"));
-  if (!isValidToken.value) {
-    alert("토큰이 만료되었습니다.");
-    router.replace({ name: "member-login" });
-  }else{
-    changeUserInfo.value = {...userInfo.value};
-  }
+  changeUserInfo.value = { ...userInfo.value };
 });
 </script>
 
@@ -63,11 +60,10 @@ onMounted(() => {
       <div class="col-md-5 image-div">
         <img class="profile-image img-fluid" src="@/assets/img/slide/5.jpg" alt="" />
       </div>
-      <div class="col-md-1">
-      </div>
+      <div class="col-md-1"></div>
       <!-- 개인정보 div (오른쪽) -->
-      <div class ="col-md-1">
-          <!-- <h1 style="margin: 80px 0 20px 0;">ID</h1>
+      <div class="col-md-1">
+        <!-- <h1 style="margin: 80px 0 20px 0;">ID</h1>
           <h1 style="margin: 32px 0;">Name</h1>
           <h1 style="margin: 32px 0;">Pass</h1>
           <h1 style="margin: 32px 0;">Email</h1>
@@ -78,35 +74,55 @@ onMounted(() => {
           <!-- 계획 제목 -->
           <!-- <h1>My Info</h1> -->
           <div class="plan-title">
-            <div style="padding:8px;">
+            <div style="padding: 8px">
               {{ changeUserInfo.userId }}
             </div>
             <!-- <input v-else v-model="changeUserInfo.userId" @blur="stopEditing(0)" placeholder="변경할 아이디" /> -->
           </div>
-          <div class="plan-title">  
+          <div class="plan-title">
             <div class="editable-text" v-if="!isEditing[1]" @click="startEditing(1)">
               {{ changeUserInfo.userName }}
             </div>
-            <input v-else v-model="changeUserInfo.userName" @blur="stopEditing(1)" placeholder="변경할 이름" />
+            <input
+              v-else
+              v-model="changeUserInfo.userName"
+              @blur="stopEditing(1)"
+              placeholder="변경할 이름"
+            />
           </div>
-          <div class="plan-title">  
+          <div class="plan-title">
             <div class="editable-text" v-if="!isEditing[2]" @click="startEditing(2)">
               <span v-if="!changeUserInfo.userPass">비밀번호 변경</span>
-              <span v-else>새 비밀번호: {{changeUserInfo.userPass}}</span> 
+              <span v-else>새 비밀번호: {{ changeUserInfo.userPass }}</span>
             </div>
-            <input v-else v-model="changeUserInfo.userPass" @blur="stopEditing(2)" placeholder="새 비밀번호" />
+            <input
+              v-else
+              v-model="changeUserInfo.userPass"
+              @blur="stopEditing(2)"
+              placeholder="새 비밀번호"
+            />
           </div>
-          <div class="plan-title">  
+          <div class="plan-title">
             <div class="editable-text" v-if="!isEditing[3]" @click="startEditing(3)">
               {{ changeUserInfo.email }}
             </div>
-            <input v-else v-model="changeUserInfo.email" @blur="stopEditing(3)" placeholder="변경할 이메일" />
+            <input
+              v-else
+              v-model="changeUserInfo.email"
+              @blur="stopEditing(3)"
+              placeholder="변경할 이메일"
+            />
           </div>
-          <div class="plan-title">  
+          <div class="plan-title">
             <div class="editable-text" v-if="!isEditing[4]" @click="startEditing(4)">
               {{ changeUserInfo.phone }}
             </div>
-            <input v-else v-model="changeUserInfo.phone" @blur="stopEditing(4)" placeholder="변경할 전화번호" />
+            <input
+              v-else
+              v-model="changeUserInfo.phone"
+              @blur="stopEditing(4)"
+              placeholder="변경할 전화번호"
+            />
           </div>
           <button class="modify-button" v-if="changed" @click="modify">수정하기</button>
         </div>
@@ -116,10 +132,10 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.col{
+.col {
   position: relative;
 }
-.modify-button{
+.modify-button {
   display: block;
   position: absolute;
   right: 14px;
@@ -130,14 +146,14 @@ onMounted(() => {
   font-weight: 600;
   text-align: center;
   line-height: 50px;
-  color: #FFF;
+  color: #fff;
   border-radius: 5px;
-  transition: all 0.2s ;
-  background: #5DC8CD;
+  transition: all 0.2s;
+  background: #5dc8cd;
   border-style: none;
 }
-.modify-button:hover{
-  background: #01939A;
+.modify-button:hover {
+  background: #01939a;
 }
 
 .profile-image {

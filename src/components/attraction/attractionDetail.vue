@@ -23,28 +23,31 @@ getAttractionDetail();
 <template>
   <div class="container">
     <h2 class="attr-title">{{ attraction.title }}</h2>
-    <img :src="attraction.firstImage" alt="" />
+    <img class="attr-image" :src="attraction.firstImage" alt="" />
     <div class="info-row">
       <div class="info-item">
-        <img class="icon" src="@/assets/img/icon/location-icon.png" alt="">
+        <img class="icon" src="@/assets/img/icon/location-icon.png" alt="" />
         <p>{{ attraction.addr1 }}</p>
       </div>
       <div class="info-item">
-        <img class="icon" src="@/assets/img/icon/phone-icon.png" alt="">
+        <img class="icon" src="@/assets/img/icon/phone-icon.png" alt="" />
         <p v-if="attraction.tel">{{ attraction.tel }}</p>
         <p v-else>전화번호 정보가 없습니다.</p>
       </div>
     </div>
     <p>{{ attraction.homepage }}</p>
     <div class="overview">
-      <img class="icon book-icon" src="@/assets/img/icon/book-icon.png" alt="">
+      <img class="icon book-icon" src="@/assets/img/icon/book-icon.png" alt="" />
       <p>{{ attraction.overview }}</p>
     </div>
   </div>
 </template>
 
 <style scoped>
-.overview{
+.attr-image{
+  align-self: center;
+}
+.overview {
   width: 100%;
 }
 .attr-title {
@@ -53,14 +56,16 @@ getAttractionDetail();
 
 .container {
   width: 33.33%;
+  display: flex;
+  flex-direction: column;
 }
 
 .icon {
-  height: 50px;
+  height: 40px;
   width: auto;
 }
 
-.book-icon{
+.book-icon {
   margin-bottom: 10px;
 }
 

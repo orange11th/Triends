@@ -1,5 +1,49 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import { useMemberStore } from "@/stores/member";
+import { storeToRefs } from "pinia";
+import { myInviteList } from "../api/team";
+
+const requireAuth = () => (to, from, next) => {
+  const memberStore = useMemberStore();
+  const { checkToken } = memberStore;
+  const { isValidToken } = storeToRefs(memberStore);
+
+  checkToken(sessionStorage.getItem("accessToken"));
+  if (!isValidToken.value) {
+    alert("로그인이 필요합니다.");
+    router.replace({ name: "member-login" });
+  } else {
+    return next();
+  }
+};
+
+const headerAlert = () => (to, from, next) => {
+  const memberStore = useMemberStore();
+  const { checkToken } = memberStore;
+  const { userInfo, isAlert } = storeToRefs(memberStore);
+
+  console.log("headerAlert 실행!");
+  checkToken(sessionStorage.getItem("accessToken"));
+  if (userInfo.value) {
+    myInviteList(
+      userInfo.value.userId,
+      ({ data }) => {
+        console.log(data);
+        if (data.length != 0) {
+          isAlert.value = true;
+        } else {
+          isAlert.value = false;
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+    console.log("isAlert", isAlert.value);
+  }
+  return next();
+};
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -8,19 +52,19 @@ const router = createRouter({
       path: "/",
       name: "home",
       component: HomeView,
+      beforeEnter: headerAlert(),
     },
     {
       path: "/about",
       name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import("../views/AboutView.vue"),
+      beforeEnter: headerAlert(),
     },
     {
       path: "/board",
       name: "board",
       component: () => import("../views/BoardView.vue"),
+      beforeEnter: headerAlert(),
       redirect: { name: "article-list" },
       children: [
         {
@@ -28,27 +72,19 @@ const router = createRouter({
           name: "article-list",
           component: () => import("@/components/board/BoardList.vue"),
         },
-        // {
-        //   path: "view/:articleno",
-        //   name: "article-view",
-        //   component: () => import("@/components/board/BoardDetail.vue"),
-        // },
         {
           path: "write",
           name: "article-write",
           component: () => import("@/components/board/BoardWrite.vue"),
+          beforeEnter: requireAuth(),
         },
-        // {
-        //   path: "modify/:articleno",
-        //   name: "article-modify",
-        //   component: () => import("@/components/board/BoardModify.vue"),
-        // },
       ],
     },
     {
       path: "/team",
       name: "team",
       component: () => import("../views/TeamView.vue"),
+      beforeEnter: headerAlert(),
       children: [
         {
           path: "list",
@@ -66,6 +102,7 @@ const router = createRouter({
       path: "/attraction",
       name: "attraction",
       component: () => import("../views/AttractionView.vue"),
+      beforeEnter: headerAlert(),
       children: [
         {
           path: "list",
@@ -83,6 +120,7 @@ const router = createRouter({
       path: "/member",
       name: "member",
       component: () => import("../views/MemberView.vue"),
+      beforeEnter: headerAlert(),
       children: [
         {
           path: "login",
@@ -92,6 +130,7 @@ const router = createRouter({
         {
           path: "info",
           name: "member-info",
+          beforeEnter: requireAuth(),
           component: () => import("@/components/member/memberInfo.vue"),
         },
         {
