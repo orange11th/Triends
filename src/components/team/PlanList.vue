@@ -19,12 +19,23 @@
       <div class="plus-search">
 
 
-        <div class="search-space">
+        <!-- <div class="search-space">
           <input
             type="text"
             placeholder="우리 언제 갈까?"
             readonly
           />
+          <a @click="toggleNewItemInput">
+            <img src="@/assets/img/icon/plus-icon.svg" alt="검색" />
+          </a>
+        </div> -->
+        <div class="search-space">
+          <input
+            type="text"
+            id="customInput"
+            readonly
+          />
+          <span id="placeholderText">우리 <span class="highlight">언제</span> 갈까?</span>
           <a @click="toggleNewItemInput">
             <img src="@/assets/img/icon/plus-icon.svg" alt="검색" />
           </a>
@@ -56,8 +67,21 @@
         
         
 
-
         <div class="search-space">
+          <input
+            type="text"
+            id="customInput1"
+            v-model="param.keyword"
+            @keyup.enter="searchAttractionList"
+            @focus="hidePlaceholder" @blur="showPlaceholder"
+          />
+          <span id="placeholderText1">우리 <span class="highlight">어디</span> 갈까?</span>
+          <a @click="searchAttractionList">
+            <img src="@/assets/img/icon/search-icon.svg" alt="검색" />
+          </a>
+        </div>
+
+        <!-- <div class="search-space">
           <input
             type="text"
             v-model="param.keyword"
@@ -67,7 +91,7 @@
           <a @click="searchAttractionList">
             <img src="@/assets/img/icon/search-icon.svg" alt="검색" />
           </a>
-        </div>
+        </div> -->
 
       </div>
       </div>
@@ -181,6 +205,7 @@ onMounted(() => {
 const getPlanList = () => {
   planList(route.params.teamId,
     ({ data }) => {
+      console.log(data);
       data.forEach(plan => {
           addPlanToStateLists(plan);
       });
@@ -312,6 +337,19 @@ const isNewItemInputVisible = ref(false);
 const toggleNewItemInput = () => {
   isNewItemInputVisible.value = !isNewItemInputVisible.value;
 };
+
+const hidePlaceholder = () => {
+  document.getElementById('placeholderText1').style.display = 'none';
+};
+
+const showPlaceholder = () => {
+  if (!document.getElementById('customInput1').value) {
+    document.getElementById('placeholderText1').style.display = 'block';
+  }
+};
+
+
+
   </script>
   
   <style scoped>
@@ -588,6 +626,7 @@ const toggleNewItemInput = () => {
   background-color: rgba(0, 0, 0, 0.2); /* 스크롤바 색상 설정 */
 }
 .search-space {
+  position:relative;
   background-color: white;
   border: solid 1px;
   border-color: var(--gray);
@@ -716,6 +755,24 @@ select:focus {
 }
 .select-space{
     margin-bottom: 7px;
+}
+#placeholderText {
+  position: absolute;
+  left: 15px; /* 입력 필드 내부의 여백 조정 */
+  top: 7px;
+  color: darkgray; /* 일반 텍스트 색상 */
+  pointer-events: none; /* 텍스트 위에서의 클릭 방지 */
+}
+#placeholderText1 {
+  position: absolute;
+  left: 15px; /* 입력 필드 내부의 여백 조정 */
+  top: 7px;
+  color: darkgray; /* 일반 텍스트 색상 */
+  pointer-events: none; /* 텍스트 위에서의 클릭 방지 */
+}
+.highlight {
+  color: darkgreen; /* 강조 텍스트 색상 */
+  font-weight: bold;
 }
   </style>
   
