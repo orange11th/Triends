@@ -8,6 +8,8 @@ import { useMemberStore } from "@/stores/member";
 import TeamMemberItem from "./item/TeamMemberItem.vue";
 import TeamInviteItem from "./item/TeamInviteItem.vue";
 
+import "@/assets/css/team/teamList.css";
+
 const router = useRouter();
 const route = useRoute();
 
