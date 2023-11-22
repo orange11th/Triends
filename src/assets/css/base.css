@@ -49,3 +49,7 @@ input:focus {
   filter: drop-shadow(1px 5px 3px rgb(0, 0, 0, 0.3));
   transition: 0.1s;
 }
+
+::-webkit-scrollbar {
+  display: none;
+}

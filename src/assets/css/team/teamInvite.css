@@ -1,3 +1,9 @@
+#navbarDropdown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .invite-icon {
   height: 25px;
 }

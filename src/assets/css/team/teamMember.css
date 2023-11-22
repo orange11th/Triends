@@ -8,9 +8,9 @@
 
 .team-item {
   background-color: #72b85c;
-  margin: 50px 100px;
+  margin-bottom: 20px;
   padding: 10px;
-  border-radius: 70px;
+  border-radius: 15px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 

@@ -95,15 +95,20 @@ function doneCreating() {
     </div>
 
     <div class="team-list-space">
-      <div class="create-team" v-if="!isCreating">
-        <a @click="nowCreating">
+      <div class="create-team clickable" v-if="!isCreating">
+        <a href="#" @click="nowCreating">
           <img src="@/assets/img/icon/plus-solid.svg" alt="" />
           <span>create new team</span>
         </a>
       </div>
       <div class="create-team" v-if="isCreating">
-        <input type="text" placeholder="팀 이름" v-model="teamName" />
-        <a @click.prevent="doneCreating">
+        <input
+          type="text"
+          placeholder="팀 이름"
+          v-model="teamName"
+          @keyup.enter="doneCreating"
+        />
+        <a href="#" @click.prevent="doneCreating">
           <img
             id="create"
             class="clickable-img"

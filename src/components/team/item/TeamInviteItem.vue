@@ -53,13 +53,13 @@ function reject(teamId) {
       >
         <img
           v-show="!inviteList.length"
-          class="invite-icon"
+          class="invite-icon clickable-img"
           src="@/assets/img/icon/message-solid.svg"
           alt=""
         />
         <img
           v-show="inviteList.length"
-          class="invite-icon"
+          class="invite-icon clickable-img"
           src="@/assets/img/icon/open-message.svg"
           alt=""
           id="smaller-img"

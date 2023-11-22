@@ -69,6 +69,22 @@ function leave(teamId) {
 
 <template>
   <div v-if="showTemplate">
+    <div class="team">
+      <div class="team-header">
+        <div class="team-info">
+          <img src="" alt="팀" />
+          <h2 class="team-info">
+            {{ props.team.teamName }}　|　
+          </h2>
+          <a id="여기에 영상통화로 접속하는 기능 삽입" href="#">
+            <img src="" alt="영통">
+          </a>
+        </div>
+        <div class="team-plan"></div>
+      </div>
+      <div class="team-calendar"></div>
+      <div class="team-footer"></div>
+    </div>
     <li class="team-item">
       <div class="team-header">
         <h2 class="team-info">
