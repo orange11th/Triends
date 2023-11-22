@@ -68,7 +68,7 @@ function reject(teamId) {
       <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
         <li v-for="invite in inviteList" :key="invite.teamId">
           {{ invite.fromUserName }} ({{ invite.fromUserId }})님이
-          {{ invite.teamName }} ({{ invite.teamId }})팀에 초대하였습니다.
+          {{ invite.teamName }} 팀에 초대하였습니다.
           <a
             href=""
             @click.prevent="

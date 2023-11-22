@@ -1,4 +1,5 @@
 <script setup>
+import { ref, onMounted, onUnmounted } from "vue";
 import "@/assets/css/main.css";
 import "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js";
 

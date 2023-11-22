@@ -1,17 +1,6 @@
-html {
-  scroll-behavior: smooth;
-}
-
 * {
   margin: 0;
   padding: 0;
-}
-
-body {
-  width: auto;
-  height: auto;
-  /* font-size: 18px; */
-  font-family: "Noto Sans";
 }
 
 #red-text {
