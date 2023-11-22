@@ -70,71 +70,53 @@ function leave(teamId) {
 <template>
   <div v-if="showTemplate">
     <div class="team">
-      <div class="team-header">
+      <div class="team-top">
         <div class="team-info">
-          <img src="" alt="팀" />
-          <h2 class="team-info">
-            {{ props.team.teamName }}　|　
-          </h2>
-          <a id="여기에 영상통화로 접속하는 기능 삽입" href="#">
-            <img src="" alt="영통">
+          <img src="@/assets/img/icon/users.svg" alt="팀" />
+          <h2 class="team-name">{{ props.team.teamName }} ·</h2>
+          <a id="to-jitsi" href="#">
+            <img id="chat" src="@/assets/img/icon/chat.svg" alt="영통" />
           </a>
         </div>
-        <div class="team-plan"></div>
+        <div class="team-plan">
+          <a @click="movePlan(props.team.teamId)" href="#">
+            <img class="clickable-img" src="@/assets/img/icon/go.svg" alt="" />
+          </a>
+        </div>
       </div>
-      <div class="team-calendar"></div>
-      <div class="team-footer"></div>
+      <hr />
+      <div class="team-calendar">여기다 달력모양넣을거임~</div>
+      <hr />
+      <div class="team-bottom">
+        <a
+          class="invite-btn"
+          @click.prevent="() => openModal(props.team.teamId)"
+          href=""
+        >
+          <img src="@/assets/img/icon/user-plus.svg" alt="" />
+        </a>
+        <a class="leave-btn" @click="leave(props.team.teamId)" href="">
+          <img src="@/assets/img/icon/out.svg" alt="" />
+        </a>
+      </div>
     </div>
-    <li class="team-item">
-      <div class="team-header">
-        <h2 class="team-info">
-          {{ props.team.teamName }}
-          <button @click="leave(props.team.teamId)">팀 나가기</button>
-        </h2>
-      </div>
-      <ul class="member-list">
-        <button class="plan-link" @click="movePlan(props.team.teamId)">
-          여행계획 바로가기
-        </button>
-        <div class="horizontal-scroll">
-          <!-- 팀 내부 팀원 목록 -->
-          <li
-            v-for="teamMember in props.team.teamList"
-            :key="teamMember.userId"
-            class="member-item"
-          >
-            <span class="member-info"
-              >{{ teamMember.userName }}<br />{{ teamMember.userId }}</span
-            >
-          </li>
-          <li class="member-item">
+    <!-- 모달 구현 -->
+    <div v-show="modalState" class="modal-overlay" @click="closeModal">
+      <div v-show="modalState" class="modal" @click.stop>
+        <h1>teamId: {{ props.team.teamId }}</h1>
+        <ul>
+          <li v-for="(invite, index) in inviteList" :key="index">
+            <span>{{ invite.userName }}</span>
             <a
-              href="#"
-              class="invite-link"
-              @click="() => openModal(props.team.teamId)"
-              >초대하기</a
+              href=""
+              @click.prevent="inviteTeam(props.team.teamId, invite.userId)"
+              >({{ invite.userId }})</a
             >
           </li>
-        </div>
-      </ul>
-      <!-- 모달 구현 -->
-      <div v-show="modalState" class="modal-overlay" @click="closeModal">
-        <div v-show="modalState" class="modal" @click.stop>
-          <h1>teamId: {{ props.team.teamId }}</h1>
-          <ul>
-            <li v-for="(invite, index) in inviteList" :key="index">
-              <span>{{ invite.userName }}</span>
-              <a
-                href=""
-                @click.prevent="inviteTeam(props.team.teamId, invite.userId)"
-                >({{ invite.userId }})</a
-              >
-            </li>
-          </ul>
-          <button class="close-button" @click="closeModal">닫기</button>
-        </div>
+        </ul>
+        <button class="close-button" @click="closeModal">닫기</button>
       </div>
-    </li>
+    </div>
   </div>
 </template>
 
