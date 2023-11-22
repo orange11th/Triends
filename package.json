@@ -17,6 +17,7 @@
     "pinia": "^2.1.7",
     "pinia-plugin-persist": "^1.0.0",
     "pinia-plugin-persistedstate": "^3.2.0",
+    "three": "^0.158.0",
     "vue": "^3.3.4",
     "vue-naver-maps": "^0.15.0",
     "vue-router": "^4.2.5",
