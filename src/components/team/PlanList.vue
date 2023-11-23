@@ -282,7 +282,7 @@ const onDrop = (event, toListIndex) => {
   const toList = state.lists[toListIndex];
   toList.numberList.push(draggedItem);
 };
-
+import Swal from 'sweetalert2'
 const savePlans = () => {
   const newPlans = state.lists
   .filter(item => item.id >= 2 && !plans.value.some(p => p.date === item.date))
@@ -300,7 +300,17 @@ const savePlans = () => {
       };
     });
     saveNewPlan(route.params.teamId, newPlans);
+    Swal.fire({
+        title: '저장 완료',
+        text: '친구와 여행계획을 나눠보아요!',
+        icon: 'success',
+        confirmButtonColor: '#84B891', // 여기에 원하는 색상 코드를 입력하세요
+    })
 };
+
+
+
+
 
 const deleteItem = (item, listIndex) => {
   const list = state.lists[listIndex];
