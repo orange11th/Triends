@@ -1,8 +1,9 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
+import { useRouter } from "vue-router";
 import "@/assets/css/main.css";
 import "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js";
-
+const router = useRouter();
 // 상태 정의
 const isScrolledBeyond50 = ref(false);
 const isResponsiveMenuVisible = ref(false);
@@ -42,6 +43,10 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("scroll", handleScroll);
 });
+
+const goToMemberRegist = () => {
+  router.push({ name: 'member-regist' });
+};
 </script>
 
 <template>
@@ -126,12 +131,12 @@ onUnmounted(() => {
 
     <div id="hero-header">
       <div id="hero-content">
-        <h1 id="hero-title">A RANDOM TITLE</h1>
+        <h1 id="hero-title">즐거운 동행의 시작</h1>
 
-        <p id="hero-text">Some random text to describe the random title</p>
+        <p id="hero-text">트렌즈와 함께 여행지를 탐색하고, 계획을 세워보아요</p>
 
         <a href="#presentation-container"
-          ><button id="hero-button">Next Section</button></a
+          ><button id="hero-button">지금 시작하기</button></a
         >
       </div>
     </div>
@@ -140,36 +145,59 @@ onUnmounted(() => {
       <!-- Presentation Section -->
 
       <div id="presentation-container">
-        <div id="presentation-title-description">
-          <h1>Here is how <span id="red-text">we do it</span></h1>
 
-          <hr id="title-text-separator" />
-
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-          </p>
+      <div id="features-container">
+        <div id="features-description">
+          <h1>트렌즈와 <span id="red-text">함께</span> 여행을 시작하세요!</h1>
         </div>
+        <!-- Features Section Description -->
 
-        <div id="section-buttons">
-          <button class="product-button" id="first-product-button">
-            Product 1
-          </button>
+        <!-- Features of the Services -->
+        <div id="service-features">
+          <div id="feature">
+            <img
+              src="https://i.ibb.co/tQrPJGk/like.png"
+              alt="Heart Icon"
+              id="heart-icon"
+            />
+            <h2 id="feature-title">여행지 탐색</h2>
+            <p>
+              트렌즈는 지역, 여행지 종류(관광, 쇼핑, 숙박 등)에 구애받지 않고 여행지를 탐색할 수 있어요. 원하는 곳을 검색해보는 것은 어떨까요?
+            </p>
+          </div>
+          <div id="feature">
+            <img
+              src="https://i.ibb.co/LY0pq5X/web-programming.png"
+              alt="Code Icon"
+              id="code-icon"
+            />
 
-          <button class="product-button" id="second-product-button">
-            Product 2
-          </button>
+            <h2 id="feature-title">팀별 계획</h2>
 
-          <button class="product-button" id="third-product-button">
-            Product 3
-          </button>
+            <p>
+              자유롭게 팀을 생성하고, 친구들을 초대할 수 있어요. 
+            </p>
 
-          <button class="product-button" id="fourth-product-button">
-            Product 4
-          </button>
+          </div>
+
+          <div id="feature">
+            <img
+              src="https://i.ibb.co/vHjwX9N/smartphone-with-shield.png"
+              alt="Shield on Phone Icon"
+              id="phone-icon"
+            />
+
+            <h2 id="feature-title">여행 후기</h2>
+
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+
+          </div>
         </div>
+      </div>
+      <!-- /"Features Section" -->
 
         <!-- Product Content Section -->
         <div id="section-content-container">
@@ -603,98 +631,20 @@ onUnmounted(() => {
         </div>
       </div>
 
-      <!-- "Features Section" -->
-
-      <div id="features-container">
-        <!-- Features Section Description -->
-        <div id="features-description">
-          <h1>
-            Our services offer <span id="red-text"> the best features </span>
-          </h1>
-
-          <hr id="title-text-separator" />
-
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-          </p>
-        </div>
-
-        <!-- Features of the Services -->
-        <div id="service-features">
-          <div id="feature">
-            <img
-              src="https://i.ibb.co/tQrPJGk/like.png"
-              alt="Heart Icon"
-              id="heart-icon"
-            />
-
-            <h2 id="feature-title">Short Title</h2>
-
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-
-            <a href="#"><button id="feature-button">See more!</button></a>
-          </div>
-
-          <div id="feature">
-            <img
-              src="https://i.ibb.co/LY0pq5X/web-programming.png"
-              alt="Code Icon"
-              id="code-icon"
-            />
-
-            <h2 id="feature-title">Short Title</h2>
-
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-
-            <a href="#"><button id="feature-button">See more!</button></a>
-          </div>
-
-          <div id="feature">
-            <img
-              src="https://i.ibb.co/vHjwX9N/smartphone-with-shield.png"
-              alt="Shield on Phone Icon"
-              id="phone-icon"
-            />
-
-            <h2 id="feature-title">Short Title</h2>
-
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-
-            <a href="#"><button id="feature-button">See more!</button></a>
-          </div>
-        </div>
-      </div>
-      <!-- /"Features Section" -->
+     
 
       <!-- Newsletter Section -->
       <div id="newsletter-container">
         <div id="newsletter-title-description">
-          <h1>Join our Newsletter!</h1>
+          <h1>이제 여행을 떠나볼까요?</h1>
 
-          <hr id="title-text-separator" />
+          <!-- <hr id="title-text-separator" /> -->
         </div>
 
-        <div id="email-input-container">
-          <form
-            id="email-form"
-            action="https://www.freecodecamp.com/email-submit"
-          >
-            <label> Join our Newsletter and don't miss future deals! </label>
-            <input type="email" placeholder="Enter your e-mail" id="email" />
-            <button id="submit" type="submit">Subscribe</button>
-          </form>
+        <div id="final-container">
+            <label id="final-text"> 트렌즈와 함께 즐거운 시간을 보내봐요!</label>
+            <!-- <input type="email" placeholder="Enter your e-mail" id="email" /> -->
+            <button id="final-button" @click="goToMemberRegist">회원가입</button>
         </div>
       </div>
     </div>

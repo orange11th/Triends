@@ -146,7 +146,7 @@ Tags included:
   color: white;
 
   /* Background image */
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url(https://i.ibb.co/VTdML0x/accessories-apple-business-1038628.jpg);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url('@/assets/img/slide/main.jpg');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -549,29 +549,10 @@ Tags included:
   font-size: 45px;
 }
 
-#email-input-container {
-  margin-top: 1%
+#final-text {
+  margin-bottom: 10px;
 }
-
-#email-form {
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-  justify-content: center;
-}
-
-#email-form label {
-  font-size: 20px;
-}
-
-#email {
-  font-size: 18px;
-  margin-top: 4%;
-  padding: 3%;
-  width: 150%;
-}
-
-#submit {
+#final-button {
   border: none;
   border-radius: 10px;
   background-color: #ff5a6e;
@@ -583,12 +564,19 @@ Tags included:
   width: 40%;
 }
 
-#submit:hover {
+#final-button:hover {
   cursor: pointer;
   background-color: #ff7b8b;
 }
 
 
+
+#final-container {
+  display: flex;
+  flex-direction: column; /* 수직 방향 정렬 */
+  justify-content: center; /* 수직 중앙 정렬 */
+  align-items: center; /* 수평 중앙 정렬 */
+}
 
 
 
@@ -707,7 +695,7 @@ Tags included:
     color: white;
 
     /* Background image */
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url(https://i.ibb.co/VTdML0x/accessories-apple-business-1038628.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url('@/assets/img/slide/main.jpg');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -1017,7 +1005,7 @@ Tags included:
     color: white;
 
     /* Background image */
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url(https://i.ibb.co/VTdML0x/accessories-apple-business-1038628.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url('@/assets/img/slide/main.jpg');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
