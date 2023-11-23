@@ -35,6 +35,7 @@
 		#{contentTypeId}
 		and
 		first_image != ""
+		limit 500
 	</select>
 
 	<sql id="search">
@@ -55,7 +56,8 @@
 			ELSE 2
 			END,
 			title,
-			overview;
+			overview
+			limit 500
 		</if>
 	</sql>
 
@@ -88,6 +90,7 @@
 			END,
 			title,
 			overview
+			limit 500
 		</if>
 	</select>
 </mapper>
