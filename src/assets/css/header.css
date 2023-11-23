@@ -72,6 +72,8 @@ nav {
 }
 
 .dropdown-menu a {
+  padding: 0;
+
   font-weight: 700;
   color: var(--main-black);
   text-decoration: none;

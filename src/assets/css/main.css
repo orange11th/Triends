@@ -4,19 +4,18 @@
 }
 
 #red-text {
-    color: #ff5a6e;
+  color: var(--main-leaf);
 }
 
 #title-text-separator {
   width: 5%;
   margin-top: 1%;
-  border: solid 1px #ff5a6e;
+  border: solid 1px var(--main-leaf);
 }
 
 .responsive-menu-link {
-  color: black;
+  color: var(--main-black);
 }
-
 
 /* ----- General Header CSS ------ */
 
@@ -32,10 +31,6 @@
   font-size: 19px;
   min-height: 100px;
 }
-
-
-
-
 
 /* Normal Header */
 
@@ -83,14 +78,10 @@
   margin: 12px;
 }
 
-#nav-bar ul, a {
+#nav-bar ul,
+a {
   text-decoration: none;
 }
-
-
-
-
-
 
 /* Responsive Header */
 
@@ -110,10 +101,6 @@
 #image-button-black:focus {
   outline: 0;
 }
-
-
-
-
 
 /* ----- Hero Header CSS -----
 
@@ -146,7 +133,8 @@ Tags included:
   color: white;
 
   /* Background image */
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url(https://i.ibb.co/VTdML0x/accessories-apple-business-1038628.jpg);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url(https://i.ibb.co/VTdML0x/accessories-apple-business-1038628.jpg);
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -176,13 +164,6 @@ Tags included:
 #hero-button:hover {
   cursor: pointer;
 }
-
-
-
-
-
-
-
 
 /* ----- Main Content CSS -----
 
@@ -294,10 +275,6 @@ Tags included:
   cursor: pointer;
 }
 
-
-
-
-
 /* ----- Product Presentation CSS -----
 
 CSS for the section of the website that features each "product" available.
@@ -407,9 +384,6 @@ Tags included:
   color: white;
 }
 
-
-
-
 /* -- SUBSECTION CSS: Section Content CSS -- */
 
 #section-content-container {
@@ -495,15 +469,6 @@ Tags included:
   background-color: #ff7b8b;
 }
 
-
-
-
-
-
-
-
-
-
 /* Newsletter Section CSS
 
 Tags included:
@@ -550,7 +515,7 @@ Tags included:
 }
 
 #email-input-container {
-  margin-top: 1%
+  margin-top: 1%;
 }
 
 #email-form {
@@ -588,17 +553,8 @@ Tags included:
   background-color: #ff7b8b;
 }
 
-
-
-
-
-
-
-
-
 /* @Media min-width: 480px */
-@media only screen and (min-width : 200px) and (max-width : 860px) {
-
+@media only screen and (min-width: 200px) and (max-width: 860px) {
   /* General Elements */
 
   #title-text-separator {
@@ -607,7 +563,6 @@ Tags included:
     margin-bottom: 3%;
     border: solid 1px #ff5a6e;
   }
-
 
   /* Navigation CSS */
   #header {
@@ -622,7 +577,6 @@ Tags included:
     min-height: 80px;
     margin: auto;
   }
-
 
   #normal-header {
     display: none;
@@ -677,7 +631,6 @@ Tags included:
     padding: 0;
   }
 
-
   #image-button-black {
     border: none;
     display: flex;
@@ -686,9 +639,6 @@ Tags included:
     background-color: inherit;
     padding: 2%;
   }
-
-
-
 
   /* Hero CSS */
 
@@ -707,7 +657,8 @@ Tags included:
     color: white;
 
     /* Background image */
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url(https://i.ibb.co/VTdML0x/accessories-apple-business-1038628.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url(https://i.ibb.co/VTdML0x/accessories-apple-business-1038628.jpg);
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -737,8 +688,6 @@ Tags included:
   #hero-button:hover {
     cursor: pointer;
   }
-
-
 
   /* Service Features CSS */
 
@@ -779,9 +728,6 @@ Tags included:
     font-size: 16px;
     margin-bottom: 20%;
   }
-
-
-
 
   /* Presentation Section CSS */
 
@@ -873,13 +819,6 @@ Tags included:
     width: 35%;
   }
 
-
-
-
-  
-
-
-
   /* Email Section CSS */
 
   #newsletter-container {
@@ -900,105 +839,82 @@ Tags included:
   }
 }
 
+@media only screen and (min-width: 860px) and (max-width: 1280px) {
+  /* Navigation CSS */
+  #header {
+    background: white;
+    position: fixed;
+    display: flex;
+    flex-wrap: wrap;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: 80px;
+    margin: auto;
+  }
 
+  #normal-header {
+    display: none;
+  }
 
+  #responsive-header {
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+    margin: auto;
+  }
 
+  #responsive-logo-button {
+    display: flex;
+    justify-content: space-between;
+    padding: 1% 0 1% 0;
+  }
 
+  #responsive-nav-bar {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+  }
 
+  #responsive-nav-bar ul {
+    list-style: none;
+  }
 
+  #responsive-nav-bar li {
+    text-align: center;
+    font-size: 23px;
+    margin-top: 40%;
+  }
 
+  #responsive-first-item {
+    margin-top: 0;
+    padding: 0;
+  }
 
+  #header-img-black {
+    margin-left: 5%;
+    margin-top: 3%;
+    width: 50%;
+    height: auto;
+  }
 
+  #dropdown-button-black {
+    display: block;
+    width: 55%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+  }
 
-
-
-
-
-
-
-
-
-@media only screen and (min-width : 860px) and (max-width : 1280px) {
-
-
-    /* Navigation CSS */
-    #header {
-      background: white;
-      position: fixed;
-      display: flex;
-      flex-wrap: wrap;
-      flex-flow: row;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      min-height: 80px;
-      margin: auto;
-    }
-
-
-    #normal-header {
-      display: none;
-    }
-
-    #responsive-header {
-      display: flex;
-      flex-flow: column;
-      width: 100%;
-      margin: auto;
-    }
-
-    #responsive-logo-button {
-      display: flex;
-      justify-content: space-between;
-      padding: 1% 0 1% 0;
-    }
-
-    #responsive-nav-bar {
-      display: flex;
-      flex-flow: column;
-      align-items: center;
-    }
-
-    #responsive-nav-bar ul {
-      list-style: none;
-    }
-
-    #responsive-nav-bar li {
-      text-align: center;
-      font-size: 23px;
-      margin-top: 40%;
-    }
-
-    #responsive-first-item {
-      margin-top: 0;
-      padding: 0;
-    }
-
-    #header-img-black {
-      margin-left: 5%;
-      margin-top: 3%;
-      width: 50%;
-      height: auto;
-    }
-
-    #dropdown-button-black {
-      display: block;
-      width: 55%;
-      height: auto;
-      margin: 0;
-      padding: 0;
-    }
-
-
-    #image-button-black {
-      border: none;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: inherit;
-      padding: 2%;
-    }
-
+  #image-button-black {
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: inherit;
+    padding: 2%;
+  }
 
   /* Hero CSS */
 
@@ -1017,7 +933,8 @@ Tags included:
     color: white;
 
     /* Background image */
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url(https://i.ibb.co/VTdML0x/accessories-apple-business-1038628.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url(https://i.ibb.co/VTdML0x/accessories-apple-business-1038628.jpg);
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -1047,8 +964,6 @@ Tags included:
   #hero-button:hover {
     cursor: pointer;
   }
-
-
 
   /* Service Features CSS */
 
@@ -1090,9 +1005,6 @@ Tags included:
     font-size: 16px;
     margin-bottom: 20%;
   }
-
-
-
 
   /* Presentation Section CSS */
 
@@ -1186,8 +1098,6 @@ Tags included:
     width: 35%;
   }
 
-
-
   /* Email Section CSS */
 
   #newsletter-container {
@@ -1206,5 +1116,4 @@ Tags included:
   #email {
     width: 80%;
   }
-
 }

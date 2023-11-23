@@ -1,7 +1,10 @@
 <script setup>
 import { reactive, ref, watch } from "vue";
 import { useRouter } from "vue-router";
+
 import { memberRegist } from "@/api/member";
+
+import "@/assets/css/member/memberSign.css";
 
 const router = useRouter();
 
@@ -46,45 +49,47 @@ function moveLogin() {
       <h1>회원가입</h1>
     </div>
     <div>
-      <div>
-        <input class="regist-input" type="text" placeholder="아이디" v-model="param.userId" />
-      </div>
-      <div>
-        <input
-          class="regist-input"
-          type="password"
-          placeholder="비밀번호"
-          v-model="param.userPass"
-        />
-      </div>
-      <div>
-        <input
-          class="regist-input"
-          type="password"
-          placeholder="비밀번호확인"
-          v-model="userPassCheck"
-          style="margin: 15px 15px 0px 15px"
-        />
-      </div>
-      <p class="diff-pass" :style="[diffPass ? '' : 'visibility:hidden']">비밀번호가 다릅니다</p>
-      <div>
-        <input
-          class="regist-input"
-          type="text"
-          placeholder="닉네임"
-          v-model="param.userName"
-          style="margin: 13.5px 15px 15px 15px"
-        />
-      </div>
-      <div>
-        <input class="regist-input" type="text" placeholder="이메일" v-model="param.email" />
-      </div>
-      <div>
-        <input class="regist-input" type="text" placeholder="전화번호" v-model="param.phone" />
-      </div>
-      <div>
-        <button class="regist-button" @click="regist">Register</button>
-      </div>
+      <input
+        class="sign sign-input"
+        type="text"
+        placeholder="아이디"
+        v-model="param.userId"
+      />
+      <input
+        class="sign sign-input"
+        type="password"
+        placeholder="비밀번호"
+        v-model="param.userPass"
+      />
+      <input
+        class="sign sign-input"
+        type="password"
+        placeholder="비밀번호확인"
+        v-model="userPassCheck"
+      />
+      <p class="diff-pass" :style="[diffPass ? '' : 'display:none']">
+        비밀번호가 다릅니다
+      </p>
+      <input
+        class="sign sign-input"
+        type="text"
+        placeholder="닉네임"
+        v-model="param.userName"
+      />
+      <input
+        class="sign sign-input"
+        type="text"
+        placeholder="이메일"
+        v-model="param.email"
+      />
+
+      <input
+        class="sign sign-input"
+        type="text"
+        placeholder="전화번호"
+        v-model="param.phone"
+      />
+      <button class="sign sign-button" @click="regist">Register</button>
     </div>
   </div>
 </template>

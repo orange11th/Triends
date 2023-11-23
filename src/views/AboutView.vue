@@ -46,82 +46,6 @@ onUnmounted(() => {
 
 <template>
   <div>
-    <header id="header">
-      <div id="normal-header">
-        <a href="#" id="image-link"
-          ><img src="/src/assets/img/icon/main-logo.svg" alt="" id="header-img"
-        /></a>
-
-        <nav id="nav-bar">
-          <ul>
-            <li class="nav-link" id="menu-item">
-              <a href="#hero-header" class="menu-link"> Home </a>
-            </li>
-            <li class="nav-link" id="menu-item">
-              <a href="#features-container" class="menu-link"> Features </a>
-            </li>
-            <li class="nav-link" id="menu-item">
-              <a href="#presentation-container" class="menu-link"> Products </a>
-            </li>
-            <li class="nav-link" id="menu-item">
-              <a href="#main-media-container" class="menu-link"> Media </a>
-            </li>
-            <li class="nav-link" id="menu-item">
-              <a href="#prices-section-container" class="menu-link">
-                Pricing
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-
-      <div id="responsive-header">
-        <div id="responsive-logo-button">
-          <a href="#" id="image-link"
-            ><img
-              src="https://i.ibb.co/0jM3ZvH/reverse-black.png"
-              alt="Reverse Logo"
-              id="header-img-black"
-          /></a>
-          <button id="image-button-black">
-            <img
-              src="https://i.ibb.co/yfM3fdZ/dropdown-menu-black.png"
-              alt="Dropdown Menu"
-              id="dropdown-button-black"
-            />
-          </button>
-        </div>
-
-        <div id="responsive-nav-bar">
-          <ul>
-            <li class="nav-link" id="responsive-home-item">
-              <a href="#hero-header" class="responsive-menu-link"> Home </a>
-            </li>
-            <li class="nav-link" id="responsive-features-item">
-              <a href="#features-container" class="responsive-menu-link">
-                Features
-              </a>
-            </li>
-            <li class="nav-link" id="responsive-products-item">
-              <a href="#presentation-container" class="responsive-menu-link">
-                Products
-              </a>
-            </li>
-            <li class="nav-link" id="responsive-media-item">
-              <a href="#main-media-container" class="responsive-menu-link">
-                Media
-              </a>
-            </li>
-            <li class="nav-link" id="responsive-pricing-item">
-              <a href="#prices-section-container" class="responsive-menu-link">
-                Pricing
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </header>
-
     <!-- Hero Image, text & button -->
 
     <div id="hero-header">
@@ -276,7 +200,6 @@ onUnmounted(() => {
                 </div>
               </div>
 
-              <button id="content-button">Read More</button>
             </div>
           </div>
 
@@ -383,7 +306,6 @@ onUnmounted(() => {
                 </div>
               </div>
 
-              <button id="content-button">Read More</button>
             </div>
           </div>
 
@@ -490,7 +412,6 @@ onUnmounted(() => {
                 </div>
               </div>
 
-              <button id="content-button">Read More</button>
             </div>
           </div>
 
@@ -597,7 +518,6 @@ onUnmounted(() => {
                 </div>
               </div>
 
-              <button id="content-button">Read More</button>
             </div>
           </div>
         </div>
@@ -692,7 +612,6 @@ onUnmounted(() => {
             action="https://www.freecodecamp.com/email-submit"
           >
             <label> Join our Newsletter and don't miss future deals! </label>
-            <input type="email" placeholder="Enter your e-mail" id="email" />
             <button id="submit" type="submit">Subscribe</button>
           </form>
         </div>

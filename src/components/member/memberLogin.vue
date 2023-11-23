@@ -4,6 +4,8 @@ import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import { useMemberStore } from "@/stores/member";
 
+import "@/assets/css/member/memberSign.css";
+
 const router = useRouter();
 const memberStore = useMemberStore();
 
@@ -31,53 +33,29 @@ function moveRegist() {
 </script>
 
 <template>
-  <div class="container text-center">
+  <div class="container center">
     <h1>로그인</h1>
-    <div>
+    <div class="follow-txt">
       <span>아이디가 없나요? 지금 바로 </span>
       <a href="" @click.prevent="moveRegist">회원가입</a>
-      <div>
-        <input class="login-input" type="text" placeholder="ID" v-model="loginInfo.userId" />
-      </div>
-      <div>
-        <input
-          class="login-input"
-          type="password"
-          placeholder="Password"
-          v-model="loginInfo.userPass"
-          @keyup.enter="login"
-        />
-      </div>
-      <div>
-        <button class="login-button" @click="login">Login</button>
-      </div>
+    </div>
+    <div class="form">
+      <input
+        class="sign sign-input"
+        type="text"
+        placeholder="ID"
+        v-model="loginInfo.userId"
+      />
+      <input
+        class="sign sign-input"
+        type="password"
+        placeholder="Password"
+        v-model="loginInfo.userPass"
+        @keyup.enter="login"
+      />
+      <button class="sign sign-button clickable" @click="login">Login</button>
     </div>
   </div>
 </template>
 
-<style scoped>
-h1 {
-  margin-bottom: 40px;
-}
-
-.login-input {
-  width: 350px;
-  height: 45px;
-  background-color: rgb(231, 231, 231);
-  border: 0px;
-  padding-left: 15px;
-  border-radius: 15px;
-  margin: 15px;
-}
-
-.login-button {
-  color: white;
-  width: 350px;
-  height: 45px;
-  background-color: rgb(50, 62, 62);
-  border: 0px;
-  padding-left: 15px;
-  border-radius: 15px;
-  margin: 10px;
-}
-</style>
+<style scoped></style>
