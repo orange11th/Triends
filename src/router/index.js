@@ -96,7 +96,7 @@ const router = createRouter({
           component: () => import("@/components/team/PlanList.vue"),
         },
         {
-          path: "chat/:teamId/:teamList",
+          path: "chat/:teamId/:teamName/:teamList",
           name: "team-chat",
           component: () => import("@/components/team/TeamChat.vue"),
         },

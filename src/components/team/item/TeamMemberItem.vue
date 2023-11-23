@@ -59,11 +59,12 @@ function moveChat(teamId) {
     name: "team-chat",
     params: { 
       teamId: teamId,
-      // 'someData'는 간단한 데이터일 경우에만 추가 가능
+      teamName: JSON.stringify(props.team.teamName),
       teamList: JSON.stringify(props.team.teamList),
     }
   });
 };
+
 </script>
 
 <template>
