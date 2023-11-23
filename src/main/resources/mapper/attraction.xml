@@ -37,28 +37,6 @@
 		first_image != ""
 	</select>
 
-	<sql id="search">
-		<if test="keyword != null and keyword != ''">
-			AND
-			(title LIKE CONCAT('%',
-			#{keyword}, '%') OR
-			overview
-			LIKE
-			CONCAT('%',
-			#{keyword}, '%'))
-			ORDER BY
-			CASE
-			WHEN title LIKE
-			CONCAT('%',
-			#{keyword},
-			'%') THEN 1
-			ELSE 2
-			END,
-			title,
-			overview;
-		</if>
-	</sql>
-
 	<select id="searchList" parameterType="map"
 		resultMap="attractionMap">
 		select * from

@@ -52,8 +52,8 @@ public class BoardController {
 			MultipartFile mfile = boardDto.getFile();
 			
 //			String directoryPath = "C:/ssafy/triends-front/src/assets/savedImage";
-			String directoryPath = "C:/triends/triends-front/src/assets/img/savedImage";
-//			String directoryPath = "C:/Users/User/OneDrive/Document/SSAFY/Semester1/Project/FinalProject/triends/triends-front/src/assets/savedImage";
+//			String directoryPath = "C:/triends/triends-front/src/assets/img/savedImage";
+			String directoryPath = "C:/Users/User/OneDrive/Document/SSAFY/Semester1/Project/FinalProject/triends/triends-front/src/assets/img/savedImage";
 			File folder = new File(directoryPath);
 			if (!folder.exists()) folder.mkdirs();
 	        String originalFilename = mfile.getOriginalFilename();
