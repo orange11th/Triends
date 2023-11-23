@@ -3,8 +3,11 @@ import { ref, onMounted, reactive } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { teamInviteList, teamInvite, leaveTeam } from "@/api/team";
 import { storeToRefs } from "pinia";
+
 import { useMemberStore } from "@/stores/member";
+
 import TeamInviteSearch from "./TeamInviteSearchItem.vue";
+// import TeamCalendar from "./TeamCalendarItem.vue";
 
 import "@/assets/css/team/teamMember.css";
 
@@ -42,15 +45,47 @@ const closeModal = () => {
 
 const inviteList = ref([]);
 
+import Swal from 'sweetalert2'
 function leave(teamId) {
-  leaveTeam(
-    teamId,
-    userInfo.value.userId,
-    () => {
-      showTemplate.value = false;
-    },
-    console.error()
-  );
+
+  // leaveTeam(
+  //   teamId,
+  //   userInfo.value.userId,
+  //   () => {
+  //     showTemplate.value = false;
+  //   },
+  //   console.error()
+  // );
+
+  Swal.fire({
+    title: '정말로 나가시겠습니까?',
+    text: "트렌즈와의 여행계획을 더이상 볼 수 없어요",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#B3B3B3',
+    cancelButtonColor: '#84B891',
+    confirmButtonText: '팀 나가기',
+    cancelButtonText: '인연 유지하기'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      leaveTeam(
+        teamId,
+        userInfo.value.userId,
+        () => {
+          showTemplate.value = false;
+          Swal.fire({
+          title: '나가기 완료',
+          text: '팀을 나갔습니다.',
+          icon: 'success',
+          confirmButtonColor: '#84B891', // 여기에 원하는 색상 코드를 입력하세요
+        });
+        }, (error) => {
+          console.error()
+        });
+    }
+  });
+
+
 }
 
 function moveChat(teamId) {
@@ -59,11 +94,12 @@ function moveChat(teamId) {
     name: "team-chat",
     params: { 
       teamId: teamId,
-      // 'someData'는 간단한 데이터일 경우에만 추가 가능
+      teamName: JSON.stringify(props.team.teamName),
       teamList: JSON.stringify(props.team.teamList),
     }
   });
 };
+
 </script>
 
 <template>
@@ -90,7 +126,7 @@ function moveChat(teamId) {
         </div>
       </div>
       <hr />
-      <div class="team-calendar">여기다 달력모양넣을거임~</div>
+      <div class="team-calendar"><TeamCalendar /></div>
       <hr />
       <div class="team-bottom">
         <a
@@ -100,10 +136,14 @@ function moveChat(teamId) {
         >
           <img src="@/assets/img/icon/user-plus.svg" alt="" />
         </a>
-        <a href="">
+        <a
+          class="invite-btn"
+          @click.prevent="() => openModal(props.team.teamId)"
+          href=""
+        >
           <img id="users" src="@/assets/img/icon/users.svg" alt="팀" />
         </a>
-        <a class="leave-btn" @click="leave(props.team.teamId)" href="">
+        <a class="leave-btn" @click.prevent="leave(props.team.teamId)" href="">
           <img src="@/assets/img/icon/out.svg" alt="" />
         </a>
       </div>
@@ -112,7 +152,9 @@ function moveChat(teamId) {
     <div v-show="modalState" class="modal-overlay" @click="closeModal">
       <div v-show="modalState" class="modal" @click.stop>
         <TeamInviteSearch :inviteList="inviteList" :team="team" />
-        <button class="close-button" @click="closeModal">닫기</button>
+        <a @click="closeModal" href="#" class="close-btn">
+          <img src="@/assets/img/icon/close.svg" alt="" />
+        </a>
       </div>
     </div>
   </div>

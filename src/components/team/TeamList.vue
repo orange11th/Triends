@@ -5,8 +5,8 @@ import { useRouter, useRoute } from "vue-router";
 import { storeToRefs } from "pinia";
 import { useMemberStore } from "@/stores/member";
 
-import TeamMemberItem from "./item/TeamMemberItem.vue";
 import TeamInviteItem from "./item/TeamInviteItem.vue";
+import TeamMemberItem from "./item/TeamMemberItem.vue";
 
 import "@/assets/css/team/teamList.css";
 
@@ -95,27 +95,29 @@ function doneCreating() {
     </div>
 
     <div class="team-list-space">
-      <div class="create-team clickable" v-if="!isCreating">
+      <div class="create-team before-create" v-if="!isCreating">
         <a href="#" @click="nowCreating">
           <img src="@/assets/img/icon/plus-solid.svg" alt="" />
-          <span>create new team</span>
+          <span class="create-txt">create new team</span>
         </a>
       </div>
-      <div class="create-team" v-if="isCreating">
+      <div class="create-team do-create" v-if="isCreating">
         <input
           type="text"
           placeholder="팀 이름"
           v-model="teamName"
           @keyup.enter="doneCreating"
         />
-        <a href="#" @click.prevent="doneCreating">
-          <img
-            id="create"
-            class="clickable-img"
-            src="@/assets/img/icon/create.svg"
-            alt=""
-          />
-        </a>
+        <div class="create-btn">
+          <a href="#" @click.prevent="doneCreating">
+            <img
+              id="create"
+              class="clickable-img"
+              src="@/assets/img/icon/create-white.svg"
+              alt=""
+            />
+          </a>
+        </div>
       </div>
     </div>
     <ul class="team-list">

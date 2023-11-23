@@ -1,17 +1,31 @@
 <script setup>
-import { onMounted } from 'vue';
+import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
 const teamId = route.params.teamId;
 console.log(teamId);
+
+const teamName = route.params.teamName;
+console.log(teamName);
+
 const teamList = JSON.parse(route.params.teamList); // 추가된 데이터 접근
 console.log(teamList);
-// const route = useRoute();
 
-// onMounted(() => {
-//   console.log(route.state);
-// });
+function moveChatRoom() {
+  const teamId = route.params.teamId; // 현재 라우트에서 teamId 추출
+    const formattedTeamName = teamName.replace(/\s+/g, '-').replace(/"/g, ''); // 따옴표를 제거
+  const url = `https://meet.jit.si/${formattedTeamName}(${teamId})`; // URL 생성
+  window.open(url, '_blank'); // 새 창에서 URL 열기
+}
+
+const filledTeamList = computed(() => {
+  const result = [];
+  for (let i = 0; i < 10; i++) {
+    result.push(teamList[i % teamList.length]);
+  }
+  return result;
+});
 </script>
 
 <template>
@@ -20,14 +34,17 @@ console.log(teamList);
             <h1 id='master'>
               <div>Hello</div>
               <div id='master-container-scroller'>
-                <div v-for="(user, index) in teamList" :key="index" class='master-container-scroller_item'>
-            <a class='cta-link' href='#'>{{ user.userName }}</a>.
-          </div>
-                <div class='master-container-scroller_item'>
+                <!-- <div v-for="(user, index) in teamList" :key="index" class='master-container-scroller_item'>
+                    <a class='cta-link' href='#' @click="moveChatRoom()">{{ user.userName }}</a>.
+                </div> -->
+                <div v-for="(user, index) in filledTeamList" :key="index" class='master-container-scroller_item'>
+                    <a class='cta-link' href='#' @click="moveChatRoom()">{{ user.userName }}</a>.
+                </div>
+                <!-- <div class='master-container-scroller_item'>
                   <a class='cta-link' href='#'>Friend</a>.
                 </div>
                 <div class='master-container-scroller_item'>
-                  <a class='cta-link' href='#'>Enemy</a>.
+                  <a class='cta-link' href='#' @click="">Enemy</a>.
                 </div>
                 <div class='master-container-scroller_item'>
                   <a class='cta-link' href='#'>Frenemy</a>.
@@ -40,20 +57,19 @@ console.log(teamList);
                 </div>
                 <div class='master-container-scroller_item'>
                   <a class='cta-link' href='#'>Brother</a>.
+                </div> -->
+                <div class='master-container-scroller_item'>
+                  <a class='cta-link' href='#'>7반</a>.
                 </div>
                 <div class='master-container-scroller_item'>
-                  <a class='cta-link' href='#'>Sister</a>.
+                  <a class='cta-link' href='#'>triends</a>.
                 </div>
                 <div class='master-container-scroller_item'>
-                  <a class='cta-link' href='#'>Son</a>.
+                  <a class='cta-link' href='#'>하하하</a>.
                 </div>
-                <div class='master-container-scroller_item'>
-                  <a class='cta-link' href='#'>Daughter</a>.
-                </div>
-                <div class='master-container-scroller_item'>Friend.</div>
               </div>
               
-              <div>Nice to see you.</div>
+              <div>Meet your triends!</div>
             </h1>
         </div>
     </div>

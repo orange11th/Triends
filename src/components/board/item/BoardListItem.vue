@@ -85,8 +85,8 @@ const confirmDelete = (articleNo) => {
     text: "트렌즈의 여행기록이 삭제됩니다.",
     icon: 'warning',
     showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
+    confirmButtonColor: '#B3B3B3',
+    cancelButtonColor: '#84B891',
     confirmButtonText: '여행기록 삭제하기',
     cancelButtonText: '추억 보존하기'
   }).then((result) => {
@@ -94,11 +94,12 @@ const confirmDelete = (articleNo) => {
       deleteArticle(articleNo, (response) => {
         console.log(response);
         emit('delete', articleNo);
-        Swal.fire(
-          '삭제 완료',
-          '여행기록을 삭제하였습니다.',
-          'success'
-        );
+        Swal.fire({
+          title: '삭제 완료',
+          text: '여행기록을 삭제하였습니다.',
+          icon: 'success',
+          confirmButtonColor: '#84B891', // 여기에 원하는 색상 코드를 입력하세요
+        });
       }, (error) => {
         console.log(error);
       });

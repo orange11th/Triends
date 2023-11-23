@@ -2,7 +2,10 @@
 import { ref, computed, watch } from "vue";
 import { teamInviteList, teamInvite, leaveTeam } from "@/api/team";
 import { storeToRefs } from "pinia";
+
 import { useMemberStore } from "@/stores/member";
+
+import "@/assets/css/team/teamSearch.css";
 
 const memberStore = useMemberStore();
 const { userInfo } = storeToRefs(memberStore);
@@ -20,6 +23,7 @@ const searchIndex = computed(() => {
   return props.inviteList.map((item) => ({
     label: `${item.userId}(${item.userName})`,
     userId: item.userId,
+    userName: item.userName,
   }));
 });
 
@@ -43,102 +47,66 @@ function search() {
 watch(input, () => {
   search();
 });
-
-function inviteTeam(teamId, userId) {
+import Swal from 'sweetalert2'
+function inviteTeam(teamId, userId, userName) {
   teamInvite(
     teamId,
     userInfo.value.userId,
     userId,
     () => {
-      alert(`${userId} 초대 완료!`);
+      Swal.fire({
+          title: '초대 완료!',
+          text: `내 친구 ${userId}(${userName})을 초대했어요`,
+          icon: 'success',
+          confirmButtonColor: '#84B891', // 여기에 원하는 색상 코드를 입력하세요
+      });
+      // alert(`${userId} 초대 완료!`);
     },
     (error) => {
-      alert("이미 초대한 사용자입니다.");
+      Swal.fire({
+          title: '앗!',
+          text: `${userId}(${userName})에게 이미 초대를 보냈어요.`,
+          icon: 'fail',
+          confirmButtonColor: '#84B891', // 여기에 원하는 색상 코드를 입력하세요
+      });
+      // alert("이미 초대한 사용자입니다.");
     }
   );
 }
 </script>
 
-
 <template>
   <div>
-    <h1>{{ team.teamId }}</h1>
-    <h1 class="title">팀원 찾기</h1>
+    <div class="search-title">
+      <h5>Add Members</h5>
+      <span>in</span>
+      <h2>{{ team.teamName }}</h2>
+    </div>
     <input
       type="text"
       class="search-field"
       v-model="input"
       @keyup="search"
       autoFocus
+      placeholder="search by name or ID"
     />
     <ul v-if="showResults" class="term-list">
+      <a
+        v-for="result in filteredResults"
+        :key="result.userId"
+        href="#"
+        @click.prevent="inviteTeam(props.team.teamId, result.userId, result.userName)"
+      >
+        <li>
+          <img src="@/assets/img/icon/user.svg" alt="">
+          {{ result.label }}
+        </li>
+      </a>
       <li>
-        <a
-          v-for="result in filteredResults"
-          :key="result.userId"
-          href="#"
-          @click.prevent="inviteTeam(props.team.teamId, result.userId)"
-          >{{ result.label }}</a
-        >
-      </li>
-      <li>
-        <a v-if="noResults"> 그런 아이디는 없어요 ㅠㅠ </a>
+        <a v-if="noResults"> 검색된 유저가 없어요 ㅠㅠ </a>
       </li>
     </ul>
   </div>
 </template>
 
-<style scope>
-
-.title {
-  width: 100%;
-  margin: 3em 0 1em;
-  text-align: center;
-  font-family: "Arvo", "Helvetica Neue", Helvetica, arial, sans-serif;
-  font-size: 170%;
-  font-weight: 400;
-  color: #2a5ba3;
-  text-shadow: 1px 1px 0px #fff, 2px 2px #ddd, 3px 3px 1px #ddd;
-}
-
-.search-field {
-  display: block;
-  width: 200px;
-  margin: 1em auto 0;
-  padding: 0.5em 10px;
-  border: 1px solid #999;
-  font-size: 130%;
-  font-family: "Arvo", "Helvetica Neue", Helvetica, arial, sans-serif;
-  font-weight: 400;
-  color: #3e8ce0;
-  border-radius: 3px;
-}
-
-.term-list {
-  list-style: none inside;
-  width: 30%;
-  margin: 0 auto 2em;
-  padding: 5px 10px 0;
-  text-align: left;
-  color: #777;
-  background: #fff;
-  border: 1px solid #ddd;
-  font-family: "Arvo", "Helvetica Neue", Helvetica, arial, sans-serif;
-  font-weight: 400;
-  border-radius: 3px;
-}
-
-.term-list li {
-  padding: 0.5em 0;
-  border-bottom: 1px solid #eee;
-}
-
-.term-list strong {
-  color: #444;
-  font-weight: 700;
-}
-
-.hidden {
-  display: none;
-}
-</style>
+<style scope></style>

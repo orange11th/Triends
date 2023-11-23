@@ -68,7 +68,9 @@ function getAttractionList() {
 watch(sidoCode, (newVal) => {
   const selectedSido = selectSido.value.find((sido) => sido.value === newVal);
   if (selectedSido && map.value) {
-    map.value.setCenter(new naver.maps.LatLng(selectedSido.lat, selectedSido.lng));
+    map.value.setCenter(
+      new naver.maps.LatLng(selectedSido.lat, selectedSido.lng)
+    );
   }
 });
 
@@ -102,7 +104,13 @@ const mapOptions = {
   zoomControl: false,
   zoomControlOptions: { position: "TOP_RIGHT" },
 };
-const initLayers = ["BACKGROUND", "BACKGROUND_DETAIL", "POI_KOREAN", "TRANSIT", "ENGLISH"];
+const initLayers = [
+  "BACKGROUND",
+  "BACKGROUND_DETAIL",
+  "POI_KOREAN",
+  "TRANSIT",
+  "ENGLISH",
+];
 
 const onLoadMap = (mapObject) => {
   map.value = mapObject;
@@ -149,7 +157,10 @@ function clickImageButton(value) {
         :initLayers="initLayers"
         @onLoad="onLoadMap($event)"
       >
-        <div v-for="(attraction, index) in attractions" :key="attraction.contentId">
+        <div
+          v-for="(attraction, index) in attractions"
+          :key="attraction.contentId"
+        >
           <naver-marker
             :latitude="attraction.latitude"
             :longitude="attraction.longitude"
@@ -175,7 +186,13 @@ function clickImageButton(value) {
             />
             <h4>{{ currentAttraction.title }}</h4>
             <p class="addr">{{ currentAttraction.addr1 }}</p>
-            <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">
+            <p
+              style="
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+              "
+            >
               {{ currentAttraction.overview }}
             </p>
           </div>
@@ -194,7 +211,11 @@ function clickImageButton(value) {
             @change="getAttractionList()"
           >
             <optgroup label="시/도 선택">
-              <option v-for="option in selectSido" :key="option.value" :value="option.value">
+              <option
+                v-for="option in selectSido"
+                :key="option.value"
+                :value="option.value"
+              >
                 {{ option.text }}
               </option>
             </optgroup>
@@ -226,58 +247,57 @@ function clickImageButton(value) {
         </div>
       </div>
     </div>
-    <div>
-      <a v-for="option in selectContentType" :key="option.value" href="#">
-        <img
-          class="content-type-image"
-          :src="option.src"
-          :alt="option.text"
-          @click="clickImageButton(option.value)"
-        />
-      </a>
-    </div>
-    <div class="list">
-      <div class="list-item" v-for="attraction in attractions" :key="attraction.contentId">
-        <a class="detail">
-          <div class="text-space" @click.prevent="moveDetail(attraction.contentId)">
-            <h5>{{ attraction.title }}</h5>
-            <p class="addr">{{ attraction.addr1 }}</p>
-            <p
-              class="overview"
-              style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis"
-            >
-              {{ attraction.overview }}
-            </p>
-          </div>
-          <!-- <heart></heart> -->
+    <div class="list-container">
+      <div class="select-content-type-space">
+        <a v-for="option in selectContentType" :key="option.value" href="#">
           <img
-            id="attraction-img"
-            :src="attraction.firstImage"
-            @click.prevent="moveDetail(attraction.contentId)"
-            alt="사진"
+            class="content-type-image"
+            :src="option.src"
+            :alt="option.text"
+            @click="clickImageButton(option.value)"
           />
         </a>
-        <hr />
+      </div>
+      <div class="list">
+        <div
+          class="list-item"
+          v-for="attraction in attractions"
+          :key="attraction.contentId"
+        >
+          <a class="detail">
+            <div
+              class="text-space"
+              @click.prevent="moveDetail(attraction.contentId)"
+            >
+              <h5>{{ attraction.title }}</h5>
+              <p class="addr">{{ attraction.addr1 }}</p>
+              <p
+                class="overview"
+                style="
+                  white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                "
+              >
+                {{ attraction.overview }}
+              </p>
+            </div>
+            <!-- <heart></heart> -->
+            <img
+              id="attraction-img"
+              :src="attraction.firstImage"
+              @click.prevent="moveDetail(attraction.contentId)"
+              alt="사진"
+            />
+          </a>
+          <hr />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
-<style scoped>
-.content-type-image {
-  margin: 15px 25px;
-}
-.naver-info-window {
-  padding: 30px;
-  display: flex;
-  width: 280px;
-  background-color: rgb(255, 255, 255);
-  border-radius: 10%;
-  justify-content: center;
-  border: 3px solid rgb(108, 108, 247);
-  /* text-align: center; */
-}
-</style>
+<style scoped></style>
 <!-- 시도코드 값				   타입 아이디 값
 1	  서울				     12	관광지
 2	  인천				     14	문화시설
