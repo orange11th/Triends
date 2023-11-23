@@ -4,9 +4,15 @@
       <!-- <span class="content__container__text"></span> -->
       <ul class="content__container__list">
         <li class="content__container__list__item">Hello Triends!</li>
-        <li class="content__container__list__item">회원정보를 간단하게 수정할 수 있어요!</li>
-        <li class="content__container__list__item">옆의 내 정보들을 클릭해보세요!</li>
-        <li class="content__container__list__item">수정하기 버튼을 눌러보세요!</li>
+        <li class="content__container__list__item">
+          회원정보를 간단하게 수정할 수 있어요!
+        </li>
+        <li class="content__container__list__item">
+          옆의 내 정보들을 클릭해보세요!
+        </li>
+        <li class="content__container__list__item">
+          수정하기 버튼을 눌러보세요!
+        </li>
         <!-- Add more list items as needed -->
       </ul>
     </div>
@@ -21,15 +27,14 @@ export default {
 
 <style scoped>
 .content {
-  position: relative;
+  /* position: relative;
   top: 50%;
-  left: 25%;
+  left: 25%; */
   transform: translate(-50%, -50%);
   overflow: hidden;
-  /* font-family: "Lato", sans-serif; */
   font-size: 40px;
   line-height: 40px;
-  color: #000000;
+  color: var(--main-black);
   width: 700px;
 }
 
@@ -48,14 +53,14 @@ export default {
 
 .content__container:after {
   content: "]";
-  position: absolute;
+  /* position: absolute; */
   right: 0;
 }
 
 .content__container::after,
 .content__container::before {
-  position: absolute;
-  top: 0;
+  /* position: absolute;
+  top: 0; */
   color: #b0d9b1;
   font-size: 38px;
   line-height: 40px;

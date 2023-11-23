@@ -48,7 +48,7 @@ function moveLogin() {
     <div>
       <h1>회원가입</h1>
     </div>
-    <div>
+    <div class="form">
       <input
         class="sign sign-input"
         type="text"
@@ -78,9 +78,10 @@ function moveLogin() {
       />
       <input
         class="sign sign-input"
-        type="text"
+        type="email"
         placeholder="이메일"
         v-model="param.email"
+        required
       />
 
       <input

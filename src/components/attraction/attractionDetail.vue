@@ -37,7 +37,11 @@ getAttractionDetail();
     </div>
     <p>{{ attraction.homepage }}</p>
     <div class="overview">
-      <img class="icon book-icon" src="@/assets/img/icon/book-icon.png" alt="" />
+      <img
+        class="icon book-icon"
+        src="@/assets/img/icon/book-icon.png"
+        alt=""
+      />
       <p>{{ attraction.overview }}</p>
     </div>
   </div>
@@ -55,7 +59,7 @@ getAttractionDetail();
 }
 
 .container {
-  width: 33.33%;
+  width: 60%;
   display: flex;
   flex-direction: column;
 }
