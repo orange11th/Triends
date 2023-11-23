@@ -149,7 +149,7 @@ function clickImageButton(value) {
 </script>
 
 <template>
-  <div class="main">
+  <div class="attraction-container">
     <div class="map">
       <naver-map
         style="width: 100%; height: 700px"
