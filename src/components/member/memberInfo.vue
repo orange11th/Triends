@@ -4,8 +4,12 @@ import { useRoute, useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 
 import { useMemberStore } from "@/stores/member";
+<<<<<<< HEAD
 import { userModify } from "@/api/member";
 
+=======
+import { userModify, memberDelete } from "@/api/member";
+>>>>>>> 513b7c443ce12af81d9d66e3e0211f041afcd5c8
 import memberInfoLeft from "./item/MemberInfoLeft.vue";
 
 import "@/assets/css/member/memberInfo.css";
@@ -56,9 +60,60 @@ function modify() {
 onMounted(() => {
   changeUserInfo.value = { ...userInfo.value };
 });
+
+
+import Swal from 'sweetalert2'
+const confirmDelete = (userId) => {
+  Swal.fire({
+    title: '정말로 탈퇴하시겠습니까?',
+    text: "더이상 트렌즈와 함께 할 수 없습니다.",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#B3B3B3',
+    cancelButtonColor: '#84B891',
+    confirmButtonText: '트렌즈와 헤어지기',
+    cancelButtonText: '트렌즈와 함께 하기'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      memberDelete(userId, (response) => {
+        Swal.fire({
+          title: '탈퇴 완료',
+          text: '그동안 트렌즈와 함께 해서 행복했어요.',
+          icon: 'success',
+          confirmButtonColor: '#84B891', // 여기에 원하는 색상 코드를 입력하세요
+        });
+        userLogout();
+        router.push({ name: "home" });
+      }, (error) => {
+        console.log(error);
+      });
+    }
+  });
+};
+
+
 </script>
 
 <template>
+<!-- 드롭다운 컨테이너 추가 -->
+<div class="dropdown-container">
+  <a href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <img class="invite-icon clickable-img" src="@/assets/img/icon/dot.svg" />
+  </a>
+  
+  <li type="button" class="dropdown-menu" aria-labelledby="navbarDropdown" @click="confirmDelete(changeUserInfo.userId)">탈퇴하기</li>
+
+</div>
+<!-- 드롭다운 컨테이너 종료 -->
+
+
+  
+  <!--탈퇴-->
+
+
+
+
+
   <div class="container">
     <div class="row">
       <!-- 사진 div (왼쪽) -->
@@ -154,4 +209,88 @@ onMounted(() => {
   </div>
 </template>
 
+<<<<<<< HEAD
 <style scoped></style>
+=======
+<style scoped>
+.col {
+  position: relative;
+}
+.modify-button {
+  display: block;
+  position: absolute;
+  right: 14px;
+  float: left;
+  width: 120px;
+  padding: 0;
+  margin: 10px 20px 10px auto;
+  font-weight: 600;
+  text-align: center;
+  line-height: 50px;
+  color: #fff;
+  border-radius: 5px;
+  transition: all 0.2s;
+  background: #5dc8cd;
+  border-style: none;
+}
+.modify-button:hover {
+  background: #01939a;
+}
+
+.plan-title {
+  font-size: 30px;
+  width: 480px; /* 고정된 너비 */
+  height: 70%; /* 고정된 높이 */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  margin: 20px 0;
+}
+
+.editable-text {
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.editable-text:hover {
+  transform: scale(1.05);
+  background-color: #e8e8e8;
+}
+
+.input-field {
+  width: 100%;
+  border: 2px solid #aaa;
+  border-radius: 6px;
+  font-size: 16px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 메시지 아이콘과 드롭다운 메뉴를 포함하는 컨테이너 스타일 */
+.dropdown-container {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+}
+
+/* 드롭다운 메뉴 스타일 */
+.dropdown-menu {
+  position: absolute;
+  right: 0; /* 오른쪽 끝에 위치 */
+  top: 100%; /* 아이콘 바로 아래에 위치 */
+  width: 150px;
+  padding: 0;
+}
+
+.invite-icon {
+  width: 30px; 
+  height: 30px; 
+}
+
+</style>
+>>>>>>> 513b7c443ce12af81d9d66e3e0211f041afcd5c8

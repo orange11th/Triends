@@ -8,6 +8,10 @@ function listArticle(success, fail) {
   local.get(`${url}`).then(success).catch(fail);
 }
 
+function listArticleByLike(success, fail) {
+  local.get(`${url}/like`).then(success).catch(fail);
+}
+
 function registArticle(form, success, fail) {
   console.log("boardjs article", form);
   local.post(`${url}`, form,  {
@@ -44,6 +48,7 @@ function deleteArticle(articleNo, success, fail) {
 
 export {
   listArticle,
+  listArticleByLike,
   registArticle,
   insertLike,
   deleteLike,
