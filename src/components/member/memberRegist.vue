@@ -96,6 +96,7 @@ function moveLogin() {
         type="text"
         placeholder="전화번호"
         v-model="param.phone"
+        @keyup.enter="regist"
       />
       <button class="sign sign-button" @click="regist">Register</button>
     </div>
