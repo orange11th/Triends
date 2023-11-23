@@ -7,7 +7,7 @@ import { storeToRefs } from "pinia";
 import { useMemberStore } from "@/stores/member";
 
 import TeamInviteSearch from "./TeamInviteSearchItem.vue";
-// import TeamCalendar from "./TeamCalendarItem.vue";
+import RandomCatProfile from "@/components/member/item/randomCatProfile.vue";
 
 import "@/assets/css/team/teamMember.css";
 
@@ -60,14 +60,13 @@ function moveChat(teamId) {
   // console.log(props.team.teamList);
   router.push({
     name: "team-chat",
-    params: { 
+    params: {
       teamId: teamId,
       teamName: JSON.stringify(props.team.teamName),
       teamList: JSON.stringify(props.team.teamList),
-    }
+    },
   });
-};
-
+}
 </script>
 
 <template>
@@ -75,7 +74,6 @@ function moveChat(teamId) {
     <div class="team">
       <div class="team-top">
         <div class="team-info">
-
           <h2 class="team-name">{{ props.team.teamName }} ·</h2>
           <a id="to-jitsi" href="#" @click="moveChat(props.team.teamId)">
             <img id="chat" src="@/assets/img/icon/chat.svg" alt="영통" />
@@ -90,12 +88,23 @@ function moveChat(teamId) {
               alt=""
             />
           </a>
-          
         </div>
       </div>
       <hr />
-      <div class="team-calendar"><TeamCalendar /></div>
-      <hr />
+      <div class="team-calendar">
+        <div
+          v-for="teamMember in props.team.teamList"
+          :key="teamMember.userId"
+          class="member-item"
+        >
+          <div class="member-info">
+            <random-cat-profile />
+            <span>{{ teamMember.userName }} | {{ teamMember.userId }}</span>
+          </div>
+          <span class="member-email">{{ teamMember.email }}</span>
+          <hr />
+        </div>
+      </div>
       <div class="team-bottom">
         <a
           class="invite-btn"

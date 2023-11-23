@@ -178,12 +178,8 @@ function clickImageButton(value) {
           :options="infoWindowOptions"
           @onLoad="onLoadInfoWindow($event)"
         >
-          <div class="infoWindow-content" style="width: 250px">
-            <img
-              :src="currentAttraction.firstImage"
-              alt=""
-              style="width: 100%; margin-bottom: 10px"
-            />
+          <div class="infoWindow-content">
+            <img :src="currentAttraction.firstImage" alt="" />
             <h4>{{ currentAttraction.title }}</h4>
             <p class="addr">{{ currentAttraction.addr1 }}</p>
             <p
@@ -220,19 +216,6 @@ function clickImageButton(value) {
               </option>
             </optgroup>
           </select>
-
-          <!-- <select
-            name="selectContentTypeId"
-            id="selectContentTypeId"
-            v-model="contentTypeId"
-            @change="getAttractionList()"
-          >
-            <optgroup label="카테고리 선택">
-              <option v-for="option in selectContentType" :key="option.value" :value="option.value">
-                {{ option.text }}
-              </option>
-            </optgroup>
-          </select> -->
         </div>
         <div class="search-space">
           <input
@@ -251,7 +234,7 @@ function clickImageButton(value) {
       <div class="select-content-type-space">
         <a v-for="option in selectContentType" :key="option.value" href="#">
           <img
-            class="content-type-image"
+            class="content-type-image clickable-img"
             :src="option.src"
             :alt="option.text"
             @click="clickImageButton(option.value)"

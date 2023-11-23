@@ -15,6 +15,10 @@
 }
 
 .condition-space {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
   width: 60%;
   position: absolute;
   z-index: 9;
@@ -27,13 +31,12 @@
 
 .condition-space h2 {
   font-weight: 700;
-  margin-bottom: 15px;
 }
 
 .input-space {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  align-items: center;
   flex-wrap: wrap;
 }
 
@@ -64,7 +67,6 @@ select:focus {
   padding: 5px 10px;
   display: flex;
   height: 40px;
-  margin-top: 10px;
   flex-direction: row;
 }
 .search-space input {
@@ -78,28 +80,34 @@ select:focus {
 .list-container {
   z-index: 8;
 
+  width: 60%;
   padding: 20px;
 
   box-shadow: 0 -2px 5px 0 rgb(0, 0, 0, 0.3);
   border-radius: 20px 20px 0px 0px;
 }
+
 .select-content-type-space {
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  margin: 10px 20px;
+  margin: 20px 20px 0px 20px;
   padding-bottom: 20px;
 
-  border-bottom: 3px solid var(--main-gray);
+  border-bottom: 1px solid var(--main-gray);
 }
+.content-type-image {
+  width: 45px;
+}
+
 .list {
   width: 100%;
   padding: 20px;
 
   position: relative;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 550px));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 535px));
 }
 .list-item {
   width: 100%;
@@ -134,17 +142,4 @@ select:focus {
 .text-space h5,
 .text-space p {
   margin: 5px 0px;
-}
-
-.content-type-image {
-  width: 40px;
-}
-.naver-info-window {
-  padding: 30px;
-  display: flex;
-  width: 280px;
-  background-color: rgb(255, 255, 255);
-  border-radius: 10%;
-  justify-content: center;
-  border: 3px solid rgb(108, 108, 247);
 }
