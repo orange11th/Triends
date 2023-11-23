@@ -1,8 +1,9 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
+import { useRouter } from "vue-router";
 import "@/assets/css/main.css";
 import "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js";
-
+const router = useRouter();
 // 상태 정의
 const isScrolledBeyond50 = ref(false);
 const isResponsiveMenuVisible = ref(false);
@@ -42,6 +43,10 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("scroll", handleScroll);
 });
+
+const goToMemberRegist = () => {
+  router.push({ name: "member-regist" });
+};
 </script>
 
 <template>
@@ -50,12 +55,14 @@ onUnmounted(() => {
 
     <div id="hero-header">
       <div id="hero-content">
-        <h1 id="hero-title">A RANDOM TITLE</h1>
+        <h1 id="hero-title">즐거운 동행의 시작</h1>
 
-        <p id="hero-text">Some random text to describe the random title</p>
+        <p id="hero-text">
+          트렌즈와 함께 여행지를 탐색하고, 계획을 세워보아요!
+        </p>
 
         <a href="#presentation-container"
-          ><button id="hero-button">Next Section</button></a
+          ><button id="hero-button">지금 시작하기</button></a
         >
       </div>
     </div>
@@ -64,35 +71,73 @@ onUnmounted(() => {
       <!-- Presentation Section -->
 
       <div id="presentation-container">
-        <div id="presentation-title-description">
-          <h1>Here is how <span id="red-text">we do it</span></h1>
+        <div id="features-container">
+          <div id="features-description">
+            <h1>트렌즈와 <span id="red-text">함께</span> 여행을 시작하세요!</h1>
+          </div>
+          <!-- Features Section Description -->
 
-          <hr id="title-text-separator" />
-
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-          </p>
+          <!-- Features of the Services -->
+          <div id="service-features">
+            <a href="#section-content-container" class="place">
+              <div class="placeImg">
+                <div class="cover">
+                  <div class="title-cover">
+                    <div class="title">Triends란?</div>
+                    <p class="locate">
+                      Triends에서 친구와 <br />
+                      실시간으로 소통하며 <br />
+                      여행 코스를 계획하는 법을 알아봐요.
+                    </p>
+                  </div>
+                </div>
+                <img src="@/assets/img/slide/about-triends-banner.png" alt="" />
+              </div>
+            </a>
+            <a href="" class="place">
+              <RouterLink :to="{ name: 'attraction-list' }">
+                <div class="placeImg">
+                  <div class="cover">
+                    <div class="title-cover">
+                      <div class="title">여행지 탐색</div>
+                      <p class="locate">
+                        지도를 보며 원하는 여행지를 <br />
+                        지역별, 카테고리별로 탐색해봐요.
+                      </p>
+                    </div>
+                  </div>
+                  <img src="@/assets/img/slide/place-banner.png" alt="" />
+                </div>
+              </RouterLink>
+            </a>
+            <a href="detail.html" class="place">
+              <RouterLink :to="{ name: 'board' }">
+                <div class="placeImg">
+                  <div class="cover">
+                    <div class="title-cover">
+                      <div class="title">여행 후기</div>
+                      <p class="locate">
+                        여행을 다녀왔다면, <br />
+                        즐거웠던 여행 기록을 게시판에 남겨<br />
+                        사람들과 추억과 정보를 나눠봐요.
+                      </p>
+                    </div>
+                  </div>
+                  <img
+                    src="@/assets/img/slide/trip-journey-banner.png"
+                    alt=""
+                  />
+                </div>
+              </RouterLink>
+            </a>
+          </div>
         </div>
+        <!-- /"Features Section" -->
 
-        <div id="section-buttons">
-          <button class="product-button" id="first-product-button">
-            Product 1
-          </button>
-
-          <button class="product-button" id="second-product-button">
-            Product 2
-          </button>
-
-          <button class="product-button" id="third-product-button">
-            Product 3
-          </button>
-
-          <button class="product-button" id="fourth-product-button">
-            Product 4
-          </button>
+        <div class="last-img">
+          <a href="" class="flexflex">
+            <img src="@/assets/img/slide/main-1.jpg" alt="" />
+          </a>
         </div>
 
         <!-- Product Content Section -->
@@ -101,7 +146,7 @@ onUnmounted(() => {
           <div id="product-container-one" class="product-content">
             <div id="content-image-container">
               <img
-                src="https://i.ibb.co/WyWxQ3f/action-blur-close-up-735911.jpg"
+                src="@/assets/img/slide/step1.gif"
                 id="content-image"
                 class="image1"
                 alt=""
@@ -109,15 +154,11 @@ onUnmounted(() => {
             </div>
 
             <div id="content-title-text">
-              <h1>Product Nr.1 Title</h1>
+              <h2>1. 팀 생성하기</h2>
 
               <p id="centered-product-description">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu.
-                <br /><br />
+                팀 작업을 시작하기 전에,<br />
+                우선 팀을 생성해봅시다!<br /><br />
               </p>
 
               <div class="product-features-list" id="first-feature-list">
@@ -130,12 +171,11 @@ onUnmounted(() => {
                 </div>
 
                 <div id="inside-features-title-text">
-                  <h2>This is test title</h2>
+                  <h4>팀 스페이스 접속</h4>
 
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor, incidintum ut labore et dolor magna
-                    aliqua.
+                    우측 상단의 팀 아이콘을 눌러,<br />
+                    나의 팀 스페이스에 들어갑니다.
                   </p>
                 </div>
               </div>
@@ -150,12 +190,12 @@ onUnmounted(() => {
                 </div>
 
                 <div id="inside-features-title-text">
-                  <h2>This is test title</h2>
+                  <h4>팀 생성</h4>
 
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor, incidintum ut labore et dolor magna
-                    aliqua.
+                    팀 목록 상단에 위치한<br />
+                    create new team 버튼을 눌러<br />
+                    팀 이름을 입력하고 팀을 생성합니다.
                   </p>
                 </div>
               </div>
@@ -170,36 +210,14 @@ onUnmounted(() => {
                 </div>
 
                 <div id="inside-features-title-text">
-                  <h2>This is test title</h2>
+                  <h4>일행 구성</h4>
 
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor, incidintum ut labore et dolor magna
-                    aliqua.
+                    생성된 팀 목록 좌측 하단 버튼을 눌러<br />
+                    일행을 초대하여 팀원을 구성합니다.
                   </p>
                 </div>
               </div>
-
-              <div class="product-features-list">
-                <div id="product-feature-image">
-                  <img
-                    src="https://i.ibb.co/LzczvS3/correct.png"
-                    alt="check-sign"
-                    id="correct-icon"
-                  />
-                </div>
-
-                <div id="inside-features-title-text">
-                  <h2>This is test title</h2>
-
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor, incidintum ut labore et dolor magna
-                    aliqua.
-                  </p>
-                </div>
-              </div>
-
             </div>
           </div>
 
@@ -207,26 +225,22 @@ onUnmounted(() => {
           <div id="product-container-two" class="product-content">
             <div id="content-image-container">
               <img
-                src="https://i.ibb.co/rp92fYB/blur-business-close-up-1029757.jpg"
+                src="@/assets/img/slide/step1.gif"
                 id="content-image"
-                class="image2"
+                class="image1"
                 alt=""
               />
             </div>
 
             <div id="content-title-text">
-              <h1>Product Nr.2 Title</h1>
+              <h2>1. 팀 생성하기</h2>
 
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu.
-                <br /><br />
+              <p id="centered-product-description">
+                팀 작업을 시작하기 전에,<br />
+                우선 팀을 생성해봅시다!<br /><br />
               </p>
 
-              <div class="product-features-list">
+              <div class="product-features-list" id="first-feature-list">
                 <div id="product-feature-image">
                   <img
                     src="https://i.ibb.co/LzczvS3/correct.png"
@@ -236,12 +250,11 @@ onUnmounted(() => {
                 </div>
 
                 <div id="inside-features-title-text">
-                  <h2>This is test title</h2>
+                  <h4>팀 스페이스 접속</h4>
 
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor, incidintum ut labore et dolor magna
-                    aliqua.
+                    우측 상단의 팀 아이콘을 눌러,<br />
+                    나의 팀 스페이스에 들어갑니다.
                   </p>
                 </div>
               </div>
@@ -256,12 +269,12 @@ onUnmounted(() => {
                 </div>
 
                 <div id="inside-features-title-text">
-                  <h2>This is test title</h2>
+                  <h4>팀 생성</h4>
 
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor, incidintum ut labore et dolor magna
-                    aliqua.
+                    팀 목록 상단에 위치한<br />
+                    create new team 버튼을 눌러<br />
+                    팀 이름을 입력하고 팀을 생성합니다.
                   </p>
                 </div>
               </div>
@@ -276,36 +289,14 @@ onUnmounted(() => {
                 </div>
 
                 <div id="inside-features-title-text">
-                  <h2>This is test title</h2>
+                  <h4>일행 구성</h4>
 
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor, incidintum ut labore et dolor magna
-                    aliqua.
+                    생성된 팀 목록 좌측 하단 버튼을 눌러<br />
+                    일행을 초대하여 팀원을 구성합니다.
                   </p>
                 </div>
               </div>
-
-              <div class="product-features-list">
-                <div id="product-feature-image">
-                  <img
-                    src="https://i.ibb.co/LzczvS3/correct.png"
-                    alt="check-sign"
-                    id="correct-icon"
-                  />
-                </div>
-
-                <div id="inside-features-title-text">
-                  <h2>This is test title</h2>
-
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor, incidintum ut labore et dolor magna
-                    aliqua.
-                  </p>
-                </div>
-              </div>
-
             </div>
           </div>
 
@@ -313,26 +304,22 @@ onUnmounted(() => {
           <div id="product-container-three" class="product-content">
             <div id="content-image-container">
               <img
-                src="https://i.ibb.co/Yj4fGBN/adult-apple-device-business-839465.jpg"
+                src="@/assets/img/slide/step1.gif"
                 id="content-image"
-                class="image3"
+                class="image1"
                 alt=""
               />
             </div>
 
             <div id="content-title-text">
-              <h1>Product Nr.3 Title</h1>
+              <h2>1. 팀 생성하기</h2>
 
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu.
-                <br /><br />
+              <p id="centered-product-description">
+                팀 작업을 시작하기 전에,<br />
+                우선 팀을 생성해봅시다!<br /><br />
               </p>
 
-              <div class="product-features-list">
+              <div class="product-features-list" id="first-feature-list">
                 <div id="product-feature-image">
                   <img
                     src="https://i.ibb.co/LzczvS3/correct.png"
@@ -342,12 +329,11 @@ onUnmounted(() => {
                 </div>
 
                 <div id="inside-features-title-text">
-                  <h2>This is test title</h2>
+                  <h4>팀 스페이스 접속</h4>
 
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor, incidintum ut labore et dolor magna
-                    aliqua.
+                    우측 상단의 팀 아이콘을 눌러,<br />
+                    나의 팀 스페이스에 들어갑니다.
                   </p>
                 </div>
               </div>
@@ -362,12 +348,12 @@ onUnmounted(() => {
                 </div>
 
                 <div id="inside-features-title-text">
-                  <h2>This is test title</h2>
+                  <h4>팀 생성</h4>
 
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor, incidintum ut labore et dolor magna
-                    aliqua.
+                    팀 목록 상단에 위치한<br />
+                    create new team 버튼을 눌러<br />
+                    팀 이름을 입력하고 팀을 생성합니다.
                   </p>
                 </div>
               </div>
@@ -382,36 +368,14 @@ onUnmounted(() => {
                 </div>
 
                 <div id="inside-features-title-text">
-                  <h2>This is test title</h2>
+                  <h4>일행 구성</h4>
 
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor, incidintum ut labore et dolor magna
-                    aliqua.
+                    생성된 팀 목록 좌측 하단 버튼을 눌러<br />
+                    일행을 초대하여 팀원을 구성합니다.
                   </p>
                 </div>
               </div>
-
-              <div class="product-features-list">
-                <div id="product-feature-image">
-                  <img
-                    src="https://i.ibb.co/LzczvS3/correct.png"
-                    alt="check-sign"
-                    id="correct-icon"
-                  />
-                </div>
-
-                <div id="inside-features-title-text">
-                  <h2>This is test title</h2>
-
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor, incidintum ut labore et dolor magna
-                    aliqua.
-                  </p>
-                </div>
-              </div>
-
             </div>
           </div>
 
@@ -419,26 +383,22 @@ onUnmounted(() => {
           <div id="product-container-four" class="product-content">
             <div id="content-image-container">
               <img
-                src="https://i.ibb.co/t3Lnfm6/arrows-blur-close-up-163130.jpg"
+                src="@/assets/img/slide/step1.gif"
                 id="content-image"
-                class="image2"
+                class="image1"
                 alt=""
               />
             </div>
 
             <div id="content-title-text">
-              <h1>Product Nr.4 Title</h1>
+              <h2>1. 팀 생성하기</h2>
 
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu.
-                <br /><br />
+              <p id="centered-product-description">
+                팀 작업을 시작하기 전에,<br />
+                우선 팀을 생성해봅시다!<br /><br />
               </p>
 
-              <div class="product-features-list">
+              <div class="product-features-list" id="first-feature-list">
                 <div id="product-feature-image">
                   <img
                     src="https://i.ibb.co/LzczvS3/correct.png"
@@ -448,12 +408,11 @@ onUnmounted(() => {
                 </div>
 
                 <div id="inside-features-title-text">
-                  <h2>This is test title</h2>
+                  <h4>팀 스페이스 접속</h4>
 
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor, incidintum ut labore et dolor magna
-                    aliqua.
+                    우측 상단의 팀 아이콘을 눌러,<br />
+                    나의 팀 스페이스에 들어갑니다.
                   </p>
                 </div>
               </div>
@@ -468,12 +427,12 @@ onUnmounted(() => {
                 </div>
 
                 <div id="inside-features-title-text">
-                  <h2>This is test title</h2>
+                  <h4>팀 생성</h4>
 
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor, incidintum ut labore et dolor magna
-                    aliqua.
+                    팀 목록 상단에 위치한<br />
+                    create new team 버튼을 눌러<br />
+                    팀 이름을 입력하고 팀을 생성합니다.
                   </p>
                 </div>
               </div>
@@ -488,134 +447,41 @@ onUnmounted(() => {
                 </div>
 
                 <div id="inside-features-title-text">
-                  <h2>This is test title</h2>
+                  <h4>일행 구성</h4>
 
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor, incidintum ut labore et dolor magna
-                    aliqua.
+                    생성된 팀 목록 좌측 하단 버튼을 눌러<br />
+                    일행을 초대하여 팀원을 구성합니다.
                   </p>
                 </div>
               </div>
-
-              <div class="product-features-list">
-                <div id="product-feature-image">
-                  <img
-                    src="https://i.ibb.co/LzczvS3/correct.png"
-                    alt="check-sign"
-                    id="correct-icon"
-                  />
-                </div>
-
-                <div id="inside-features-title-text">
-                  <h2>This is test title</h2>
-
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor, incidintum ut labore et dolor magna
-                    aliqua.
-                  </p>
-                </div>
-              </div>
-
             </div>
           </div>
         </div>
       </div>
 
-      <!-- "Features Section" -->
-
-      <div id="features-container">
-        <!-- Features Section Description -->
-        <div id="features-description">
-          <h1>
-            Our services offer <span id="red-text"> the best features </span>
-          </h1>
-
-          <hr id="title-text-separator" />
-
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-          </p>
-        </div>
-
-        <!-- Features of the Services -->
-        <div id="service-features">
-          <div id="feature">
-            <img
-              src="https://i.ibb.co/tQrPJGk/like.png"
-              alt="Heart Icon"
-              id="heart-icon"
-            />
-
-            <h2 id="feature-title">Short Title</h2>
-
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-
-            <a href="#"><button id="feature-button">See more!</button></a>
-          </div>
-
-          <div id="feature">
-            <img
-              src="https://i.ibb.co/LY0pq5X/web-programming.png"
-              alt="Code Icon"
-              id="code-icon"
-            />
-
-            <h2 id="feature-title">Short Title</h2>
-
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-
-            <a href="#"><button id="feature-button">See more!</button></a>
-          </div>
-
-          <div id="feature">
-            <img
-              src="https://i.ibb.co/vHjwX9N/smartphone-with-shield.png"
-              alt="Shield on Phone Icon"
-              id="phone-icon"
-            />
-
-            <h2 id="feature-title">Short Title</h2>
-
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-
-            <a href="#"><button id="feature-button">See more!</button></a>
-          </div>
-        </div>
-      </div>
-      <!-- /"Features Section" -->
-
       <!-- Newsletter Section -->
       <div id="newsletter-container">
         <div id="newsletter-title-description">
-          <h1>Join our Newsletter!</h1>
+          <h1>이제 여행을 떠나볼까요?</h1>
 
-          <hr id="title-text-separator" />
+          <!-- <hr id="title-text-separator" /> -->
         </div>
 
-        <div id="email-input-container">
-          <form
-            id="email-form"
-            action="https://www.freecodecamp.com/email-submit"
-          >
-            <label> Join our Newsletter and don't miss future deals! </label>
-            <button id="submit" type="submit">Subscribe</button>
-          </form>
+        <div id="final-container">
+          <label id="final-text"> 트렌즈와 함께 즐거운 시간을 보내봐요!</label>
+          <!-- <input type="email" placeholder="Enter your e-mail" id="email" /> -->
+          <button id="final-button" class="clickable" @click="goToMemberRegist">
+            회원가입
+          </button>
         </div>
       </div>
+    </div>
+    <div class="last-img">
+      <a href="#hero-header" class="flexflex">
+        <img src="@/assets/img/slide/main-1.jpg" alt="" />
+        <img src="@/assets/img/slide/main-2.jpg" alt="" />
+      </a>
     </div>
   </div>
 </template>

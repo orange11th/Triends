@@ -122,17 +122,3 @@ function logout() {
 </template>
 
 <style scoped></style>
-
-<script setup>
-//here//
-</script>
-
-<template>
-  <div>
-    
-  </div>
-</template>
-
-<style scoped>
-
-</style>
