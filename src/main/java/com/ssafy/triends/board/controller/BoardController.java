@@ -64,7 +64,7 @@ public class BoardController {
 	        } catch (IOException e) {
 	            throw new IOException("Error saving MultipartFile", e);
 	        }
-	        directoryPath = directoryPath.replaceAll("C:/Users/User/OneDrive/Document/SSAFY/Semester1/Project/FinalProject/triends/triends-front", "");
+	        directoryPath = directoryPath.replaceAll("C:/triends/triends-front", "");
 //	        directoryPath = directoryPath.replaceAll("C:/ssafy/triends-front", "");
 	        boardDto.setImagePath(directoryPath + "/" + newFilename);
 	        boardService.writeArticle(boardDto);
@@ -78,6 +78,19 @@ public class BoardController {
 	public ResponseEntity<?> listArticle(Map<String, String> map) {
 		try {
 			BoardListDto boardListDto = boardService.listArticle();
+//			System.out.println(boardListDto);
+			HttpHeaders header = new HttpHeaders();
+			header.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+			return ResponseEntity.ok().headers(header).body(boardListDto);
+		} catch (Exception e) {
+			return exceptionHandling(e);
+		}
+	}
+	
+	@GetMapping("/like")
+	public ResponseEntity<?> listArticleByLike(Map<String, String> map) {
+		try {
+			BoardListDto boardListDto = boardService.listArticleByLike();
 //			System.out.println(boardListDto);
 			HttpHeaders header = new HttpHeaders();
 			header.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));

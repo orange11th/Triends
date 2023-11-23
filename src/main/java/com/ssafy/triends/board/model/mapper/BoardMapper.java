@@ -15,10 +15,8 @@ public interface BoardMapper {
 
 	List<BoardDto> listArticle() throws SQLException;
 	
+	List<BoardDto> listArticleByLike() throws SQLException;
+	
 	void deleteArticle(int articleNo) throws SQLException;
-
-//	void modifyArticle(BoardDto boardDto) throws SQLException;
-//
-//	void deleteArticle(int articleNo) throws SQLException;
 	
 }
