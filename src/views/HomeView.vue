@@ -225,7 +225,7 @@ const goToMemberRegist = () => {
           <div id="product-container-two" class="product-content">
             <div id="content-image-container">
               <img
-                src="@/assets/img/slide/step1.gif"
+                src="@/assets/img/slide/step2.gif"
                 id="content-image"
                 class="image1"
                 alt=""
@@ -233,7 +233,7 @@ const goToMemberRegist = () => {
             </div>
 
             <div id="content-title-text">
-              <h2>1. 팀 생성하기</h2>
+              <h2>2. 팀 생성하기</h2>
 
               <p id="centered-product-description">
                 팀 작업을 시작하기 전에,<br />
@@ -304,7 +304,7 @@ const goToMemberRegist = () => {
           <div id="product-container-three" class="product-content">
             <div id="content-image-container">
               <img
-                src="@/assets/img/slide/step1.gif"
+                src="@/assets/img/slide/step3.gif"
                 id="content-image"
                 class="image1"
                 alt=""
@@ -312,7 +312,7 @@ const goToMemberRegist = () => {
             </div>
 
             <div id="content-title-text">
-              <h2>1. 팀 생성하기</h2>
+              <h2>3. 팀 생성하기</h2>
 
               <p id="centered-product-description">
                 팀 작업을 시작하기 전에,<br />
@@ -383,7 +383,7 @@ const goToMemberRegist = () => {
           <div id="product-container-four" class="product-content">
             <div id="content-image-container">
               <img
-                src="@/assets/img/slide/step1.gif"
+                src="@/assets/img/slide/step4.gif"
                 id="content-image"
                 class="image1"
                 alt=""
@@ -391,7 +391,86 @@ const goToMemberRegist = () => {
             </div>
 
             <div id="content-title-text">
-              <h2>1. 팀 생성하기</h2>
+              <h2>4. 팀 생성하기</h2>
+
+              <p id="centered-product-description">
+                팀 작업을 시작하기 전에,<br />
+                우선 팀을 생성해봅시다!<br /><br />
+              </p>
+
+              <div class="product-features-list" id="first-feature-list">
+                <div id="product-feature-image">
+                  <img
+                    src="https://i.ibb.co/LzczvS3/correct.png"
+                    alt="check-sign"
+                    id="correct-icon"
+                  />
+                </div>
+
+                <div id="inside-features-title-text">
+                  <h4>팀 스페이스 접속</h4>
+
+                  <p>
+                    우측 상단의 팀 아이콘을 눌러,<br />
+                    나의 팀 스페이스에 들어갑니다.
+                  </p>
+                </div>
+              </div>
+
+              <div class="product-features-list">
+                <div id="product-feature-image">
+                  <img
+                    src="https://i.ibb.co/LzczvS3/correct.png"
+                    alt="check-sign"
+                    id="correct-icon"
+                  />
+                </div>
+
+                <div id="inside-features-title-text">
+                  <h4>팀 생성</h4>
+
+                  <p>
+                    팀 목록 상단에 위치한<br />
+                    create new team 버튼을 눌러<br />
+                    팀 이름을 입력하고 팀을 생성합니다.
+                  </p>
+                </div>
+              </div>
+
+              <div class="product-features-list">
+                <div id="product-feature-image">
+                  <img
+                    src="https://i.ibb.co/LzczvS3/correct.png"
+                    alt="check-sign"
+                    id="correct-icon"
+                  />
+                </div>
+
+                <div id="inside-features-title-text">
+                  <h4>일행 구성</h4>
+
+                  <p>
+                    생성된 팀 목록 좌측 하단 버튼을 눌러<br />
+                    일행을 초대하여 팀원을 구성합니다.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Content Container 5 -->
+          <div id="product-container-five" class="product-content">
+            <div id="content-image-container">
+              <img
+                src="@/assets/img/slide/step5.gif"
+                id="content-image"
+                class="image1"
+                alt=""
+              />
+            </div>
+
+            <div id="content-title-text">
+              <h2>5. 팀 생성하기</h2>
 
               <p id="centered-product-description">
                 팀 작업을 시작하기 전에,<br />

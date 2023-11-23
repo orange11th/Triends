@@ -53,12 +53,12 @@ const router = createRouter({
       component: HomeView,
       beforeEnter: headerAlert(),
     },
-    {
-      path: "/about",
-      name: "about",
-      component: () => import("../views/AboutView.vue"),
-      beforeEnter: headerAlert(),
-    },
+    // {
+    //   path: "/about",
+    //   name: "about",
+    //   component: () => import("../views/AboutView.vue"),
+    //   beforeEnter: headerAlert(),
+    // },
     {
       path: "/board",
       name: "board",
