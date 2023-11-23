@@ -200,24 +200,6 @@ const goToMemberRegist = () => {
                 </div>
               </div>
 
-              <div class="product-features-list">
-                <div id="product-feature-image">
-                  <img
-                    src="https://i.ibb.co/LzczvS3/correct.png"
-                    alt="check-sign"
-                    id="correct-icon"
-                  />
-                </div>
-
-                <div id="inside-features-title-text">
-                  <h4>일행 구성</h4>
-
-                  <p>
-                    생성된 팀 목록 좌측 하단 버튼을 눌러<br />
-                    일행을 초대하여 팀원을 구성합니다.
-                  </p>
-                </div>
-              </div>
             </div>
           </div>
 
@@ -233,11 +215,11 @@ const goToMemberRegist = () => {
             </div>
 
             <div id="content-title-text">
-              <h2>2. 팀 생성하기</h2>
+              <h2>2. 친구 초대하기</h2>
 
               <p id="centered-product-description">
-                팀 작업을 시작하기 전에,<br />
-                우선 팀을 생성해봅시다!<br /><br />
+                같이 여행을 떠날<br />
+                친구를 초대해요!<br /><br />
               </p>
 
               <div class="product-features-list" id="first-feature-list">
@@ -250,11 +232,11 @@ const goToMemberRegist = () => {
                 </div>
 
                 <div id="inside-features-title-text">
-                  <h4>팀 스페이스 접속</h4>
+                  <h4>친구 초대 아이콘 클릭</h4>
 
                   <p>
-                    우측 상단의 팀 아이콘을 눌러,<br />
-                    나의 팀 스페이스에 들어갑니다.
+                    좌측 하단 아이콘을 눌러,<br />
+                    친구 초대 창을 엽니다.
                   </p>
                 </div>
               </div>
@@ -269,34 +251,15 @@ const goToMemberRegist = () => {
                 </div>
 
                 <div id="inside-features-title-text">
-                  <h4>팀 생성</h4>
+                  <h4>아이디로 친구검색</h4>
 
                   <p>
-                    팀 목록 상단에 위치한<br />
-                    create new team 버튼을 눌러<br />
-                    팀 이름을 입력하고 팀을 생성합니다.
+                    아이디를 검색해<br />
+                    친구를 찾고 초대합니다.<br />
                   </p>
                 </div>
               </div>
 
-              <div class="product-features-list">
-                <div id="product-feature-image">
-                  <img
-                    src="https://i.ibb.co/LzczvS3/correct.png"
-                    alt="check-sign"
-                    id="correct-icon"
-                  />
-                </div>
-
-                <div id="inside-features-title-text">
-                  <h4>일행 구성</h4>
-
-                  <p>
-                    생성된 팀 목록 좌측 하단 버튼을 눌러<br />
-                    일행을 초대하여 팀원을 구성합니다.
-                  </p>
-                </div>
-              </div>
             </div>
           </div>
 
@@ -312,11 +275,11 @@ const goToMemberRegist = () => {
             </div>
 
             <div id="content-title-text">
-              <h2>3. 팀 생성하기</h2>
+              <h2>3. 팀 플랜 만들기</h2>
 
               <p id="centered-product-description">
-                팀 작업을 시작하기 전에,<br />
-                우선 팀을 생성해봅시다!<br /><br />
+                팀원끼리 공유할<br />
+                여행 계획 입니다.<br /><br />
               </p>
 
               <div class="product-features-list" id="first-feature-list">
@@ -329,53 +292,15 @@ const goToMemberRegist = () => {
                 </div>
 
                 <div id="inside-features-title-text">
-                  <h4>팀 스페이스 접속</h4>
+                  <h4>팀 플랜 페이지</h4>
 
                   <p>
-                    우측 상단의 팀 아이콘을 눌러,<br />
-                    나의 팀 스페이스에 들어갑니다.
+                    우측 상단의 아이콘을 눌러,<br />
+                    나의 팀 플랜 페이지로 들어갑니다.
                   </p>
                 </div>
               </div>
 
-              <div class="product-features-list">
-                <div id="product-feature-image">
-                  <img
-                    src="https://i.ibb.co/LzczvS3/correct.png"
-                    alt="check-sign"
-                    id="correct-icon"
-                  />
-                </div>
-
-                <div id="inside-features-title-text">
-                  <h4>팀 생성</h4>
-
-                  <p>
-                    팀 목록 상단에 위치한<br />
-                    create new team 버튼을 눌러<br />
-                    팀 이름을 입력하고 팀을 생성합니다.
-                  </p>
-                </div>
-              </div>
-
-              <div class="product-features-list">
-                <div id="product-feature-image">
-                  <img
-                    src="https://i.ibb.co/LzczvS3/correct.png"
-                    alt="check-sign"
-                    id="correct-icon"
-                  />
-                </div>
-
-                <div id="inside-features-title-text">
-                  <h4>일행 구성</h4>
-
-                  <p>
-                    생성된 팀 목록 좌측 하단 버튼을 눌러<br />
-                    일행을 초대하여 팀원을 구성합니다.
-                  </p>
-                </div>
-              </div>
             </div>
           </div>
 
@@ -391,11 +316,11 @@ const goToMemberRegist = () => {
             </div>
 
             <div id="content-title-text">
-              <h2>4. 팀 생성하기</h2>
+              <h2>4. 팀 플랜 편집하기</h2>
 
               <p id="centered-product-description">
-                팀 작업을 시작하기 전에,<br />
-                우선 팀을 생성해봅시다!<br /><br />
+                팀끼리 공유할<br />
+                여행 계획을 만들어봅시다!<br /><br />
               </p>
 
               <div class="product-features-list" id="first-feature-list">
@@ -408,11 +333,11 @@ const goToMemberRegist = () => {
                 </div>
 
                 <div id="inside-features-title-text">
-                  <h4>팀 스페이스 접속</h4>
+                  <h4>날짜 선택</h4>
 
                   <p>
-                    우측 상단의 팀 아이콘을 눌러,<br />
-                    나의 팀 스페이스에 들어갑니다.
+                    여행을 가고 싶은<br />
+                    날짜를 선택합니다.
                   </p>
                 </div>
               </div>
@@ -427,12 +352,12 @@ const goToMemberRegist = () => {
                 </div>
 
                 <div id="inside-features-title-text">
-                  <h4>팀 생성</h4>
+                  <h4>관광지 선택</h4>
 
                   <p>
-                    팀 목록 상단에 위치한<br />
-                    create new team 버튼을 눌러<br />
-                    팀 이름을 입력하고 팀을 생성합니다.
+                    그 날에 가고싶은<br />
+                    여행지를 검색해서<br />
+                    일자에 추가합니다.
                   </p>
                 </div>
               </div>
@@ -447,11 +372,11 @@ const goToMemberRegist = () => {
                 </div>
 
                 <div id="inside-features-title-text">
-                  <h4>일행 구성</h4>
+                  <h4>저장하기</h4>
 
                   <p>
-                    생성된 팀 목록 좌측 하단 버튼을 눌러<br />
-                    일행을 초대하여 팀원을 구성합니다.
+                    내가 만든 여행 계획을<br />
+                    저장해서 팀원들과 공유합니다.
                   </p>
                 </div>
               </div>
@@ -470,11 +395,11 @@ const goToMemberRegist = () => {
             </div>
 
             <div id="content-title-text">
-              <h2>5. 팀 생성하기</h2>
+              <h2>5. 팀원과 만나기</h2>
 
               <p id="centered-product-description">
-                팀 작업을 시작하기 전에,<br />
-                우선 팀을 생성해봅시다!<br /><br />
+                팀원들과 실시간으로 소통해요!<br />
+                <br /><br />
               </p>
 
               <div class="product-features-list" id="first-feature-list">
@@ -487,11 +412,11 @@ const goToMemberRegist = () => {
                 </div>
 
                 <div id="inside-features-title-text">
-                  <h4>팀 스페이스 접속</h4>
+                  <h4>대화방 이동</h4>
 
                   <p>
-                    우측 상단의 팀 아이콘을 눌러,<br />
-                    나의 팀 스페이스에 들어갑니다.
+                    팀명 옆 말풍선을 클릭해<br />
+                    팀 전용 대화방으로 이동합니다.
                   </p>
                 </div>
               </div>
@@ -506,34 +431,15 @@ const goToMemberRegist = () => {
                 </div>
 
                 <div id="inside-features-title-text">
-                  <h4>팀 생성</h4>
+                  <h4>소통 시작</h4>
 
                   <p>
-                    팀 목록 상단에 위치한<br />
-                    create new team 버튼을 눌러<br />
-                    팀 이름을 입력하고 팀을 생성합니다.
+                    내 이름을 입력하고<br />
+                    대화방에 접속해서 팀원과 소통합니다.<br />
                   </p>
                 </div>
               </div>
-
-              <div class="product-features-list">
-                <div id="product-feature-image">
-                  <img
-                    src="https://i.ibb.co/LzczvS3/correct.png"
-                    alt="check-sign"
-                    id="correct-icon"
-                  />
-                </div>
-
-                <div id="inside-features-title-text">
-                  <h4>일행 구성</h4>
-
-                  <p>
-                    생성된 팀 목록 좌측 하단 버튼을 눌러<br />
-                    일행을 초대하여 팀원을 구성합니다.
-                  </p>
-                </div>
-              </div>
+              
             </div>
           </div>
         </div>

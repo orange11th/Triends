@@ -4,12 +4,7 @@ import { useRoute, useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 
 import { useMemberStore } from "@/stores/member";
-<<<<<<< HEAD
-import { userModify } from "@/api/member";
-
-=======
 import { userModify, memberDelete } from "@/api/member";
->>>>>>> 513b7c443ce12af81d9d66e3e0211f041afcd5c8
 import memberInfoLeft from "./item/MemberInfoLeft.vue";
 
 import "@/assets/css/member/memberInfo.css";
@@ -170,7 +165,6 @@ const confirmDelete = (userId) => {
             />
           </div>
           <div class="plan-title">
-            <span>ID</span>
             <div
               class="editable-text"
               v-if="!isEditing[3]"
@@ -209,9 +203,6 @@ const confirmDelete = (userId) => {
   </div>
 </template>
 
-<<<<<<< HEAD
-<style scoped></style>
-=======
 <style scoped>
 .col {
   position: relative;
@@ -293,4 +284,3 @@ const confirmDelete = (userId) => {
 }
 
 </style>
->>>>>>> 513b7c443ce12af81d9d66e3e0211f041afcd5c8
