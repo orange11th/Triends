@@ -58,6 +58,32 @@
   opacity: 1;
 }
 
+.member-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin: 15px 0;
+}
+.member-info {
+  display: flex;
+  align-items: center;
+}
+.member-info * {
+  margin: 0 3px;
+}
+#member-name {
+  font-weight: 700;
+}
+#member-id {
+  font-weight: 300;
+  color: var(--dark-gray);
+}
+#member-email {
+  font-weight: 300;
+  color: var(--main-blacks);
+}
+
 .modal-overlay {
   position: fixed;
   top: 0;

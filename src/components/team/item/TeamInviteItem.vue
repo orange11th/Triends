@@ -44,51 +44,52 @@ function reject(teamId) {
 <template>
   <!-- <ul style="display: inline-block">
     <li class="nav-item dropdown" style="list-style: none"> -->
+  <a
+    href="#"
+    id="navbarDropdown"
+    role="button"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+    <img
+      v-show="!inviteList.length"
+      class="invite-icon clickable-img"
+      src="@/assets/img/icon/message-solid.svg"
+      alt=""
+    />
+    <img
+      v-show="inviteList.length"
+      class="invite-icon clickable-img"
+      src="@/assets/img/icon/open-message.svg"
+      alt=""
+      id="smaller-img"
+    />
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+    <li v-for="invite in inviteList" :key="invite.teamId">
+      <b>{{ invite.fromUserName }}</b> [{{ invite.fromUserId }}] 님이
+      <b>{{ invite.teamName }}</b> 팀에 초대하였습니다.
+      <br />
       <a
-        href="#"
-        id="navbarDropdown"
-        role="button"
-        data-bs-toggle="dropdown"
-        aria-expanded="false"
+        href=""
+        @click.prevent="
+          accept(invite.teamId, invite.toUserId, invite.fromUserId)
+        "
+        >수락</a
       >
-        <img
-          v-show="!inviteList.length"
-          class="invite-icon clickable-img"
-          src="@/assets/img/icon/message-solid.svg"
-          alt=""
-        />
-        <img
-          v-show="inviteList.length"
-          class="invite-icon clickable-img"
-          src="@/assets/img/icon/open-message.svg"
-          alt=""
-          id="smaller-img"
-        />
-      </a>
-      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <li v-for="invite in inviteList" :key="invite.teamId">
-          {{ invite.fromUserName }} ({{ invite.fromUserId }})님이
-          {{ invite.teamName }} 팀에 초대하였습니다.
-          <a
-            href=""
-            @click.prevent="
-              accept(invite.teamId, invite.toUserId, invite.fromUserId)
-            "
-            >수락</a
-          >
-          /
-          <a
-            href=""
-            @click.prevent="
-              reject(invite.teamId, invite.toUserId, invite.fromUserId)
-            "
-            >거절</a
-          >
-          <hr class="dropdown-divider" />
-        </li>
-        <li v-if="inviteList.length == 0">받은 초대가 없습니다.</li>
-      </ul>
-    <!-- </li>
+      /
+      <a
+        href=""
+        @click.prevent="
+          reject(invite.teamId, invite.toUserId, invite.fromUserId)
+        "
+        >거절</a
+      >
+      <hr class="dropdown-divider" />
+    </li>
+    <li v-if="inviteList.length == 0">받은 초대가 없습니다.</li>
+  </ul>
+  <!-- </li>
   </ul> -->
 </template>
 
