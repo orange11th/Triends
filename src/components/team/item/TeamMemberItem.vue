@@ -3,8 +3,11 @@ import { ref, onMounted, reactive } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { teamInviteList, teamInvite, leaveTeam } from "@/api/team";
 import { storeToRefs } from "pinia";
+
 import { useMemberStore } from "@/stores/member";
+
 import TeamInviteSearch from "./TeamInviteSearchItem.vue";
+// import TeamCalendar from "./TeamCalendarItem.vue";
 
 import "@/assets/css/team/teamMember.css";
 
@@ -76,7 +79,7 @@ function leave(teamId) {
         </div>
       </div>
       <hr />
-      <div class="team-calendar">여기다 달력모양넣을거임~</div>
+      <div class="team-calendar"><TeamCalendar /></div>
       <hr />
       <div class="team-bottom">
         <a
@@ -86,7 +89,11 @@ function leave(teamId) {
         >
           <img src="@/assets/img/icon/user-plus.svg" alt="" />
         </a>
-        <a href="">
+        <a
+          class="invite-btn"
+          @click.prevent="() => openModal(props.team.teamId)"
+          href=""
+        >
           <img id="users" src="@/assets/img/icon/users.svg" alt="팀" />
         </a>
         <a class="leave-btn" @click="leave(props.team.teamId)" href="">
@@ -98,7 +105,9 @@ function leave(teamId) {
     <div v-show="modalState" class="modal-overlay" @click="closeModal">
       <div v-show="modalState" class="modal" @click.stop>
         <TeamInviteSearch :inviteList="inviteList" :team="team" />
-        <button class="close-button" @click="closeModal">닫기</button>
+        <a @click="closeModal" href="#" class="close-btn">
+          <img src="@/assets/img/icon/close.svg" alt="" />
+        </a>
       </div>
     </div>
   </div>

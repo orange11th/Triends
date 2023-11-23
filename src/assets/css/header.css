@@ -34,14 +34,14 @@ nav {
   align-items: center;
   justify-content: center;
 
-  width: 100px;
+  width: 90px;
   padding: 10px;
-  margin: 5px;
+  margin-left: 20px;
 
   font-weight: 900;
-  /* text-decoration: none; */
+  text-decoration: none;
 
-  /* border: 2px solid var(--main-black); */
+  border: 2px solid var(--main-black);
   border-radius: 10px;
 }
 .light {
@@ -88,4 +88,3 @@ nav {
   color: white;
   text-decoration: none;
 } */
-

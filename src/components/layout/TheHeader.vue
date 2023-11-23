@@ -36,11 +36,17 @@ function logout() {
       </div>
       <div class="menu-spaces">
         <div class="menu-space" v-show="!isLogin">
-          <RouterLink :to="{ name: 'member-login' }">
-            <a class="menu-btn light clickable">Login</a>
+          <RouterLink
+            class="menu-btn light clickable"
+            :to="{ name: 'member-login' }"
+          >
+            Login
           </RouterLink>
-          <RouterLink :to="{ name: 'member-regist' }">
-            <a class="menu-btn dark clickable">Sign up</a>
+          <RouterLink
+            class="menu-btn dark clickable"
+            :to="{ name: 'member-regist' }"
+          >
+            Sign up
           </RouterLink>
         </div>
         <div class="menu-space" v-show="isLogin">
