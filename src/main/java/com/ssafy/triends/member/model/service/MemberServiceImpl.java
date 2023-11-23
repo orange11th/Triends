@@ -29,4 +29,8 @@ public class MemberServiceImpl implements MemberService {
 			member.setUserPass(memberMapper.selectPassById(member.getUserId()));
 		memberMapper.update(member);
 	}
+	@Override
+	public void delete(String userId) {
+		memberMapper.delete(userId);
+	}
 }

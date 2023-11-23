@@ -12,4 +12,6 @@ public interface MemberService {
 
 	void modify(Member member);
 
+	void delete(String userId);
+
 }

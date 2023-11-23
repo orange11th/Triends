@@ -7,8 +7,6 @@ public interface BoardService {
 
 	void writeArticle(BoardDto boardDto) throws Exception;
 	BoardListDto listArticle() throws Exception;
+	BoardListDto listArticleByLike() throws Exception;
     void deleteArticle(int articleNo) throws Exception;
-//	void modifyArticle(BoardDto boardDto) throws Exception;
-//	
-//	void deleteArticle(int articleNo) throws Exception;
 }
