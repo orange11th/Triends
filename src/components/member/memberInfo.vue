@@ -3,7 +3,7 @@ import { ref, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import { useMemberStore } from "@/stores/member";
-import { userModify } from "@/api/member";
+import { userModify, memberDelete } from "@/api/member";
 import memberInfoLeft from "./item/MemberInfoLeft.vue";
 
 const route = useRoute();
@@ -52,9 +52,60 @@ function modify() {
 onMounted(() => {
   changeUserInfo.value = { ...userInfo.value };
 });
+
+
+import Swal from 'sweetalert2'
+const confirmDelete = (userId) => {
+  Swal.fire({
+    title: '정말로 탈퇴하시겠습니까?',
+    text: "더이상 트렌즈와 함께 할 수 없습니다.",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#B3B3B3',
+    cancelButtonColor: '#84B891',
+    confirmButtonText: '트렌즈와 헤어지기',
+    cancelButtonText: '트렌즈와 함께 하기'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      memberDelete(userId, (response) => {
+        Swal.fire({
+          title: '탈퇴 완료',
+          text: '그동안 트렌즈와 함께 해서 행복했어요.',
+          icon: 'success',
+          confirmButtonColor: '#84B891', // 여기에 원하는 색상 코드를 입력하세요
+        });
+        userLogout();
+        router.push({ name: "home" });
+      }, (error) => {
+        console.log(error);
+      });
+    }
+  });
+};
+
+
 </script>
 
 <template>
+<!-- 드롭다운 컨테이너 추가 -->
+<div class="dropdown-container">
+  <a href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <img class="invite-icon clickable-img" src="@/assets/img/icon/dot.svg" />
+  </a>
+  
+  <li type="button" class="dropdown-menu" aria-labelledby="navbarDropdown" @click="confirmDelete(changeUserInfo.userId)">탈퇴하기</li>
+
+</div>
+<!-- 드롭다운 컨테이너 종료 -->
+
+
+  
+  <!--탈퇴-->
+
+
+
+
+
   <div class="container">
     <div class="row">
       <!-- 사진 div (왼쪽) -->
@@ -189,4 +240,26 @@ onMounted(() => {
   font-size: 16px;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+/* 메시지 아이콘과 드롭다운 메뉴를 포함하는 컨테이너 스타일 */
+.dropdown-container {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+}
+
+/* 드롭다운 메뉴 스타일 */
+.dropdown-menu {
+  position: absolute;
+  right: 0; /* 오른쪽 끝에 위치 */
+  top: 100%; /* 아이콘 바로 아래에 위치 */
+  width: 150px;
+  padding: 0;
+}
+
+.invite-icon {
+  width: 30px; 
+  height: 30px; 
+}
+
 </style>
