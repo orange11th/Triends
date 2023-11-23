@@ -23,12 +23,19 @@ watch([param, userPassCheck], ([nV1, nV2], [oV1, oV2]) => {
   diffPass.value = nV1.userPass !== nV2;
 });
 
+
+
+import Swal from 'sweetalert2'
 function regist() {
   memberRegist(
     param,
     (response) => {
-      alert("회원가입 성공");
-      console.log("성공");
+      Swal.fire({
+        title: '회원가입 완료',
+        text: '트렌즈가 된 것을 환영합니다!',
+        icon: 'success',
+        confirmButtonColor: '#84B891', // 여기에 원하는 색상 코드를 입력하세요
+      })
       moveLogin();
     },
     (error) => {

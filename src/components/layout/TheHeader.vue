@@ -15,7 +15,7 @@ const router = useRouter();
 function logout() {
   userLogout();
   console.log("로그아웃", isLogin.value, isAlert.value);
-  router.push({ name: "member-login" });
+  router.push({ name: "home" });
 }
 </script>
 
