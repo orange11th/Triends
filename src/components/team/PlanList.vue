@@ -80,19 +80,6 @@
             <img src="@/assets/img/icon/search-icon.svg" alt="검색" />
           </a>
         </div>
-
-        <!-- <div class="search-space">
-          <input
-            type="text"
-            v-model="param.keyword"
-            placeholder="우리 어디 갈까?"
-            @keyup.enter="searchAttractionList"
-          />
-          <a @click="searchAttractionList">
-            <img src="@/assets/img/icon/search-icon.svg" alt="검색" />
-          </a>
-        </div> -->
-
       </div>
       </div>
     
@@ -103,7 +90,6 @@
         <img :src="numItem.image" class="box-image">
         <p>{{ numItem.title }}</p>
         </div>
-        <!-- <button class="delete-button" @click="deleteItem(numItem, idx)">X</button> -->
         <button class="delete-button delete-item-button-position" @click="deleteItem(numItem, idx)">
             <svg viewBox="0 0 22 22">
                 <circle cx="11" cy="11" r="10"></circle>
@@ -119,7 +105,6 @@
   <div class="new-item-input">
   <div class="save-button-container">
     <button id="save" @click="savePlans">Save</button>   
-  <!-- <button id="save_button">저장</button> -->
   </div>
   <li v-for="team in plans" :key="team.teamId" class="team-item">
     <h1>{{team}}</h1>

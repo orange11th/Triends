@@ -12,21 +12,18 @@ const isLiked = ref(false);
 const handleClick = () => {
   like.userId = props.userId;
   like.boardId = props.article.no;
-  console.log(like);
-  const button = document.querySelector('.paw-button');
   if (!isLiked.value) {
     likeCount.value++;
     isLiked.value = true;
 
     insertLike(like, (response) => {
-      console.log(response)
     },
       (error) => {
       console.log(error)
       }
     );
     increaseBoardLike(like, (response) => {
-      console.log(response)
+      emit('like-clicked');
     },
       (error) => {
       console.log(error)
@@ -36,14 +33,13 @@ const handleClick = () => {
     
   } else {
     deleteLike(like, (response) => {
-      console.log(response)
     },
       (error) => {
       console.log(error)
       }
     );
     decreaseBoardLike(like, (response) => {
-      console.log(response)
+      emit('like-clicked');
     },
       (error) => {
       console.log(error)
@@ -92,7 +88,6 @@ const confirmDelete = (articleNo) => {
   }).then((result) => {
     if (result.isConfirmed) {
       deleteArticle(articleNo, (response) => {
-        console.log(response);
         emit('delete', articleNo);
         Swal.fire({
           title: '삭제 완료',
@@ -107,7 +102,7 @@ const confirmDelete = (articleNo) => {
   });
 };
 
-const emit = defineEmits(['delete']);
+const emit = defineEmits(['delete', 'like-clicked']);
 
 
 </script>
