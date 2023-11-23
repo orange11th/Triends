@@ -4,7 +4,7 @@ import { useRoute, useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import { useMemberStore } from "@/stores/member";
 import { userModify } from "@/api/member";
-import memberInfoGame from "./item/memberInfoGame.vue";
+import memberInfoLeft from "./item/MemberInfoLeft.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -58,21 +58,16 @@ onMounted(() => {
   <div class="container">
     <div class="row">
       <!-- 사진 div (왼쪽) -->
-      <div class="col-md-5">
-        <memberInfoGame />
+      <div class="col-md-6">
+        <memberInfoLeft />
       </div>
       <!-- 개인정보 div (오른쪽) -->
       <div class="col-md-2">
-        <div class="row">
-          <div id="col-md-6"></div>
-          <div id="col-md-6">
             <h1 style="margin: 32px 0 32px 70px">ID</h1>
             <h1 style="margin: 32px 0 32px 70px">Name</h1>
             <h1 style="margin: 32px 0 32px 70px">c.Pass</h1>
             <h1 style="margin: 32px 0 32px 70px">Email</h1>
             <h1 style="margin: 32px 0 32px 70px">Phone</h1>
-          </div>
-        </div>
       </div>
       <div class="col-md-4">
         <div class="col">

@@ -45,15 +45,47 @@ const closeModal = () => {
 
 const inviteList = ref([]);
 
+import Swal from 'sweetalert2'
 function leave(teamId) {
-  leaveTeam(
-    teamId,
-    userInfo.value.userId,
-    () => {
-      showTemplate.value = false;
-    },
-    console.error()
-  );
+
+  // leaveTeam(
+  //   teamId,
+  //   userInfo.value.userId,
+  //   () => {
+  //     showTemplate.value = false;
+  //   },
+  //   console.error()
+  // );
+
+  Swal.fire({
+    title: '정말로 나가시겠습니까?',
+    text: "트렌즈와의 여행계획을 더이상 볼 수 없어요",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#B3B3B3',
+    cancelButtonColor: '#84B891',
+    confirmButtonText: '팀 나가기',
+    cancelButtonText: '인연 유지하기'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      leaveTeam(
+        teamId,
+        userInfo.value.userId,
+        () => {
+          showTemplate.value = false;
+          Swal.fire({
+          title: '나가기 완료',
+          text: '팀을 나갔습니다.',
+          icon: 'success',
+          confirmButtonColor: '#84B891', // 여기에 원하는 색상 코드를 입력하세요
+        });
+        }, (error) => {
+          console.error()
+        });
+    }
+  });
+
+
 }
 
 function moveChat(teamId) {
@@ -120,7 +152,7 @@ function moveChat(teamId) {
         >
           <img id="users" src="@/assets/img/icon/users.svg" alt="팀" />
         </a>
-        <a class="leave-btn" @click="leave(props.team.teamId)" href="">
+        <a class="leave-btn" @click.prevent="leave(props.team.teamId)" href="">
           <img src="@/assets/img/icon/out.svg" alt="" />
         </a>
       </div>
