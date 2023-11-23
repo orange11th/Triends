@@ -16,4 +16,6 @@ public interface MemberMapper {
 	void update(Member member);
 
 	String selectPassById(String userId);
+
+	void delete(String userId);
 }

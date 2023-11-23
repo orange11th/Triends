@@ -9,6 +9,11 @@
 		<result column="user_pass" property="userPass" />
 	</resultMap>
 	
+	<delete id="delete">
+		delete from member
+		where user_id = #{userId}
+	</delete>
+	
 	<select id="selectPassById">
 		select user_pass from member
 		where user_id = #{userId}
