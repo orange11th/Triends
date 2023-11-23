@@ -55,6 +55,19 @@ function leave(teamId) {
     console.error()
   );
 }
+
+function moveChat(teamId) {
+  // console.log(props.team.teamList);
+  router.push({
+    name: "team-chat",
+    params: { 
+      teamId: teamId,
+      teamName: JSON.stringify(props.team.teamName),
+      teamList: JSON.stringify(props.team.teamList),
+    }
+  });
+};
+
 </script>
 
 <template>
@@ -62,8 +75,9 @@ function leave(teamId) {
     <div class="team">
       <div class="team-top">
         <div class="team-info">
+
           <h2 class="team-name">{{ props.team.teamName }} ·</h2>
-          <a id="to-jitsi" href="#">
+          <a id="to-jitsi" href="#" @click="moveChat(props.team.teamId)">
             <img id="chat" src="@/assets/img/icon/chat.svg" alt="영통" />
           </a>
         </div>
@@ -76,6 +90,7 @@ function leave(teamId) {
               alt=""
             />
           </a>
+          
         </div>
       </div>
       <hr />

@@ -95,6 +95,11 @@ const router = createRouter({
           name: "plan-list",
           component: () => import("@/components/team/PlanList.vue"),
         },
+        {
+          path: "chat/:teamId/:teamName/:teamList",
+          name: "team-chat",
+          component: () => import("@/components/team/TeamChat.vue"),
+        },
       ],
     },
     {
