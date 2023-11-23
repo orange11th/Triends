@@ -23,6 +23,7 @@ const searchIndex = computed(() => {
   return props.inviteList.map((item) => ({
     label: `${item.userId}(${item.userName})`,
     userId: item.userId,
+    userName: item.userName,
   }));
 });
 
@@ -46,17 +47,29 @@ function search() {
 watch(input, () => {
   search();
 });
-
-function inviteTeam(teamId, userId) {
+import Swal from 'sweetalert2'
+function inviteTeam(teamId, userId, userName) {
   teamInvite(
     teamId,
     userInfo.value.userId,
     userId,
     () => {
-      alert(`${userId} 초대 완료!`);
+      Swal.fire({
+          title: '초대 완료!',
+          text: `내 친구 ${userId}(${userName})을 초대했어요`,
+          icon: 'success',
+          confirmButtonColor: '#84B891', // 여기에 원하는 색상 코드를 입력하세요
+      });
+      // alert(`${userId} 초대 완료!`);
     },
     (error) => {
-      alert("이미 초대한 사용자입니다.");
+      Swal.fire({
+          title: '앗!',
+          text: `${userId}(${userName})에게 이미 초대를 보냈어요.`,
+          icon: 'fail',
+          confirmButtonColor: '#84B891', // 여기에 원하는 색상 코드를 입력하세요
+      });
+      // alert("이미 초대한 사용자입니다.");
     }
   );
 }
@@ -82,7 +95,7 @@ function inviteTeam(teamId, userId) {
         v-for="result in filteredResults"
         :key="result.userId"
         href="#"
-        @click.prevent="inviteTeam(props.team.teamId, result.userId)"
+        @click.prevent="inviteTeam(props.team.teamId, result.userId, result.userName)"
       >
         <li>
           <img src="@/assets/img/icon/user.svg" alt="">
