@@ -10,8 +10,7 @@
 </br>
 
 ## ER Diagram
-
-![image](https://github.com/EnjoyTrip-team4/triends-back/assets/82896260/6afbc82a-7f2f-4188-b8cb-016a90157459)
+![image5](https://github.com/EnjoyTrip-team4/triends-back/assets/82896260/317ad680-db87-4631-b5de-67d94ff6da6f)
 
 </br>
 
