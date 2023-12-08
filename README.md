@@ -1,5 +1,7 @@
 ![image1](https://github.com/EnjoyTrip-team4/triends-back/assets/82896260/fe1babad-0987-43f4-b49a-97e284d8c113)
 
+</br>
+
 # triends-back
 
 > ## 친구와 함께 하는 여행 사이트 Triends의 백엔드 코드입니다.
