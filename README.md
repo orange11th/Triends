@@ -49,7 +49,7 @@
 
 </br>
 
-## 팀별 화상 채팅
+## 팀별 화상 채팅 & 로그아웃
 ![team_chat](https://github.com/EnjoyTrip-team4/triends-front/assets/82896260/8a99f183-aa6d-4954-a72e-f58804833b8e)
 
 </br>
