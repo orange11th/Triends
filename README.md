@@ -7,6 +7,14 @@
 > ## 친구와 함께 하는 여행 사이트 Triends의 프론트엔드 코드입니다.
 > ### [백엔드 코드 보러가기](https://github.com/EnjoyTrip-team4/triends-back)
 
+<img src="https://img.shields.io/badge/vue.js-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white"> <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white"> 
+<img src="https://img.shields.io/badge/css3-1572B6?style=for-the-badge&logo=css3&logoColor=white"> 
+<img src="https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white"> 
+<img src="https://img.shields.io/badge/jitsi-97979A?style=for-the-badge&logo=jitsi&logoColor=white"> 
+<img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white"> 
+<img src="https://img.shields.io/badge/vscode-007ACC?style=for-the-badge&logo=visual studio code&logoColor=white"> 
+<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> 
+
 </br>
 
 ## 메인 페이지
