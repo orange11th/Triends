@@ -7,6 +7,11 @@
 > ## 친구와 함께 하는 여행 사이트 Triends의 백엔드 코드입니다.
 > ### [프론트엔드 코드 보러가기](https://github.com/EnjoyTrip-team4/triends-front)
 
+<img src="https://img.shields.io/badge/spring boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> <img src="https://img.shields.io/badge/java-4479A1?style=for-the-badge&logo=java&logoColor=white"> 
+<img src="https://img.shields.io/badge/amazon rds-527FFF?style=for-the-badge&logo=amazonrds&logoColor=white"> 
+<img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"> 
+<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> 
+
 </br>
 
 ## ER Diagram
