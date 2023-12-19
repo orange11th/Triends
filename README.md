@@ -4,7 +4,7 @@
 
 # triends-front
 
-> ## 친구와 함께 하는 여행 사이트 Triends의 프론트엔드 코드입니다.
+> ## 친구들과 함께 하는 즐거운 여행, 커뮤니티 중심 여행 사이트 Triends의 프론트엔드 코드입니다.
 > ### [백엔드 코드 보러가기](https://github.com/EnjoyTrip-team4/triends-back)
 
 <img src="https://img.shields.io/badge/vue.js-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white"> <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white"> 
