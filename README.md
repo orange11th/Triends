@@ -17,6 +17,12 @@
 
 </br>
 
+## 프로젝트 정보
+> ### 기간: 2023.11.8 ~ 2023.11.23 (2주)
+> ### 팀원: 총 3명
+
+</br>
+
 ## 메인 페이지
 ![main_page](https://github.com/EnjoyTrip-team4/triends-front/assets/82896260/c958fb35-f033-49f7-aa5d-819642026d76)
 
