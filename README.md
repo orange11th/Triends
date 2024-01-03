@@ -14,6 +14,12 @@
 
 </br>
 
+## 프로젝트 정보
+> ### 기간: 2023.11.8 ~ 2023.11.23 (2주)
+> ### 팀원: 총 3명
+
+</br>
+
 ## ER Diagram
 ![image5](https://github.com/EnjoyTrip-team4/triends-back/assets/82896260/317ad680-db87-4631-b5de-67d94ff6da6f)
 
