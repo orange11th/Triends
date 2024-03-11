@@ -5,7 +5,7 @@
 # triends-back
 
 > ## 친구들과 함께 하는 즐거운 여행, 커뮤니티 중심 여행 사이트 Triends의 백엔드 코드입니다.
-> ### [프론트엔드 코드 보러가기](https://github.com/EnjoyTrip-team4/triends-front)
+> ### [프론트엔드 코드 보러가기](https://github.com/orange11th/Triends/tree/main/FE)
 
 <img src="https://img.shields.io/badge/spring boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> <img src="https://img.shields.io/badge/java-4479A1?style=for-the-badge&logo=java&logoColor=white"> 
 <img src="https://img.shields.io/badge/amazon rds-527FFF?style=for-the-badge&logo=amazonrds&logoColor=white"> 
